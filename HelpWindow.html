@@ -1,0 +1,932 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>LIFE - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="header"><h1>LIFE - User Guide</h1></div><div id="content"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>By: <code>CS2113-AY1819S2-T08-2</code>      Since: <code>Mar 2019</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#introduction">1. Introduction</a></li>
+<li><a href="#quick-start">2. Quick Start</a></li>
+<li><a href="#Features">3. Features</a>
+<ul class="sectlevel2">
+<li><a href="#task-list">3.1. Task List</a></li>
+<li><a href="#expenditure-list">3.2. Expenditure List</a></li>
+<li><a href="#contact-list">3.3. Contact List</a></li>
+<li><a href="#habit-tracker-coming-in-v1-4">3.4. Habit Tracker [coming in v1.4]</a></li>
+<li><a href="#workout-tracker-coming-in-v1-4">3.5. Workout Tracker [coming in v1.4]</a></li>
+</ul>
+</li>
+<li><a href="#general-commands">4. General Commands</a>
+<ul class="sectlevel2">
+<li><a href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">4.2. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">4.3. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">4.4. Redoing the previously undone command : <code>redo</code></a></li>
+</ul>
+</li>
+<li><a href="#exiting-the-program-code-exit-code">5. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">6. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">7. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#faq">8. FAQ</a></li>
+<li><a href="#command-summary">9. Command Summary</a></li>
+</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>LIFE</strong> - <em>Lifestyle Improvement For Everyone</em><br>
+This is a one stop application made for NUS students to manage and improve their student lives amidst their hectic schedules.<br>
+Interesting features include:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Task List<br></p>
+</li>
+<li>
+<p>Expenditure List<br></p>
+</li>
+<li>
+<p>Workout Tracker<br></p>
+</li>
+<li>
+<p>Habit Tracker<br></p>
+</li>
+<li>
+<p>Contact List</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Interested? Jump to Section 2, “Quick Start” to get started. Enjoy!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have Java <code>8</code> (revision <code>1.8.0_201</code> or later) installed in your Computer.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only Java 8 is supported.<br>
+This app will not work with later major Java releases such as Java 9, 10, 11, etc.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Download the latest <code>addressbook.jar</code> <a href="https://github.com/cs2113-ay1819s2-t08-2/main/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the file to the folder you want to use as the home folder for <em>LIFE</em> application.</p>
+</li>
+<li>
+<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/startupGUI.PNG" alt="startupGUI" width="790">
+</div>
+</div>
+</li>
+<li>
+<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</li>
+<li>
+<p>Some example commands you can try:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>list</code></strong> : lists all contacts</p>
+</li>
+<li>
+<p><strong><code>add</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : adds a contact named <code>John Doe</code> to the Contact List.</p>
+</li>
+<li>
+<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd contact shown in the current list</p>
+</li>
+<li>
+<p><strong><code>exit</code></strong> : exits the app</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Command Format</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
+</li>
+<li>
+<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
+</li>
+<li>
+<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
+</li>
+<li>
+<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
+</li>
+<li>
+<p>Items in square brackets are optional e.g n/NAME [d/DEADLINE_DATE] can be used as n/CS2113 User Guide d/030919 or as n/CS2113 User Guide.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="task-list"><a class="link" href="#task-list">3.1. Task List</a></h3>
+<div class="paragraph">
+<p>A feature to help you record your tasks at hand with the deadlines, say no more to procrastination!<br></p>
+</div>
+<div class="sect3">
+<h4 id="adding-a-task-code-addtask-code"><a class="link" href="#adding-a-task-code-addtask-code">3.1.1. Adding a Task : <code>addTask</code></a></h4>
+<div class="paragraph">
+<p>Adds a task to the daily list.<br>
+Format: <code>addTask n/TAK d/DEADLINE_DATE h/DEADLINE_TIME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Words in <code>UPPER_CASE</code> are the parameters.<br>
+All fields are compulsory<br>
+TASK contains the name of the TASK<br>
+DEADLINE_DATE should be in the DDMMYY format<br>
+DEADLINE_TIME should be in 24HRS</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addTask n/Complete CS2113T Assignment d/180319 h/2359</code></p>
+</li>
+<li>
+<p><code>addTask n/Submit Exchange Application d/200319 h/0800</code>
+==== Delete Task : <code>deleteTask</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Deletes the specified item off the Task List. <br>
+Format: <code>deleteTask INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Words in <code>UPPER_CASE</code> are the parameters.
+Deletes the item at the specified <code>INDEX</code>.<br>
+The <code>INDEX</code> can be found just by looking at the INDEX of the task displayed in the GUI<br>
+The <code>INDEX</code> must be a positive integer 1,2,3 &#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deleteTask 5</code><br>
+Deletes the task at INDEX 5</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-task-code-edittask-code"><a class="link" href="#edit-task-code-edittask-code">3.1.2. Edit Task : <code>editTask</code></a></h4>
+<div class="paragraph">
+<p>Edits an existing specified task on the Task List. <br>
+Format: <code>editTask 1 [n/Jerome] [d/DEADLINE_DATE] [h/DEADLINE_TIME]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Words in <code>UPPER_CASE</code> are the parameters.
+Edits the task at the specified INDEX.<br>
+The index needs to be provided<br>
+At least one of the optional fields must be provied<br>
+Existing values will be replaced with the input values<br>
+DEADLINE_DATE should be in the DDMMYY format<br>
+DEADLINE_TIME should be in the 24HRS format</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>editTask 2 n/Banana</code><br>
+Change the task name of the task specified at INDEX 2 to Banana.</p>
+</li>
+<li>
+<p><code>editTask 2 d/300219</code><br>
+Change the deadline date of the task specified at INDEX 2 to 300219.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clear-task-code-cleartask-code-coming-soon"><a class="link" href="#clear-task-code-cleartask-code-coming-soon">3.1.3. Clear Task : <code>clearTask</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>Clears off all the tasks from the Task List.<br>
+Format: <code>clearTask</code></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="expenditure-list"><a class="link" href="#expenditure-list">3.2. Expenditure List</a></h3>
+<div class="paragraph">
+<p>A list to help you keep track of all your expenses so that you can better manage your finances!<br></p>
+</div>
+<div class="sect3">
+<h4 id="adding-a-purchase-code-addpurchase-code"><a class="link" href="#adding-a-purchase-code-addpurchase-code">3.2.1. Adding a purchase: <code>addpurchase</code></a></h4>
+<div class="paragraph">
+<p>Adds a new purchase to the expenditure list<br>
+Format: <code>addpurchase n/NAME pr/PRICE [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Only SGD currency is supported.</p>
+</li>
+<li>
+<p>You only have to input the value (see example)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addpurchase n/Ice cream pr/1.50</code></p>
+</li>
+<li>
+<p><code>addpurchase n/Bicycle rental pr/10.00 t/family t/eastcoastpark</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-all-past-expenditures-code-explist-code"><a class="link" href="#listing-all-past-expenditures-code-explist-code">3.2.2. Listing all past expenditures: <code>explist</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of all recorded purchases with the corresponding price in the expenditure list.<br>
+Format: <code>explist</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-a-purchase-code-deletepurchase-code-coming-soon"><a class="link" href="#deleting-a-purchase-code-deletepurchase-code-coming-soon">3.2.3. Deleting a purchase: <code>deletepurchase</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>Deletes an existing purchase in the expenditure list.<br>
+Format: <code>deletepurchase INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the purchase at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed expenditure list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> (1, 2, 3, …) .</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>explist</code><br>
+<code>deletepurchase 2</code><br>
+Deletes the 2nd purchase in the expenditure list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clearing-expenditure-list-code-clearexplist-code"><a class="link" href="#clearing-expenditure-list-code-clearexplist-code">3.2.4. Clearing expenditure list: <code>clearexplist</code></a></h4>
+<div class="paragraph">
+<p>Clears all past purchases recorded from the expenditure list.<br>
+Format: <code>clearexplist</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="calculating-total-expenditure-for-the-day-code-totalexpday-code-coming-soon"><a class="link" href="#calculating-total-expenditure-for-the-day-code-totalexpday-code-coming-soon">3.2.5. Calculating total expenditure for the day: <code>totalexpday</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>Views total expenditure for the day<br>
+Format: <code>totalexpday DATE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>DATE should be in the DDMMYY format</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:
+<code>totalexpday 191218</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="set-spending-limit-code-setlimit-code-coming-soon"><a class="link" href="#set-spending-limit-code-setlimit-code-coming-soon">3.2.6. Set spending limit: <code>setlimit</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>Sets a spending limit for one day to control expenditure.<br>
+Format: <code>setlimit VALUE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Only SGD currency is supported.</p>
+</li>
+<li>
+<p>You only have to input the value (see example)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:
+<code>setlimit 20.00</code></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="contact-list"><a class="link" href="#contact-list">3.3. Contact List</a></h3>
+<div class="paragraph">
+<p>Manage all your contacts easily in this ultimate list holding your contacts with their information!<br></p>
+</div>
+<div class="sect3">
+<h4 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">3.3.1. Adding a person : <code>add</code></a></h4>
+<div class="paragraph">
+<p>Adds a person to the contact list<br>
+Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A person can have any number of tags (including 0)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
+</li>
+<li>
+<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-all-persons-code-list-code"><a class="link" href="#listing-all-persons-code-list-code">3.3.2. Listing all persons : <code>list</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of all persons in the contact list.<br>
+Format: <code>list</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.3.3. Editing a person : <code>edit</code></a></h4>
+<div class="paragraph">
+<p>Edits an existing person in the contact list.<br>
+Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the person at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed person list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>At least one of the optional fields must be provided.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
+</li>
+<li>
+<p>You can remove all the person&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit 1 p/91234567 e/johndoe@example.com</code><br>
+Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
+</li>
+<li>
+<p><code>edit 2 n/Betsy Crower t/</code><br>
+Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.3.4. Locating persons by name: <code>find</code></a></h4>
+<div class="paragraph">
+<p>Finds persons whose names contain any of the given keywords.<br>
+Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
+</li>
+<li>
+<p>Only the name is searched.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
+</li>
+<li>
+<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find John</code><br>
+Returns <code>john</code> and <code>John Doe</code></p>
+</li>
+<li>
+<p><code>find Betsy Tim John</code><br>
+Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.3.5. Deleting a person : <code>delete</code></a></h4>
+<div class="paragraph">
+<p>Deletes the specified person from the contact list.<br>
+Format: <code>delete INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed person list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>delete 2</code><br>
+Deletes the 2nd person in the contact list.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>delete 1</code><br>
+Deletes the 1st person in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.3.6. Selecting a person : <code>select</code></a></h4>
+<div class="paragraph">
+<p>Selects the person identified by the index number used in the displayed person list.<br>
+Format: <code>select INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Selects the person and loads the Google search page the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed person list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>select 2</code><br>
+Selects the 2nd person in the contact list.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>select 1</code><br>
+Selects the 1st person in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="habit-tracker-coming-in-v1-4"><a class="link" href="#habit-tracker-coming-in-v1-4">3.4. Habit Tracker [coming in v1.4]</a></h3>
+<div class="paragraph">
+<p>Change your lifestyle now by recording an activity regularly to turn it into a habit!<br></p>
+</div>
+<div class="sect3">
+<h4 id="add-desired-habits-code-addhabit-code-coming-soon"><a class="link" href="#add-desired-habits-code-addhabit-code-coming-soon">3.4.1. Add desired Habits: <code>addHabit</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>Add habit which you wish to track into your monthly habit tracker.<br>
+Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>A calendar of the month is shown, along with previous records of the month.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addHabit d/010119 n/SleepBefore12am a/Done</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="workout-tracker-coming-in-v1-4"><a class="link" href="#workout-tracker-coming-in-v1-4">3.5. Workout Tracker [coming in v1.4]</a></h3>
+<div class="paragraph">
+<p>Record your workouts and reps so that you can make the most out of the exercises!<br></p>
+</div>
+<div class="sect3">
+<h4 id="view-workout-code-workout-code-coming-soon"><a class="link" href="#view-workout-code-workout-code-coming-soon">3.5.1. View workout: <code>workout</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>View the past 5 most recent workout.<br>
+Format: <code>workout</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Only the most recent 5 workout will be displayed, older workout will not be shown</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>workout</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="record-workout-code-record-code-coming-soon"><a class="link" href="#record-workout-code-record-code-coming-soon">3.5.2. Record workout : <code>record</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>Record your current workout and add them into your workout records.<br>
+Format: <code>record e/EXERCISE s/SETS r/REPS t/TIME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Words in <code>UPPER_CASE</code> are the parameters.
+EXERCISE must only contain alphanumeric.<br>
+SETS, REPS and TIME must only contain integer, and TIME must be in minutes<br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>record e/SIT UPS s/5 r/20 t/10</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="general-commands"><a class="link" href="#general-commands">4. General Commands</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></h3>
+<div class="paragraph">
+<p>Format: <code>help</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use this if you face trouble navigating the application or entering the correct commands!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.2. Listing entered commands : <code>history</code></a></h3>
+<div class="paragraph">
+<p>Lists all the commands that you have entered in reverse chronological order (most recent at the top).<br>
+Format: <code>history</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.3. Undoing previous command : <code>undo</code></a></h3>
+<div class="paragraph">
+<p>Restores <em>LIFE</em> application to the state before the previous <em>undoable</em> command was executed.<br>
+Format: <code>undo</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Undoable commands: those commands that modify the <em>LIFE</em>'s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+<code>list</code><br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+</li>
+<li>
+<p><code>select 1</code><br>
+<code>list</code><br>
+<code>undo</code><br>
+The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>clear</code><br>
+<code>undo</code> (reverses the <code>clear</code> command)<br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.4. Redoing the previously undone command : <code>redo</code></a></h3>
+<div class="paragraph">
+<p>Reverses the most recent <code>undo</code> command.<br>
+Format: <code>redo</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>redo</code><br>
+The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>clear</code><br>
+<code>undo</code> (reverses the <code>clear</code> command)<br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">5. Exiting the program : <code>exit</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Exits the program.<br>
+Format: <code>exit</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="saving-the-data"><a class="link" href="#saving-the-data">6. Saving the data</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Data of <em>LIFE</em> are saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">7. Encrypting data files <code>[coming in v2.0]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>{explain how the user can enable/disable data encryption}</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq"><a class="link" href="#faq">8. FAQ</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous <em>LIFE</em> folder.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="command-summary"><a class="link" href="#command-summary">9. Command Summary</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add</strong> : <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
+</li>
+<li>
+<p><strong>List</strong> : <code>list</code></p>
+</li>
+<li>
+<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
+</li>
+<li>
+<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
+e.g. <code>find James Jake</code></p>
+</li>
+<li>
+<p><strong>Delete</strong> : <code>delete INDEX</code><br>
+e.g. <code>delete 3</code></p>
+</li>
+<li>
+<p><strong>Select</strong> : <code>select INDEX</code><br>
+e.g.<code>select 2</code></p>
+</li>
+<li>
+<p><strong>Help</strong> : <code>help</code></p>
+</li>
+<li>
+<p><strong>Add Task</strong> : <code>addTask  n/TASK d/DEADLINE_DATE h/DEADLINE_TIME</code><br>
+e.g. <code>addTask n/Submit Exchange Application d/200319 h/0800</code></p>
+</li>
+<li>
+<p><strong>Add Purchase</strong> : <code>addpurchase n/NAME pr/PRICE [t/TAG]&#8230;&#8203;</code><br>
+e.g. <code>addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park</code></p>
+</li>
+<li>
+<p><strong>View Purchases</strong>: <code>explist</code></p>
+</li>
+<li>
+<p><strong>Clear Expenditure List</strong>: <code>clearexplist</code></p>
+</li>
+<li>
+<p><strong>History</strong> : <code>history</code></p>
+</li>
+<li>
+<p><strong>Undo</strong> : <code>undo</code></p>
+</li>
+<li>
+<p><strong>Redo</strong> : <code>redo</code></p>
+</li>
+<li>
+<p><strong>Clear</strong> : <code>clear</code></p>
+</li>
+<li>
+<p><strong>Exit</strong> : <code>exit</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-07 08:05:59 UTC</div></div></div></body></html>
