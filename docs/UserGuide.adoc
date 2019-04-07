@@ -1,0 +1,477 @@
+= StudentHandBook - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/cs2113-ay1819s2-t08-2/main
+
+By: `CS2113-AY1819S2-T08-2`      Since: `Mar 2019`      Licence: `MIT`
+
+== Introduction
+
+StudentHandBook is an one stop application made for NUS students to manage and improve their student life.
+More importantly, StudentHandBook is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, StudentHandBook can get your
+contact management tasks done faster than traditional GUI apps. Interested? Jump to Section 2, “Quick Start”
+to get started. Enjoy!
+
+== Quick Start
+
+.  Ensure you have Java `8` (revision `1.8.0_201` or later) installed in your Computer.
++
+[NOTE]
+Only Java 8 is supported. +
+This app will not work with later major Java releases such as Java 9, 10, 11, etc.
++
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your StudentHandBook.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::startupGUI.PNG[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
+
+* *`list`* : lists all contacts
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g n/NAME [d/DEADLINE_DATE] can be used as n/CS2113 User Guide d/030919 or as n/CS2113 User Guide.
+====
+
+=== Address Book
+Manage all your contacts easily in this ultimate address book! +
+
+==== Adding a person : `add`
+
+Adds a person to the address book +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+
+[TIP]
+A person can have any number of tags (including 0)
+
+Examples:
+
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+
+==== Listing all persons : `list`
+
+Shows a list of all persons in the address book. +
+Format: `list`
+
+==== Editing a person : `edit`
+
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+==== Locating persons by name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+==== Deleting a person : `delete`
+
+Deletes the specified person from the address book. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+==== Selecting a person : `select`
+
+Selects the person identified by the index number used in the displayed person list. +
+Format: `select INDEX`
+
+****
+* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd person in the address book.
+* `find Betsy` +
+`select 1` +
+Selects the 1st person in the results of the `find` command.
+
+=== Daily Task List
+A feature to help you record your tasks at hand with the deadlines, say no more to procrastination! +
+
+==== Adding a Task : `addTask`
+
+Adds a task to the daily list. +
+Format: `addTask n/TAK d/DEADLINE_DATE h/DEADLINE_TIME`
+
+****
+Words in `UPPER_CASE` are the parameters. +
+All fields are compulsory +
+TASK contains the name of the TASK +
+DEADLINE_DATE should be in the DDMMYY format +
+DEADLINE_TIME should be in 24HRS
+
+****
+
+Examples:
+
+* `addTask n/Complete CS2113T Assignment d/180319 h/2359`
+* `addTask n/Submit Exchange Application d/200319 h/0800`
+
+==== Delete Task : `deleteTask` [coming soon]
+
+Deletes the specified item off the Task List. Irreversible. +
+Format: `deleteTask INDEX`
+
+****
+Words in `UPPER_CASE` are the parameters.
+Deletes the item at the specified `INDEX`. +
+The `INDEX` can be found just by looking at the INDEX of the task displayed in the GUI +
+The `INDEX` must be a positive integer 1,2,3 ...
+****
+
+Examples:
+
+* `deleteTask 5` +
+Deletes the task at INDEX 5
+
+==== Edit Task : `editTask` [coming soon]
+
+Edits an existing specified task on the Task List. Irreversible +
+Format: `editTask 1 [n/Jerome] [d/DEADLINE_DATE] [h/DEADLINE_TIME]`
+
+****
+Words in `UPPER_CASE` are the parameters.
+Edits the task at the specified INDEX. +
+The index needs to be provided +
+At least one of the optional fields must be provied +
+Existing values will be replaced with the input values +
+DEADLINE_DATE should be in the DDMMYY format +
+DEADLINE_TIME should be in the 24HRS format
+****
+
+Examples:
+
+* `editTask 2 n/Banana` +
+Change the task name of the task specified at INDEX 2 to Banana.
+
+* `editTask 2 d/300219` +
+Change the deadline date of the task specified at INDEX 2 to 300219.
+
+==== Clear Task : `clearTask` [coming soon]
+
+Clears off all the tasks from the Task List. +
+Format: `clearTask`
+
+=== Expenditure List
+A list to help you keep track of all your expenses so that you can better manage your finances! +
+
+==== Adding a purchase: `addpurchase`
+
+Adds a new purchase to the expenditure list +
+Format: `addpurchase n/NAME pr/PRICE [t/TAG]...`
+
+****
+* Only SGD currency is supported.
+* You only have to input the value (see example)
+****
+
+Examples:
+
+* `addpurchase n/Ice cream pr/1.50`
+* `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
+
+==== Listing all past expenditures: `explist`
+
+Shows a list of all recorded purchases with the corresponding price in the expenditure list. +
+Format: `explist`
+
+==== Deleting a purchase: `deletepurchase` [coming soon]
+
+Deletes an existing purchase in the expenditure list. +
+Format: `deletepurchase INDEX`
+
+****
+* Deletes the purchase at the specified `INDEX`.
+* The index refers to the index number shown in the displayed expenditure list.
+* The index *must be a positive integer* (1, 2, 3, …) .
+****
+
+Example:
+
+* `explist` +
+`deletepurchase 2` +
+Deletes the 2nd purchase in the expenditure list.
+
+==== Clearing expenditure list: `clearexplist`
+
+Clears all past purchases recorded from the expenditure list. +
+Format: `clearexplist`
+
+
+==== Calculating total expenditure for the day: `totalexpday` [coming soon]
+
+Views total expenditure for the day +
+Format: `totalexpday DATE`
+
+****
+DATE should be in the DDMMYY format
+****
+
+Example:
+`totalexpday 191218`
+
+==== Set spending limit: `setlimit` [coming soon]
+
+Sets a spending limit for one day to control expenditure. +
+Format: `setlimit VALUE`
+
+****
+* Only SGD currency is supported.
+* You only have to input the value (see example)
+****
+
+Example:
+`setlimit 20.00`
+
+=== Habit Tracker
+Change your lifestyle now by recording an activity regularly to turn it into a habit! +
+
+==== Add desired Habits: `addHabit` [coming soon]
+
+Add habit which you wish to track into your monthly habit tracker. +
+Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'
+
+****
+A calendar of the month is shown, along with previous records of the month.
+****
+
+Example:
+
+* `addHabit d/010119 n/SleepBefore12am a/Done`
+
+
+=== Workout Tracker
+Record your workouts and reps so that you can make the most out of the exercises! +
+
+==== View workout: `workout`
+
+View the past 5 most recent workout. +
+Format: `workout`
+
+****
+Only the most recent 5 workout will be displayed, older workout will not be shown
+
+****
+
+Examples:
+
+* `workout`
+
+==== Record workout : `record`
+
+Record your current workout and add them into your workout records. +
+Format: `record e/EXERCISE s/SETS r/REPS t/TIME`
+
+****
+Words in `UPPER_CASE` are the parameters.
+EXERCISE must only contain alphanumeric. +
+SETS, REPS and TIME must only contain integer, and TIME must be in minutes +
+****
+
+Examples:
+
+* `record e/SIT UPS s/5 r/20 t/10`
+
+Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
+
+== General Commands
+
+=== Viewing help : `help`
+
+Format: `help`
+
+[TIP]
+====
+Use this if you face trouble navigating the application or entering the correct commands!
+====
+
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order (most recent at the top). +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+// tag::undoredo[]
+=== Undoing previous command : `undo`
+
+Restores the student handbook to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the student handbook's content (`add`, `delete`, `edit` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
+
+== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+== Saving the data
+
+Data of Student HandBook are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+// tag::dataencryption[]
+== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous StudentHandBook folder.
+
+== Command Summary
+
+* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *List* : `list`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Select* : `select INDEX` +
+e.g.`select 2`
+* *Help* : `help`
+* *Add Task* : `addTask  n/TASK d/DEADLINE_DATE h/DEADLINE_TIME` +
+e.g. `addTask n/Submit Exchange Application d/200319 h/0800`
+* *Add Purchase* : `addpurchase n/NAME pr/PRICE [t/TAG]...` +
+e.g. `addpurchase n/Bicycle rental pr/10.00 t/3hrs at East Coast Park`
+* *View Purchases*: `explist`
+* *Clear Expenditure List*: `clearexplist`
+* *View Workout* : `workout`
+* *Record Workout* : `record e/EXERCISE s/SETS r/REPS t/TIME` +
+e.g. `record e/SIT UPS s/5 r/20 t/10`
+* *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Clear* : `clear`
+* *Exit* : `exit`

@@ -1,0 +1,127 @@
+package seedu.address.model;
+
+import static java.util.Objects.requireNonNull;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
+
+import seedu.address.commons.core.GuiSettings;
+
+/**
+ * Represents User's preferences.
+ */
+public class UserPrefs implements ReadOnlyUserPrefs {
+
+    private GuiSettings guiSettings = new GuiSettings();
+    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path taskListFilePath = Paths.get("data", "tasklist.json");
+    private Path expenditureListFilePath = Paths.get("data" , "expenditurelist.json");
+    private Path workoutBookFilePath = Paths.get("data" , "workoutbook.json");
+    private Path habitTrackerListFilePath = Paths.get("data", "habittrackerlist.json");
+
+    /**
+     * Creates a {@code UserPrefs} with default values.
+     */
+    public UserPrefs() {}
+
+    /**
+     * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
+     */
+    public UserPrefs(ReadOnlyUserPrefs userPrefs) {
+        this();
+        resetData(userPrefs);
+    }
+
+    /**
+     * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
+     */
+    public void resetData(ReadOnlyUserPrefs newUserPrefs) {
+        requireNonNull(newUserPrefs);
+        setGuiSettings(newUserPrefs.getGuiSettings());
+        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setTaskListFilePath(newUserPrefs.getTaskListFilePath());
+        setExpenditureListFilePath(newUserPrefs.getExpenditureListFilePath());
+        setWorkoutBookFilePath(newUserPrefs.getWorkoutBookFilePath());
+        setHabitTrackerListFilePath(newUserPrefs.getHabitTrackerListFilePath());
+    }
+
+    public GuiSettings getGuiSettings() {
+        return guiSettings;
+    }
+
+    public void setGuiSettings(GuiSettings guiSettings) {
+        requireNonNull(guiSettings);
+        this.guiSettings = guiSettings;
+    }
+
+    public Path getAddressBookFilePath() {
+        return addressBookFilePath;
+    }
+
+    public void setAddressBookFilePath(Path addressBookFilePath) {
+        requireNonNull(addressBookFilePath);
+        this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getTaskListFilePath(){
+        return taskListFilePath;
+    }
+
+    public void setTaskListFilePath(Path taskListFilePath){
+        requireNonNull(taskListFilePath);
+        this.taskListFilePath = taskListFilePath;
+    }
+
+    public Path getExpenditureListFilePath() {
+        return expenditureListFilePath;
+    }
+
+    public void setExpenditureListFilePath(Path expenditureListFilePath) {
+        requireNonNull(expenditureListFilePath);
+        this.expenditureListFilePath = expenditureListFilePath;
+    }
+
+    public Path getHabitTrackerListFilePath() { return habitTrackerListFilePath; }
+
+    public void setHabitTrackerListFilePath(Path habitTrackerListFilePath) {
+        requireNonNull(habitTrackerListFilePath);
+        this.habitTrackerListFilePath = habitTrackerListFilePath;
+    }
+
+    public Path getWorkoutBookFilePath() { return workoutBookFilePath;}
+
+    public void setWorkoutBookFilePath (Path workoutBookFilePath) {
+        requireNonNull(workoutBookFilePath);
+        this.workoutBookFilePath = workoutBookFilePath;
+        }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof UserPrefs)) { //this handles null as well.
+            return false;
+        }
+
+        UserPrefs o = (UserPrefs) other;
+
+        return guiSettings.equals(o.guiSettings)
+                && addressBookFilePath.equals(o.addressBookFilePath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(guiSettings, addressBookFilePath);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nLocal data file location : " + addressBookFilePath);
+        return sb.toString();
+    }
+
+}
