@@ -13,7 +13,6 @@ import seedu.address.model.habit.Habit;
  */
 public class AddHabitCommand extends Command {
     public static final String COMMAND_WORD = "addHabit";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a habit to the habit tracker list. "
             + "Parameters: "
             + PREFIX_HABITTITLE + "NAME "
@@ -29,6 +28,7 @@ public class AddHabitCommand extends Command {
      */
     public AddHabitCommand(Habit habit) {
         requireNonNull(habit);
+        System.out.println("test");
         toAddHabit = habit;
     }
 
