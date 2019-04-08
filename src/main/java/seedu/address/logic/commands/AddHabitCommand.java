@@ -12,7 +12,7 @@ import seedu.address.model.habit.Habit;
  * Adds a habit to the habit tracker list.
  */
 public class AddHabitCommand extends Command {
-    public static final String COMMAND_WORD = "addhabit";
+    public static final String COMMAND_WORD = "addHabit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a habit to the habit tracker list. "
             + "Parameters: "
@@ -39,6 +39,7 @@ public class AddHabitCommand extends Command {
 
         model.addHabit(toAddHabit);
         model.commitHabitTrackerList();
+       // System.out.println(model.getHabitTrackerList().getHabitList().get(0).getHabitTitle());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddHabit));
     }
 
