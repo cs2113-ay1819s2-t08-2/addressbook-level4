@@ -1,9 +1,5 @@
 package seedu.address.logic;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -13,16 +9,17 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyExpenditureList;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.*;
+import seedu.address.model.habit.Habit;
 import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 import seedu.address.storage.Storage;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
@@ -39,6 +36,7 @@ public class LogicManager implements Logic {
     private boolean taskListModified;
     private boolean expenditureListModified;
     private boolean workoutBookModified;
+    private boolean habitTrackerListModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -52,6 +50,7 @@ public class LogicManager implements Logic {
         model.getTaskList().addListener(observable -> taskListModified = true);
         model.getExpenditureList().addListener(observable -> expenditureListModified = true);
         model.getWorkoutList().addListener(observable -> workoutBookModified = true);
+        model.getHabitTrackerList().addListener(observable -> habitTrackerListModified = true);
     }
 
     @Override
@@ -61,6 +60,7 @@ public class LogicManager implements Logic {
         taskListModified = false;
         expenditureListModified = false;
         workoutBookModified = false;
+        habitTrackerListModified = false;
 
         CommandResult commandResult;
         try {
@@ -69,7 +69,7 @@ public class LogicManager implements Logic {
         } finally {
             history.add(commandText);
         }
-        if (taskListModified) {
+        if (taskListModified){
             logger.info("Task list modified, saving to file.");
             try {
                 storage.saveTaskList(model.getTaskList());
@@ -82,6 +82,14 @@ public class LogicManager implements Logic {
             logger.info("Expenditure list modified, saving to file.");
             try {
                 storage.saveExpenditureList(model.getExpenditureList());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+        if (habitTrackerListModified) {
+            logger.info("Habit Tracker List modified, saving to file.");
+            try {
+                storage.saveHabitTrackerList(model.getHabitTrackerList());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -108,19 +116,20 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyTaskList getTaskList() {
+    public ReadOnlyHabitTrackerList getHabitTrackerList() {return model.getHabitTrackerList();}
+
+    @Override
+    public ReadOnlyTaskList getTaskList(){
         return model.getTaskList();
     }
 
     @Override
-    public ReadOnlyExpenditureList getExpenditureList() {
+    public ReadOnlyExpenditureList getExpenditureList(){
         return model.getExpenditureList();
     }
 
     @Override
-    public ReadOnlyWorkoutBook getWorkoutList() {
-        return model.getWorkoutList();
-    }
+    public ReadOnlyWorkoutBook getWorkoutList() { return model.getWorkoutList(); }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -128,9 +137,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Task> getFilteredTaskList() {
-        return model.getFilteredTaskList();
-    }
+    public ObservableList<Task> getFilteredTaskList() { return model.getFilteredTaskList(); }
 
     @Override
     public ObservableList<Purchase> getFilteredPurchaseList() {
@@ -138,9 +145,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Workout> getFilteredWorkoutList() {
-        return model.getFilteredWorkoutList();
-    }
+    public ObservableList<Workout> getFilteredWorkoutList() {return model.getFilteredWorkoutList(); }
+
+    @Override
+    public ObservableList<Habit> getFilteredHabitList() {return model.getFilteredHabitList();}
 
     @Override
     public ObservableList<String> getHistory() {
@@ -168,13 +176,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Task> selectedTaskProperty() {
+    public ReadOnlyProperty<Task> selectedTaskProperty(){
         return model.selectedTaskProperty();
     }
     @Override
     public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
         return model.selectedWorkoutProperty();
     }
+
+    @Override
+    public ReadOnlyProperty<Habit> selectedHabitProperty() {return model.selectedHabitProperty();}
+
 
     @Override
     public ReadOnlyProperty<Purchase> selectedPurchaseProperty() {
@@ -187,7 +199,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedTask(Task task) {
+    public void setSelectedTask(Task task){
         model.setSelectedTask(task);
     }
 
@@ -197,7 +209,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedWorkout(Workout workout) {
-        model.setSelectedWorkout(workout);
-    }
+    public void setSelectedWorkout(Workout workout) {model.setSelectedWorkout(workout);}
+
+    @Override
+    public void setSelectedHabit(Habit habit) {model.selectedHabitProperty(); }
 }

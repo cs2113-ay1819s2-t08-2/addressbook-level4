@@ -15,31 +15,9 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ExpenditureList;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyExpenditureList;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ReadOnlyWorkoutBook;
-import seedu.address.model.TaskList;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.WorkoutBook;
+import seedu.address.model.*;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.ExpenditureListStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonExpenditureListStorage;
-import seedu.address.storage.JsonTaskListStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.JsonWorkoutBookStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.TaskListStorage;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.WorkoutBookStorage;
+import seedu.address.storage.*;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -63,6 +41,7 @@ public class MainApp extends Application {
     private Optional<ReadOnlyTaskList> taskListOptional;
     private Optional<ReadOnlyExpenditureList> expListOptional;
     private Optional<ReadOnlyWorkoutBook> workoutBookOptional;
+    private Optional<ReadOnlyHabitTrackerList> habitTrackerListOptional;
 
 
     @Override
@@ -77,11 +56,11 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
-        ExpenditureListStorage expenditureListStorage =
-                new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
+        ExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
+        HabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(userPrefs.getHabitTrackerListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage,
-                expenditureListStorage, workoutBookStorage);
+                expenditureListStorage, workoutBookStorage, habitTrackerListStorage);
 
         initLogging(config);
 
@@ -105,6 +84,7 @@ public class MainApp extends Application {
         ReadOnlyTaskList initialTasks;
         ReadOnlyExpenditureList initialPurchases;
         ReadOnlyWorkoutBook initialWorkout;
+        ReadOnlyHabitTrackerList initialHabit;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -164,8 +144,21 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty WorkoutList");
             initialWorkout = new WorkoutBook();
         }
+        try {
+            habitTrackerListOptional = storage.readHabitTrackerList();
+            if (!habitTrackerListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Habit Tracker List");
+            }
+            initialHabit = habitTrackerListOptional.orElseGet(SampleDataUtil::getSampleHabitTrackerList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Habit Tracker List");
+            initialHabit = new HabitTrackerList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Habit Tracker List");
+            initialHabit = new HabitTrackerList();
+        }
 
-        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases, initialWorkout);
+        return new ModelManager(initialData, userPrefs, initialTasks, initialPurchases, initialWorkout, initialHabit);
     }
 
     private void initLogging(Config config) {

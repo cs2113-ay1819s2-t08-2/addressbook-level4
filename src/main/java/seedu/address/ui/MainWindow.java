@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +14,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import java.util.logging.Logger;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private TaskListPanel taskListPanel;
     private PurchaseListPanel purchaseListPanel;
+    private HabitListPanel habitListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -63,6 +64,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane purchaseListPanelPlaceholder;
+
+    @FXML
+    private StackPane habitListPanelPlaceholder;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -138,6 +142,10 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPurchase);
         purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
 
+        habitListPanel = new HabitListPanel(logic.getFilteredHabitList(), logic.selectedHabitProperty(),
+                logic::setSelectedHabit);
+        habitListPanelPlaceholder.getChildren().add(habitListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -192,13 +200,16 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
-    public TaskListPanel getTaskListPanel() {
+    public TaskListPanel getTaskListPanel(){
         return taskListPanel;
     }
 
 
     public PurchaseListPanel getPurchaseListPanel() {
         return purchaseListPanel;
+    }
+    public HabitListPanel getHabitListPanel() {
+        return habitListPanel;
     }
     /**
      * Executes the command and returns the result.

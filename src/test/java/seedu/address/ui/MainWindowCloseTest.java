@@ -17,12 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonExpenditureListStorage;
-import seedu.address.storage.JsonTaskListStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.JsonWorkoutBookStorage;
-import seedu.address.storage.StorageManager;
+import seedu.address.storage.*;
 
 
 /**
@@ -43,9 +38,10 @@ public class MainWindowCloseTest extends GuiUnitTest {
         JsonTaskListStorage jsonTaskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage jsonExpenditureListStorage =
                 new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
+        JsonHabitTrackerListStorage jsonHabitTrackerListStorage = new JsonHabitTrackerListStorage(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage jsonWorkoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage,
-                jsonTaskListStorage, jsonExpenditureListStorage, jsonWorkoutBookStorage);
+                jsonTaskListStorage, jsonExpenditureListStorage, jsonWorkoutBookStorage, jsonHabitTrackerListStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));

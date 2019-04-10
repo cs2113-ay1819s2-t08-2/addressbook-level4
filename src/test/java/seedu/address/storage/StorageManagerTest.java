@@ -30,8 +30,9 @@ public class StorageManagerTest {
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(getTempFilePath("")); // TODO
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(getTempFilePath("")); //TODO
         JsonExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(getTempFilePath("")); // TODO
+        JsonHabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(getTempFilePath(""));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, habitTrackerListStorage);
     }
 
     private Path getTempFilePath(String fileName) {

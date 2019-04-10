@@ -1,14 +1,10 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.habit.HabitTitle;
+import seedu.address.model.habit.Progress;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -23,6 +19,12 @@ import seedu.address.model.workout.Exercise;
 import seedu.address.model.workout.Reps;
 import seedu.address.model.workout.Sets;
 import seedu.address.model.workout.Time;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
 
 
 /**
@@ -59,44 +61,28 @@ public class ParserUtil {
         }
         return new Name(trimmedName);
     }
-
-    /**
-     * Parses a {@code String name} into a {@code TaskName}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
-     */
     public static TaskName parseTaskName(String name) throws ParseException {
         requireNonNull(name);
-        if (!TaskName.isValidName(name)) {
+        if (!TaskName.isValidName(name)){
             throw new ParseException(TaskName.MESSAGE_CONSTRAINTS);
         }
         return new TaskName(name);
     }
 
-    /**
-     * Parses a {@code String date} into a {@code DeadlineDate}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code date} is invalid.
-     */
     public static DeadlineDate parseDeadlineDate(String date) throws ParseException {
         requireNonNull(date);
-        if (!DeadlineDate.isValidDeadlineDate(date)) {
+        if (!DeadlineDate.isValidDeadlineDate(date)){
             throw new ParseException(DeadlineDate.MESSAGE_CONSTRAINTS);
         }
+      //  Integer newDate = Integer.parseInt(date);
+        //need to add in commands to check valid deadline date if it is before this date or something
         return new DeadlineDate(date);
     }
 
-    /**
-     * Parses a {@code String time} into a {@code DeadlineTime}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code time} is invalid.
-     */
     public static DeadlineTime parseDeadlineTime(String time) throws ParseException {
         requireNonNull(time);
-        if (!DeadlineTime.isValidDeadlineTime(time)) {
+       // Integer newTime = Integer.parseInt(time);
+        if (!DeadlineTime.isValidDeadlineTime(time)){
             throw new ParseException((DeadlineTime.MESSAGE_CONSTRAINTS));
         }
         return new DeadlineTime(time);
@@ -174,11 +160,6 @@ public class ParserUtil {
         return tagSet;
     }
 
-    /**
-     * Parses a {@code String name} into a {@code Pname}.
-     * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the given {@code price} is invalid.
-     */
     public static PurchaseName parsePurchaseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedPurchaseName = name.trim();
@@ -186,6 +167,15 @@ public class ParserUtil {
             throw new ParseException(PurchaseName.MESSAGE_CONSTRAINTS);
         }
         return new PurchaseName(trimmedPurchaseName);
+    }
+
+    public static HabitTitle parseHabitTitle(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedHabitTitle = name.trim();
+        if (!HabitTitle.isValidName(trimmedHabitTitle)) {
+            throw new ParseException(HabitTitle.MESSAGE_CONSTRAINTS);
+        }
+        return new HabitTitle(trimmedHabitTitle);
     }
 
 
@@ -204,12 +194,15 @@ public class ParserUtil {
         return new Price(trimmedPrice);
     }
 
-    /**
-     * Parses a {@code String price} into a {@code Price}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code price} is invalid.
-     */
+    public static Progress parseProgress(String progress) throws ParseException {
+        requireNonNull(progress);
+        String trimmedProgress = progress.trim();
+        if (!Progress.isValidProgress(trimmedProgress)) {
+            throw new ParseException(Progress.MESSAGE_CONSTRAINTS);
+        }
+        return new Progress(trimmedProgress);
+    }
+
     public static Exercise parseExercise(String exercise) throws ParseException {
         requireNonNull(exercise);
         String trimmedExercise = exercise.trim();
@@ -218,13 +211,6 @@ public class ParserUtil {
         }
         return new Exercise(trimmedExercise);
     }
-
-    /**
-     * Parses a {@code String price} into a {@code Price}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code price} is invalid.
-     */
     public static Sets parseSets(String sets) throws ParseException {
         requireNonNull(sets);
         String trimmedSets = sets.trim();
@@ -233,13 +219,6 @@ public class ParserUtil {
         }
         return new Sets(trimmedSets);
     }
-
-    /**
-     * Parses a {@code String price} into a {@code Price}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code price} is invalid.
-     */
     public static Reps parseReps(String reps) throws ParseException {
         requireNonNull(reps);
         String trimmedReps = reps.trim();
@@ -248,13 +227,6 @@ public class ParserUtil {
         }
         return new Reps(trimmedReps);
     }
-
-    /**
-     * Parses a {@code String TIME} into a {@code Time}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code time} is invalid.
-     */
     public static Time parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
@@ -263,4 +235,5 @@ public class ParserUtil {
         }
         return new Time(trimmedTime);
     }
+
 }

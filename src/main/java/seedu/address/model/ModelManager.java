@@ -1,7 +1,20 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.habit.Habit;
+import seedu.address.model.habit.exceptions.HabitNotFoundException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.purchase.Purchase;
+import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
+import seedu.address.model.task.Task;
+import seedu.address.model.workout.Workout;
 
 import java.nio.file.Path;
 import java.text.DateFormat;
@@ -11,19 +24,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.purchase.Purchase;
-import seedu.address.model.purchase.exceptions.PurchaseNotFoundException;
-import seedu.address.model.task.Task;
-import seedu.address.model.workout.Workout;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -33,30 +35,34 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedExpenditureList versionedExpenditureList;
+    private final VersionedHabitTrackerList versionedHabitTrackerList;
     private final VersionedWorkoutBook versionedWorkoutBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Purchase> filteredPurchases;
     private final FilteredList<Workout> filteredWorkout;
+    private final FilteredList<Habit> filteredHabit;
     private final VersionedTaskList versionedTaskList;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Purchase> selectedPurchase = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Workout> selectedWorkout = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Habit> selectedHabit = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
-                        ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook) {
+                        ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook, ReadOnlyHabitTrackerList habitTrackerList) {
         super();
-        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList, workoutBook);
+        requireAllNonNull(addressBook, userPrefs, taskList, expenditureList, workoutBook, habitTrackerList);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
         versionedTaskList = new VersionedTaskList(taskList);
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedExpenditureList = new VersionedExpenditureList(expenditureList);
+        versionedHabitTrackerList = new VersionedHabitTrackerList(habitTrackerList);
         versionedWorkoutBook = new VersionedWorkoutBook(workoutBook);
 
         this.userPrefs = new UserPrefs(userPrefs);
@@ -66,10 +72,12 @@ public class ModelManager implements Model {
         filteredWorkout = new FilteredList<>(versionedWorkoutBook.getWorkoutList());
         filteredPurchases = new FilteredList<>(versionedExpenditureList.getPurchaseList());
         filteredPurchases.addListener(this::ensureSelectedPurchaseIsValid);
+        filteredHabit = new FilteredList<>(versionedHabitTrackerList.getHabitList());
+        filteredHabit.addListener(this::ensureSelectedHabitIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook());
+        this(new AddressBook(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook(), new HabitTrackerList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -133,7 +141,6 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
-
     }
 
     @Override
@@ -142,11 +149,18 @@ public class ModelManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+
+
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedAddressBook.setPerson(target, editedPerson);
     }
+
+
+
+//=================Expenditure List========================================================================
+
 
     @Override
     public void setExpenditureList(ReadOnlyExpenditureList expenditureList) {
@@ -158,10 +172,11 @@ public class ModelManager implements Model {
         return versionedExpenditureList;
     }
 
+
     @Override
     public void addPurchase(Purchase purchase) {
         versionedExpenditureList.addPurchase(purchase);
-        // updateFilteredPurhaseList(PREDICATE_SHOW_ALL_PURCHASES);
+       // updateFilteredPurchaseList(PREDICATE_SHOW_ALL_PURCHASES);
     }
 
     @Override
@@ -174,6 +189,30 @@ public class ModelManager implements Model {
     public void updateFilteredPurchaseList(Predicate<Purchase> predicate) {
         requireNonNull(predicate);
         filteredPurchases.setPredicate(predicate);
+    }
+
+    //===========Habit Tracker List===========================================================================
+
+    @Override
+    public void setHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList) {
+        versionedHabitTrackerList.resetData(habitTrackerList);
+    }
+
+    @Override
+    public ReadOnlyHabitTrackerList getHabitTrackerList() { return versionedHabitTrackerList;}
+
+    @Override
+    public void addHabit(Habit habit) {
+        versionedHabitTrackerList.addHabit(habit);
+    }
+
+    @Override
+    public ObservableList<Habit> getFilteredHabitList() { return filteredHabit;}
+
+    @Override
+    public void updateFilteredHabitList(Predicate<Habit> predicate) {
+        requireAllNonNull(predicate);
+        filteredHabit.setPredicate(predicate);
     }
 
 
@@ -198,12 +237,12 @@ public class ModelManager implements Model {
     //=========== Filtered Task List Accessors =============================================================
 
     @Override
-    public ObservableList<Task> getFilteredTaskList() {
+    public ObservableList<Task> getFilteredTaskList(){
         return filteredTasks;
     }
 
     @Override
-    public void updateFilteredTaskList(Predicate<Task> predicate) {
+    public void updateFilteredTaskList(Predicate<Task> predicate){
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
@@ -227,19 +266,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteTask(Task target) {
-        versionedTaskList.removeTask(target);
-    }
+    public void deleteTask(Task target) { versionedTaskList.removeTask(target);}
 
     @Override
     public void sortTask() {
-        versionedTaskList.sortTask();
+
     }
 
     //==========================================================
 
     @Override
-    public void commitExpenditureList() {
+    public void commitExpenditureList(){
         versionedExpenditureList.commit();
     }
 
@@ -260,6 +297,26 @@ public class ModelManager implements Model {
         }
         selectedPurchase.setValue(purchase);
     }
+
+    //=============================================================
+
+    @Override
+    public void commitHabitTrackerList() { versionedHabitTrackerList.commit(); }
+
+    @Override
+    public ReadOnlyProperty<Habit> selectedHabitProperty() { return selectedHabit; }
+
+    @Override
+    public Habit getSelectedHabit() { return  selectedHabit.getValue(); }
+
+    @Override
+    public void setSelectedHabit(Habit habit) {
+        if(habit != null && !filteredHabit.contains(habit)) {
+            throw new HabitNotFoundException();
+        }
+        selectedHabit.setValue(habit);
+    }
+
 
     //=========== Undo/Redo =================================================================================
 
@@ -333,8 +390,7 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced()
-                    && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedPerson.getValue());
             if (wasSelectedPersonReplaced) {
                 // Update selectedPerson to its new value.
@@ -353,6 +409,7 @@ public class ModelManager implements Model {
         }
     }
 
+
     /**
      * Ensures {@code selectedPurchase} is a valid purchase in {@code filteredPurchases}.
      */
@@ -363,8 +420,7 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedPurchaseReplaced = change.wasReplaced()
-                    && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedPurchaseReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedPurchase.getValue());
             if (wasSelectedPurchaseReplaced) {
                 // Update selectedPurchase to its new value.
@@ -382,6 +438,35 @@ public class ModelManager implements Model {
             }
         }
     }
+
+    /**
+     * Ensures {@code selectedHabit} is a valid habit in {@code filteredHabit}.
+     */
+    private void ensureSelectedHabitIsValid(ListChangeListener.Change<? extends Habit> change) {
+        while (change.next()) {
+            if (selectedHabit.getValue() == null) {
+                // null is always a valid selected habit, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedHabitReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedHabit.getValue());
+            if (wasSelectedHabitReplaced) {
+                // Update selectedHabit to its new value.
+                int index = change.getRemoved().indexOf(selectedHabit.getValue());
+                selectedHabit.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedHabitRemoved = change.getRemoved().stream()
+                    .anyMatch(removedHabit -> selectedHabit.getValue().isSameHabit(removedHabit));
+            if (wasSelectedHabitRemoved) {
+                // Select the habit that came before it in the list,
+                // or clear the selection if there is no such habit.
+                selectedHabit.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
     //=================Workout Book========================================================================
 
 
@@ -395,15 +480,18 @@ public class ModelManager implements Model {
         return versionedWorkoutBook;
     }
 
+
     @Override
     public void addWorkout(Workout workout) {
         versionedWorkoutBook.addWorkout(workout);
+        // updateFilteredPurchaseList(PREDICATE_SHOW_ALL_PURCHASES);
     }
 
     @Override
     public ObservableList<Workout> getFilteredWorkoutList() {
         return filteredWorkout;
     }
+
 
     @Override
     public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
@@ -414,16 +502,18 @@ public class ModelManager implements Model {
     public void commitWorkoutBook() {
         versionedWorkoutBook.commit();
     }
-
     @Override
-    public void setSelectedWorkout(Workout workout) {
+    public void setSelectedWorkout(Workout workout){
         selectedWorkout.setValue(workout);
     }
-
     @Override
     public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
         return selectedWorkout;
     }
+
+
+
+
 
     @Override
     public boolean equals(Object obj) {
@@ -444,28 +534,19 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
-
-    /**
-     * Checks for the validity of the input time string
-     * @param string
-     * @return a boolean indicating the validity
-     */
-    public static boolean isValidTime(String string) {
+//    ==========================================================
+    public static boolean isValidTime(String string){
         DateFormat format = new SimpleDateFormat("HHmm");
         format.setLenient(false);
-        try {
+        try{
             format.parse(string);
-        } catch (ParseException e) {
+        } catch (ParseException e){
             return false;
         }
         return true;
     }
 
-    /**
-     * Checks for the valid date
-     * @param date an input string containing the date
-     * @return a boolean indicating the validity of the input date string
-     */
+
     public static boolean isValidDate(String date) {
         DateFormat format = new SimpleDateFormat("ddMMyy");
         format.setLenient(false);

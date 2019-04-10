@@ -1,12 +1,12 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.commons.core.GuiSettings;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import seedu.address.commons.core.GuiSettings;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents User's preferences.
@@ -18,6 +18,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path taskListFilePath = Paths.get("data", "tasklist.json");
     private Path expenditureListFilePath = Paths.get("data" , "expenditurelist.json");
     private Path workoutBookFilePath = Paths.get("data" , "workoutbook.json");
+    private Path habitTrackerListFilePath = Paths.get("data", "habittrackerlist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -42,6 +43,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setTaskListFilePath(newUserPrefs.getTaskListFilePath());
         setExpenditureListFilePath(newUserPrefs.getExpenditureListFilePath());
         setWorkoutBookFilePath(newUserPrefs.getWorkoutBookFilePath());
+        setHabitTrackerListFilePath(newUserPrefs.getHabitTrackerListFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -62,11 +64,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public Path getTaskListFilePath() {
+    public Path getTaskListFilePath(){
         return taskListFilePath;
     }
 
-    public void setTaskListFilePath(Path taskListFilePath) {
+    public void setTaskListFilePath(Path taskListFilePath){
         requireNonNull(taskListFilePath);
         this.taskListFilePath = taskListFilePath;
     }
@@ -80,14 +82,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.expenditureListFilePath = expenditureListFilePath;
     }
 
-    public Path getWorkoutBookFilePath() {
-        return workoutBookFilePath;
+    public Path getHabitTrackerListFilePath() { return habitTrackerListFilePath; }
+
+    public void setHabitTrackerListFilePath(Path habitTrackerListFilePath) {
+        requireNonNull(habitTrackerListFilePath);
+        this.habitTrackerListFilePath = habitTrackerListFilePath;
     }
+
+    public Path getWorkoutBookFilePath() { return workoutBookFilePath;}
 
     public void setWorkoutBookFilePath (Path workoutBookFilePath) {
         requireNonNull(workoutBookFilePath);
         this.workoutBookFilePath = workoutBookFilePath;
-    }
+        }
 
     @Override
     public boolean equals(Object other) {
