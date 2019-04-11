@@ -837,7 +837,7 @@ as considerations made during the design of the feature.</p>
 <div class="sect3">
 <h4 id="code-task-code-package"><a class="link" href="#code-task-code-package">5.2.1. <code>Task</code> package</a></h4>
 <div class="paragraph">
-<p>This section describes inner dimensions of the `Task` package.</p>
+<p>This section describes inner dimensions of the <code>Task</code> package.<br></p>
 </div>
 <div class="sect4">
 <h5 id="reason-for-implementation"><a class="link" href="#reason-for-implementation">Reason for implementation</a></h5>
@@ -848,7 +848,7 @@ as considerations made during the design of the feature.</p>
 <div class="sect4">
 <h5 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h5>
 <div class="paragraph">
-<p>Each attribute of a Task, such as the task name, date of the deadline,
+<p>Each attribute of a <code>Task</code>, such as the task name, date of the deadline,
 time of the deadline are classes in the <code>Task</code> package.
 Each of the classes provide utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.</p>
 </div>
@@ -871,23 +871,23 @@ Each of the classes provide utility methods to check the correctness of the stri
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">TaskName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TaskName</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">new TaskName("CS2101 Developer Guide")</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stores a <code>String</code> that represents the name
  of the task.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeadlineDate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeadlineDate</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">new DeadlineDate("020419")</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stores a <code>String</code> that represents the deadline date of the task. String stored has to be in the DDMMYY format.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DeadlineTime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DeadlineTime</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">new DeadlineTime("2359")</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stores a <code>String</code> that represents the deadline time of the task.  String stored has to be in the 24HRS format.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Tag</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">new Tag()</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Stores a <code>String</code> that acts as a tag to the task. This field is <strong>optional</strong>.</p></td>
 </tr>
@@ -954,10 +954,10 @@ before adding the <code>Task</code> instance into the <code>UniqueTaskList</code
 <div class="paragraph">
 <p>The <code>task</code> package follows the model of the <code>person</code> package which existed before our
  team started this project. This was because the <code>TaskList</code> was ideated to have the data
- stored in a ArrayList like the Addressbook.
-   This made it easier for us to implement our features as we could reuse the code
-   and follow the style of how the Addressbook was implemented to made the code
-   more readable.</p>
+ stored in an ArrayList like the Addressbook.
+This made it easier for us to implement our features as we could reuse some of the existing code
+and follow the style of how the Addressbook was implemented to made the code
+more readable.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1069,6 +1069,15 @@ validity of the index given. If index is invalid, an error message will be displ
 <div class="title">Figure 11. Delete Task Sequence Diagram</div>
 </div>
 <div class="paragraph">
+<p>The following activity diagrams illustrates an example when the user executes a <code>deletetask</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/DeleteTaskActivityDiagram.png" alt="Delete Task Activity Diagram" width="800">
+</div>
+<div class="title">Figure 12. Activity Diagram of user executing a <code>deletetask</code> command</div>
+</div>
+<div class="paragraph">
 <p>&#160;<br></p>
 </div>
 </div>
@@ -1101,7 +1110,7 @@ validity of the index given. If index is invalid, an error message will be displ
 <div class="content">
 <img src="images/TickTaskSequenceDiagram.png" alt="Tick Task Sequence Diagram" width="800">
 </div>
-<div class="title">Figure 12. Tick Task Sequence Diagram</div>
+<div class="title">Figure 13. Tick Task Sequence Diagram</div>
 </div>
 <div class="paragraph">
 <p>&#160;<br></p>
@@ -1146,7 +1155,7 @@ replace the former <code>Task</code> with the <code>editedTask</code>.</p>
 <div class="content">
 <img src="images/EditTaskSequenceDiagram.png" alt="Edit Task Sequence Diagram" width="800">
 </div>
-<div class="title">Figure 13. Edit Task Sequence Diagram</div>
+<div class="title">Figure 14. Edit Task Sequence Diagram</div>
 </div>
 </div>
 </div>
@@ -1545,7 +1554,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 14. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 15. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -3358,4 +3367,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-11 03:07:32 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-11 04:40:26 UTC</div></div></div></body></html>
