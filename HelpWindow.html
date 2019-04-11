@@ -155,9 +155,6 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <li>
 <p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
 </li>
-<li>
-<p>Items in square brackets are optional e.g n/NAME [d/DEADLINE_DATE] can be used as n/CS2113 User Guide d/030919 or as n/CS2113 User Guide.</p>
-</li>
 </ul>
 </div>
 </div>
@@ -165,22 +162,137 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect2">
 <h3 id="task-list"><a class="link" href="#task-list">3.1. Task List</a></h3>
 <div class="paragraph">
-<p>A feature to help you record your tasks at hand with the deadlines, say no more to procrastination!<br></p>
+<p>A feature to help you record your tasks with  deadlines, say no more to forgetting your tasks!<br></p>
+</div>
+<div class="paragraph">
+<p>The following subsections are commands of the task list.</p>
 </div>
 <div class="sect3">
-<h4 id="adding-a-task-code-addtask-code"><a class="link" href="#adding-a-task-code-addtask-code">3.1.1. Adding a Task : <code>addTask</code></a></h4>
+<h4 id="adding-a-task-code-addtask-code"><a class="link" href="#adding-a-task-code-addtask-code">3.1.1. Adding a Task : <code>addtask</code></a></h4>
 <div class="paragraph">
-<p>Adds a task to the daily list.<br>
-Format: <code>addTask n/TAK d/DEADLINE_DATE h/DEADLINE_TIME</code></p>
+<p>The first step to managing your tasks is to <strong>add</strong> them into the task list!<br>
+Format: <code>addtask n/TASK_NAME d/DEADLINE_DATE h/DEADLINE_TIME [t/TAGS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><em>TASK_NAME</em> is the name of the task that you want to input &#160;</p>
+</li>
+<li>
+<p><em>DEADLINE_DATE</em> is the date of the deadline of the task in <em>DDMMYY</em> format. &#160;<br></p>
+</li>
+<li>
+<p><em>DEADLINE_TIME</em> is the time of the deadline of the task in <em>24HRS</em> format &#160;<br></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<em>Tags</em> are optional and are alphanumeric without space
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>Words in <code>UPPER_CASE</code> are the parameters.<br>
-All fields are compulsory<br>
-TASK contains the name of the TASK<br>
-DEADLINE_DATE should be in the DDMMYY format<br>
-DEADLINE_TIME should be in 24HRS</p>
+<p>The following are examples of some commands that you can try out:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addtask n/Complete CS2113T Assignment d/180319 h/2359</code></p>
+</li>
+<li>
+<p><code>addtask n/Submit Exchange Application d/200319 h/0800 t/IMPORTANT</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="delete-task-code-deletetask-code"><a class="link" href="#delete-task-code-deletetask-code">3.1.2. Delete Task : <code>deletetask</code></a></h4>
+<div class="paragraph">
+<p>In case the task is no longer required, you can <strong>delete</strong> it off the task list by specifying the index of
+the task you want to delete!<br>
+Format: <code>deletetask INDEX</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The index is the integer on the left side of the Task Name in the Task List that you want to <strong>delete</strong>!
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The index must be a valid index in the task list and it must be present.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deletetask 5</code><br>
+<em>Deletes the task at index 5</em></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="edit-task-code-edittask-code"><a class="link" href="#edit-task-code-edittask-code">3.1.3. Edit Task : <code>edittask</code></a></h4>
+<div class="paragraph">
+<p>In case you want to change the details of a task, you can <strong>edit</strong> it through specifying the index of the task
+as well as the information you want to edit.<br>
+Format: <code>edittask 1 [n/TASK_NAME] [d/DEADLINE_DATE] [h/DEADLINE_TIME]</code></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The index must be a valid index in the task list and it must be present.<br>
+At least one optional field must be provided.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Existing values will be replaced with the input values<br></p>
+</li>
+<li>
+<p>DEADLINE_DATE is the deadline date of the task and should be in the DDMMYY format<br></p>
+</li>
+<li>
+<p>DEADLINE_TIME is the deadline time of the task and should be in the 24HRS format</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -190,27 +302,34 @@ DEADLINE_TIME should be in 24HRS</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>addTask n/Complete CS2113T Assignment d/180319 h/2359</code></p>
+<p><code>edittask 2 n/Banana</code><br>
+<em>Changes the task name of the task specified at index 2 to Banana.</em></p>
 </li>
 <li>
-<p><code>addTask n/Submit Exchange Application d/200319 h/0800</code>
-==== Delete Task : <code>deleteTask</code></p>
+<p><code>edittask 2 d/290319</code><br>
+<em>Change sthe deadline date of the task specified at index 2 to 290319.</em></p>
 </li>
 </ul>
 </div>
+</div>
+<div class="sect3">
+<h4 id="tick-task-code-ticktask-code"><a class="link" href="#tick-task-code-ticktask-code">3.1.4. Tick Task : <code>ticktask</code></a></h4>
 <div class="paragraph">
-<p>Deletes the specified item off the Task List. <br>
-Format: <code>deleteTask INDEX</code></p>
+<p><strong>Ticks</strong> off the task that you have completed off the task list and adds it into the completed task list!<br>
+Format: <code>ticktask</code> INDEX</p>
 </div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Words in <code>UPPER_CASE</code> are the parameters.
-Deletes the item at the specified <code>INDEX</code>.<br>
-The <code>INDEX</code> can be found just by looking at the INDEX of the task displayed in the GUI<br>
-The <code>INDEX</code> must be a positive integer 1,2,3 &#8230;&#8203;</p>
-</div>
-</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The index must be a valid index in the task list and it must be present.<br>
+Once the application restarts, all the data in the Completed Task List will be gone.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -218,52 +337,17 @@ The <code>INDEX</code> must be a positive integer 1,2,3 &#8230;&#8203;</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>deleteTask 5</code><br>
-Deletes the task at INDEX 5</p>
+<p><code>ticktask 5</code><br>
+<em>Ticks the task at index 5 off.</em></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="edit-task-code-edittask-code"><a class="link" href="#edit-task-code-edittask-code">3.1.2. Edit Task : <code>editTask</code></a></h4>
+<h4 id="sort-task-list-code-sorttask-code"><a class="link" href="#sort-task-list-code-sorttask-code">3.1.5. Sort Task List : <code>sorttask</code></a></h4>
 <div class="paragraph">
-<p>Edits an existing specified task on the Task List. <br>
-Format: <code>editTask 1 [n/TASK_NAME] [d/DEADLINE_DATE] [h/DEADLINE_TIME]</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Words in <code>UPPER_CASE</code> are the parameters.
-Edits the task at the specified INDEX.<br>
-The index needs to be provided<br>
-At least one of the optional fields must be provied<br>
-Existing values will be replaced with the input values<br>
-DEADLINE_DATE should be in the DDMMYY format<br>
-DEADLINE_TIME should be in the 24HRS format</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>editTask 2 n/Banana</code><br>
-Change the task name of the task specified at INDEX 2 to Banana.</p>
-</li>
-<li>
-<p><code>editTask 2 d/290319</code><br>
-Change the deadline date of the task specified at INDEX 2 to 300219.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="clear-task-code-cleartask-code-coming-soon"><a class="link" href="#clear-task-code-cleartask-code-coming-soon">3.1.3. Clear Task : <code>clearTask</code> [coming soon]</a></h4>
-<div class="paragraph">
-<p>Clears off all the tasks from the Task List.<br>
-Format: <code>clearTask</code></p>
+<p>Helps you to <strong>sort</strong> the tasks in the task list according to their deadline with upcoming deadlines first!<br>
+Format: <code>sorttask</code></p>
 </div>
 </div>
 </div>
@@ -929,4 +1013,4 @@ e.g. <code>addpurchase pn/Bicycle rental pr/10.00 t/family</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-09 04:07:32 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-11 03:07:32 UTC</div></div></div></body></html>
