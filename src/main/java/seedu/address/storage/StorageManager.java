@@ -1,13 +1,13 @@
 package seedu.address.storage;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.*;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.*;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -21,13 +21,15 @@ public class StorageManager implements Storage {
     private WorkoutBookStorage workoutBookStorage;
     private ExpenditureListStorage expenditureListStorage;
     private HabitTrackerListStorage habitTrackerListStorage;
+    private TickedTaskListStorage tickedTaskListStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage, WorkoutBookStorage workoutBookStorage, HabitTrackerListStorage habitTrackerListStorage) {
+                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage, WorkoutBookStorage workoutBookStorage, HabitTrackerListStorage habitTrackerListStorage, TickedTaskListStorage tickedTaskListStorage) {
         super();
 
         this.taskListStorage = taskListStorage;
+        this.tickedTaskListStorage = tickedTaskListStorage;
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.workoutBookStorage = workoutBookStorage;
@@ -97,6 +99,7 @@ public class StorageManager implements Storage {
     @Override
     public Optional<ReadOnlyTaskList> readTaskList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
+        logger.info("READING FROM FILE" + filePath);
         return taskListStorage.readTaskList(filePath);
     }
 
@@ -180,21 +183,20 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyHabitTrackerList> readHabitTrackerList(Path filePath) throws
-            DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return habitTrackerListStorage.readHabitTrackerList(filePath);
-    }
-
-    @Override
     public void saveHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList) throws IOException {
-        saveHabitTrackerList(habitTrackerList, habitTrackerListStorage.getHabitTrackerListFilePath());
+
     }
 
     @Override
     public void saveHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        habitTrackerListStorage.saveHabitTrackerList(habitTrackerList, filePath);
+
+    }
+
+    @Override
+    public Optional<ReadOnlyHabitTrackerList> readHabitTrackerList(Path filePath) throws
+            DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return habitTrackerListStorage.readHabitTrackerList(filePath);
     }
 
 }

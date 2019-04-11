@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.*;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.logic.commands.*;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
@@ -75,35 +75,35 @@ public class AddressBookParser {
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
 
+        case DeleteTaskCommand.COMMAND_WORD:
+            return new DeleteTaskCommandParser().parse(arguments);
 
-            case DeleteTaskCommand.COMMAND_WORD:
-                return new DeleteTaskCommandParser().parse(arguments);
-
-            case EditTaskCommand.COMMAND_WORD:
-                return new EditTaskCommandParser().parse(arguments);
-
+        case EditTaskCommand.COMMAND_WORD:
+            return new EditTaskCommandParser().parse(arguments);
 
         case AddPurchaseCommand.COMMAND_WORD:
             return new AddPurchaseCommandParser().parse(arguments);
 
-            case ExpListCommand.COMMAND_WORD:
-                return new ExpListCommand();
+        case ExpListCommand.COMMAND_WORD:
+            return new ExpListCommand();
 
+        case ClearExpListCommand.COMMAND_WORD:
+            return new ClearExpListCommand();
 
-            case ClearExpListCommand.COMMAND_WORD:
-                return new ClearExpListCommand();
+        case SortTaskCommand.COMMAND_WORD:
+            return new SortTaskCommand();
 
-            case RecordCommand.COMMAND_WORD:
-                return new RecordCommandParser().parse(arguments);
+        case RecordCommand.COMMAND_WORD:
+            return new RecordCommandParser().parse(arguments);
 
-            case AddHabitCommand.COMMAND_WORD:
-                return new AddHabitCommandParser().parse(arguments);
+        case AddHabitCommand.COMMAND_WORD:
+            return new AddHabitCommandParser().parse(arguments);
 
+        case TickTaskCommand.COMMAND_WORD:
+            return new TickTaskCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-
-
         }
     }
 

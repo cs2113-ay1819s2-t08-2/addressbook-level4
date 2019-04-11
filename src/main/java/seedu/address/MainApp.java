@@ -29,7 +29,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 4, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -56,11 +56,14 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
-        ExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
-        HabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(userPrefs.getHabitTrackerListFilePath());
+        TickedTaskListStorage tickedTaskListStorage =
+                new JsonTickedTaskListStorage(userPrefs.getTickedTaskListFilePath());
+        ExpenditureListStorage expenditureListStorage =
+                new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
+        HabitTrackerListStorage habitTrackerListStorage= new JsonHabitTrackerListStorage(userPrefs.getHabitTrackerListFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage,
-                expenditureListStorage, workoutBookStorage, habitTrackerListStorage);
+                expenditureListStorage, workoutBookStorage, habitTrackerListStorage, tickedTaskListStorage);
 
         initLogging(config);
 
@@ -80,8 +83,10 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyTaskList> taskListOptional;
         Optional<ReadOnlyExpenditureList> expenditureListOptional;
+        Optional<ReadOnlyTaskList> tickedTaskListOptional;
         ReadOnlyAddressBook initialData;
         ReadOnlyTaskList initialTasks;
+        ReadOnlyTaskList initialTickedTasks;
         ReadOnlyExpenditureList initialPurchases;
         ReadOnlyWorkoutBook initialWorkout;
         ReadOnlyHabitTrackerList initialHabit;
@@ -109,10 +114,10 @@ public class MainApp extends Application {
             initialTasks = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Task List");
             initialTasks = new TaskList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Task List");
             initialTasks = new TaskList();
         }
 

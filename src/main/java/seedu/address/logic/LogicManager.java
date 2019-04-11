@@ -1,5 +1,9 @@
 package seedu.address.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -17,10 +21,6 @@ import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 import seedu.address.storage.Storage;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
-
 /**
  * The main LogicManager of the app.
  */
@@ -34,6 +34,7 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
     private boolean taskListModified;
+    private boolean tickedTaskListModified;
     private boolean expenditureListModified;
     private boolean workoutBookModified;
     private boolean habitTrackerListModified;
@@ -48,6 +49,7 @@ public class LogicManager implements Logic {
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
         model.getTaskList().addListener(observable -> taskListModified = true);
+        model.getTickedTaskList().addListener(observable -> tickedTaskListModified = true);
         model.getExpenditureList().addListener(observable -> expenditureListModified = true);
         model.getWorkoutList().addListener(observable -> workoutBookModified = true);
         model.getHabitTrackerList().addListener(observable -> habitTrackerListModified = true);
@@ -58,6 +60,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
         taskListModified = false;
+        tickedTaskListModified = false;
         expenditureListModified = false;
         workoutBookModified = false;
         habitTrackerListModified = false;
@@ -77,6 +80,10 @@ public class LogicManager implements Logic {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
+
+        if (tickedTaskListModified) {
+            logger.info("Ticked Task List modified. Saving to file. ");
+        } //TODO
 
         if (expenditureListModified) {
             logger.info("Expenditure list modified, saving to file.");
@@ -119,17 +126,24 @@ public class LogicManager implements Logic {
     public ReadOnlyHabitTrackerList getHabitTrackerList() {return model.getHabitTrackerList();}
 
     @Override
-    public ReadOnlyTaskList getTaskList(){
+    public ReadOnlyTaskList getTaskList() {
         return model.getTaskList();
     }
 
     @Override
-    public ReadOnlyExpenditureList getExpenditureList(){
+    public ReadOnlyTaskList getTickedTaskList() {
+        return model.getTickedTaskList();
+    }
+
+    @Override
+    public ReadOnlyExpenditureList getExpenditureList() {
         return model.getExpenditureList();
     }
 
     @Override
-    public ReadOnlyWorkoutBook getWorkoutList() { return model.getWorkoutList(); }
+    public ReadOnlyWorkoutBook getWorkoutList() {
+        return model.getWorkoutList();
+    }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -137,7 +151,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Task> getFilteredTaskList() { return model.getFilteredTaskList(); }
+    public ObservableList<Task> getFilteredTaskList() {
+        return model.getFilteredTaskList();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTickedTaskList() {
+        return model.getFilteredTickedTaskList();
+    }
 
     @Override
     public ObservableList<Purchase> getFilteredPurchaseList() {
@@ -185,8 +206,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Habit> selectedHabitProperty() {return model.selectedHabitProperty();}
-
+    public ReadOnlyProperty<Habit> selectedHabitProperty() {
+        return model.selectedHabitProperty();
+    }
 
     @Override
     public ReadOnlyProperty<Purchase> selectedPurchaseProperty() {
@@ -209,8 +231,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedWorkout(Workout workout) {model.setSelectedWorkout(workout);}
+    public void setSelectedWorkout(Workout workout) {
+        model.setSelectedWorkout(workout);
+    }
 
     @Override
-    public void setSelectedHabit(Habit habit) {model.selectedHabitProperty(); }
+    public void setSelectedHabit(Habit habit) {
+        model.selectedHabitProperty();
+    }
 }

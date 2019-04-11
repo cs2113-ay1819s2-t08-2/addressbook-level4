@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.nio.file.Path;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -12,8 +14,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
-
-import java.nio.file.Path;
 
 /**
  * API of the Logic component
@@ -35,8 +35,13 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    ReadOnlyTaskList getTaskList();
+
+    ReadOnlyTaskList getTickedTaskList();
 
     ObservableList<Task> getFilteredTaskList();
+
+    ObservableList<Task> getFilteredTickedTaskList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
@@ -78,11 +83,18 @@ public interface Logic {
      */
     void setSelectedPerson(Person person);
 
+    /**
+     * Selected task in the filtered task list
+     * @return null if no person is selected.
+     */
     ReadOnlyProperty<Task> selectedTaskProperty();
 
+    /**
+     * Sets the selected task in the filtered task list.
+     *
+     */
     void setSelectedTask(Task task);
 
-     ReadOnlyTaskList getTaskList();
 
     /**
      * Returns the ExpenditureList.

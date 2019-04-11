@@ -28,11 +28,13 @@ public class StorageManagerTest {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(getTempFilePath("")); // TODO
+        JsonTickedTaskListStorage tickedTaskListStorage =
+                new JsonTickedTaskListStorage(getTempFilePath(""));
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(getTempFilePath("")); //TODO
         JsonExpenditureListStorage expenditureListStorage = new JsonExpenditureListStorage(getTempFilePath("")); // TODO
         JsonHabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(getTempFilePath(""));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage, habitTrackerListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, habitTrackerListStorage, tickedTaskListStorage);
     }
 
     private Path getTempFilePath(String fileName) {

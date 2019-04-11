@@ -50,12 +50,14 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());
+        JsonTickedTaskListStorage jsonTickedTaskListStorage =
+                new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
         JsonHabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage, habitTrackerListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, habitTrackerListStorage, jsonTickedTaskListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -88,12 +90,14 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage taskListStorage =
                 new JsonTaskListStorage(temporaryFolder.newFile().toPath()); //TODO
+        JsonTickedTaskListStorage jsonTickedTaskListStorage =
+                new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListStorage(temporaryFolder.newFile().toPath()); //TODO
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         JsonHabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage, habitTrackerListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, habitTrackerListStorage, jsonTickedTaskListStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
