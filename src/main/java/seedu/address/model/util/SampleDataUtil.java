@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Contact Lsit} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -65,12 +65,12 @@ public class SampleDataUtil {
                 new Habit(new HabitTitle("no supper"), new Progress("2"), getTagSet("food"))
         };
     }
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyContactList getSampleContactList() {
+        ContactList sampleCl = new ContactList();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleCl.addPerson(samplePerson);
         }
-        return sampleAb;
+        return sampleCl;
     }
 
     /**

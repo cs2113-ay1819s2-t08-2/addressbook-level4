@@ -29,11 +29,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the ContactList.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getContactList()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyContactList getContactList();
 
     ReadOnlyTaskList getTaskList();
 
@@ -54,9 +54,9 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' contact list file path.
      */
-    Path getAddressBookFilePath();
+    Path getContactListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -94,6 +94,7 @@ public interface Logic {
      *
      */
     void setSelectedTask(Task task);
+
 
 
     /**

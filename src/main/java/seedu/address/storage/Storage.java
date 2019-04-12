@@ -10,8 +10,8 @@ import seedu.address.model.*;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage,
-        TaskListStorage, WorkoutBookStorage, ExpenditureListStorage, HabitTrackerListStorage {
+public interface Storage extends ContactListStorage, UserPrefsStorage,
+        TaskListStorage, WorkoutBookStorage, ExpenditureListStorage, TickedTaskListStorage, HabitTrackerListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -19,16 +19,16 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage,
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    /* -----------------------Address Book ---------------------------------------------*/
+    /* -----------------------Contact List ---------------------------------------------*/
     @Override
-    Path getAddressBookFilePath();
+    Path getContactListFilePath();
 
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyContactList> readContactList() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveContactList(ReadOnlyContactList contactList) throws IOException;
 
     /* -----------------------Task List ---------------------------------------------*/
 

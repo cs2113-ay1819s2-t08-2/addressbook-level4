@@ -46,7 +46,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing LIFE data ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -54,7 +54,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        ContactListStorage contactListStorage = new JsonContactListStorage(userPrefs.getContactListFilePath());
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
         TickedTaskListStorage tickedTaskListStorage =
                 new JsonTickedTaskListStorage(userPrefs.getTickedTaskListFilePath());
@@ -62,8 +62,8 @@ public class MainApp extends Application {
                 new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
         HabitTrackerListStorage habitTrackerListStorage= new JsonHabitTrackerListStorage(userPrefs.getHabitTrackerListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskListStorage,
-                expenditureListStorage, workoutBookStorage, habitTrackerListStorage, tickedTaskListStorage);
+        storage = new StorageManager(contactListStorage, userPrefsStorage, taskListStorage,
+                expenditureListStorage, workoutBookStorage, tickedTaskListStorage, habitTrackerListStorage);
 
         initLogging(config);
 
@@ -75,16 +75,16 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s contact list and {@code userPrefs}. <br>
+     * The data from the sample contact list will be used instead if {@code storage}'s contact list is not found,
+     * or an empty contact list will be used instead if errors occur when reading {@code storage}'s contact list.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyContactList> contactListOptional;
         Optional<ReadOnlyTaskList> taskListOptional;
         Optional<ReadOnlyExpenditureList> expenditureListOptional;
         Optional<ReadOnlyTaskList> tickedTaskListOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyContactList initialData;
         ReadOnlyTaskList initialTasks;
         ReadOnlyTaskList initialTickedTasks;
         ReadOnlyExpenditureList initialPurchases;
@@ -92,24 +92,24 @@ public class MainApp extends Application {
         ReadOnlyHabitTrackerList initialHabit;
 
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            contactListOptional = storage.readContactList();
+            if (!contactListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample ContactList");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = contactListOptional.orElseGet(SampleDataUtil::getSampleContactList);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty ContactList");
+            initialData = new ContactList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty ContactList");
+            initialData = new ContactList();
         }
 
         try {
             taskListOptional = storage.readTaskList();
             if (!taskListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample ContactList");
             }
             initialTasks = taskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
 
@@ -120,6 +120,22 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Task List");
             initialTasks = new TaskList();
         }
+
+        try {
+            tickedTaskListOptional = storage.readTickedTaskList();
+            if (!tickedTaskListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a empty ticked task list");
+            }
+            initialTickedTasks = tickedTaskListOptional.orElseGet(SampleDataUtil::getSampleTaskList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Ticked Task List");
+            initialTickedTasks = new TaskList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty Ticked Task List");
+            initialTickedTasks = new TaskList();
+        }
+
+
 
 
         try {
@@ -224,7 +240,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ContactList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -240,13 +256,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ContactList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping LIFE application ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

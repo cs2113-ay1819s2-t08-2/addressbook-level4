@@ -4,7 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
@@ -28,9 +28,9 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+        model = new ModelManager(getTypicalContactList(), new UserPrefs(),
                 getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+        expectedModel = new ModelManager(getTypicalContactList(), new UserPrefs(),
                 getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     }
 

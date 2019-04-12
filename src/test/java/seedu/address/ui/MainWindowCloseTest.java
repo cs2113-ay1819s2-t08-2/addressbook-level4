@@ -33,7 +33,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
+        JsonContactListStorage jsonContactListStorage = new JsonContactListStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonTaskListStorage jsonTaskListStorage = new JsonTaskListStorage(temporaryFolder.newFile().toPath());
         JsonTickedTaskListStorage jsonTickedTaskListStorage =
@@ -42,8 +42,8 @@ public class MainWindowCloseTest extends GuiUnitTest {
                 new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
         JsonHabitTrackerListStorage jsonHabitTrackerListStorage = new JsonHabitTrackerListStorage(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage jsonWorkoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
-        StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage,
-                jsonTaskListStorage, jsonExpenditureListStorage, jsonWorkoutBookStorage, jsonHabitTrackerListStorage, jsonTickedTaskListStorage);
+        StorageManager storageManager = new StorageManager(jsonContactListStorage, jsonUserPrefsStorage,
+                jsonTaskListStorage, jsonExpenditureListStorage, jsonWorkoutBookStorage, jsonTickedTaskListStorage, jsonHabitTrackerListStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));

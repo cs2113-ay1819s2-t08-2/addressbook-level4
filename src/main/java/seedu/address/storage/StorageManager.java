@@ -10,12 +10,12 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.*;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of ContactList data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ContactListStorage contactListStorage;
     private UserPrefsStorage userPrefsStorage;
     private TaskListStorage taskListStorage;
     private WorkoutBookStorage workoutBookStorage;
@@ -24,13 +24,14 @@ public class StorageManager implements Storage {
     private TickedTaskListStorage tickedTaskListStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage, WorkoutBookStorage workoutBookStorage, HabitTrackerListStorage habitTrackerListStorage, TickedTaskListStorage tickedTaskListStorage) {
-        super();
+    public StorageManager(ContactListStorage contactListStorage, UserPrefsStorage userPrefsStorage,
+                          TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage,
+                          WorkoutBookStorage workoutBookStorage, TickedTaskListStorage tickedTaskListStorage, HabitTrackerListStorage habitTrackerListStorage) {
+      super();
 
         this.taskListStorage = taskListStorage;
         this.tickedTaskListStorage = tickedTaskListStorage;
-        this.addressBookStorage = addressBookStorage;
+        this.contactListStorage = contactListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.workoutBookStorage = workoutBookStorage;
         this.expenditureListStorage = expenditureListStorage;
@@ -55,33 +56,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ ContactList methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getContactListFilePath() {
+        return contactListStorage.getContactListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyContactList> readContactList() throws DataConversionException, IOException {
+        return readContactList(contactListStorage.getContactListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyContactList> readContactList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return contactListStorage.readContactList(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveContactList(ReadOnlyContactList contactList) throws IOException {
+        saveContactList(contactList, contactListStorage.getContactListFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveContactList(ReadOnlyContactList contactList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        contactListStorage.saveContactList(contactList, filePath);
     }
 
     // ====================Task List methods ========================================
@@ -114,7 +115,36 @@ public class StorageManager implements Storage {
         taskListStorage.saveTaskList(taskList, filePath);
     }
 
+    @Override
+    public Path getTickedTaskListFilePath() {
+        return tickedTaskListStorage.getTickedTaskListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readTickedTaskList() throws DataConversionException, IOException {
+        logger.info("HELLO");
+        return readTickedTaskList(tickedTaskListStorage.getTickedTaskListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readTickedTaskList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        logger.info("READING FROM FILE" + filePath);
+        return tickedTaskListStorage.readTickedTaskList(filePath);
+    }
+
+    @Override
+    public void saveTickedTaskList(ReadOnlyTaskList tasklist) throws IOException {
+
+    }
+
+    @Override
+    public void saveTickedTaskList(ReadOnlyTaskList taskList, Path filepath) throws IOException {
+
+    }
+
     // ================ Expenditure List methods ==============================
+
     @Override
     public Path getExpenditureListFilePath() {
         return expenditureListStorage.getExpenditureListFilePath();
@@ -126,7 +156,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyExpenditureList> readExpenditureList(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyExpenditureList> readExpenditureList(Path filePath) throws DataConversionException,
+            IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return expenditureListStorage.readExpenditureList(filePath);
     }
@@ -152,19 +183,16 @@ public class StorageManager implements Storage {
     public Optional<ReadOnlyWorkoutBook> readWorkoutBook() throws DataConversionException, IOException {
         return readWorkoutBook(workoutBookStorage.getWorkoutBookFilePath());
     }
-
     @Override
     public Optional<ReadOnlyWorkoutBook> readWorkoutBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return workoutBookStorage.readWorkoutBook(filePath);
 
     }
-
     @Override
     public void saveWorkoutBook(ReadOnlyWorkoutBook workoutList) throws IOException {
         saveWorkoutBook(workoutList, workoutBookStorage.getWorkoutBookFilePath());
     }
-
     @Override
     public void saveWorkoutBook(ReadOnlyWorkoutBook workoutList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
@@ -182,21 +210,23 @@ public class StorageManager implements Storage {
         return readHabitTrackerList(habitTrackerListStorage.getHabitTrackerListFilePath());
     }
 
+
+    @Override
+    public Optional<ReadOnlyHabitTrackerList> readHabitTrackerList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return habitTrackerListStorage.readHabitTrackerList(filePath);
+
+    }
+
     @Override
     public void saveHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList) throws IOException {
-
+        saveHabitTrackerList(habitTrackerList, habitTrackerListStorage.getHabitTrackerListFilePath());
     }
 
     @Override
     public void saveHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList, Path filePath) throws IOException {
-
-    }
-
-    @Override
-    public Optional<ReadOnlyHabitTrackerList> readHabitTrackerList(Path filePath) throws
-            DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return habitTrackerListStorage.readHabitTrackerList(filePath);
+        logger.fine("Attempting to write to data file: " + filePath);
+        habitTrackerListStorage.saveHabitTrackerList(habitTrackerList, filePath);
     }
 
 }
