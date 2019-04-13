@@ -170,7 +170,7 @@ public interface Model {
 
     void setTask(Task target, Task editedTask);
 
-
+    Task getSelectedTask();
 
 
 

@@ -72,6 +72,7 @@ public class LogicManager implements Logic {
         } finally {
             history.add(commandText);
         }
+
         if (taskListModified){
             logger.info("Task list modified, saving to file.");
             try {
@@ -82,7 +83,7 @@ public class LogicManager implements Logic {
         }
 
         if (tickedTaskListModified) {
-            logger.info("Ticked Task List modified. Saving to file. ");
+            logger.info("Ticked task List modified. Saving to file. ");
         } //TODO
 
         if (expenditureListModified) {
@@ -102,7 +103,12 @@ public class LogicManager implements Logic {
             }
         }
         if (workoutBookModified) {
-
+            logger.info("Workout list modified, saving to file.");
+            try {
+                storage.saveWorkoutBook(model.getWorkoutList());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
 
         if (contactListModified) {
