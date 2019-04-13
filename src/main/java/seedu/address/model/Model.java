@@ -1,5 +1,9 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -9,8 +13,6 @@ import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -238,6 +240,8 @@ public interface Model {
     void updateFilteredWorkoutList(Predicate<Workout> predicate);
 
     void setWorkoutBook(ReadOnlyWorkoutBook workoutBook);
+
+    ArrayList<Workout> getRecent();
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Habit> PREDICATE_SHOW_ALL_HABIT = unused -> true;

@@ -340,6 +340,10 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public ArrayList<Workout> getRecent() {
+            return null;
+        }
+        @Override
         public void commitWorkoutBook() {
 
         }
