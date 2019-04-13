@@ -287,7 +287,10 @@ public interface Model {
      */
     void setSelectedHabit(Habit habit);
 
+    /**
+     * Deletes selected habit from the Habit Tracker List.
+     */
 
-
+    void deleteHabit(Habit habit);
 
 }
