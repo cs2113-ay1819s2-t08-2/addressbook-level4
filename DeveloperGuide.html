@@ -101,8 +101,11 @@
 <li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-person">H.2. Deleting a person</a></li>
-<li><a href="#saving-data">H.3. Saving data</a></li>
+<li><a href="#adding-a-task">H.2. Adding a task</a></li>
+<li><a href="#removing-a-task">H.3. Removing a task</a></li>
+<li><a href="#ticking-a-task">H.4. Ticking a task</a></li>
+<li><a href="#adding-a-purchase">H.5. Adding a purchase</a></li>
+<li><a href="#clearing-expenditure-list">H.6. Clearing expenditure list</a></li>
 </ul>
 </li>
 </ul>
@@ -3159,12 +3162,17 @@ e.g. <code>editTask INDEX n/REDO CS2113T</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Lots of features such as</p>
+<p>Convenience</p>
+<div class="ulist">
+<ul>
+<li>
+<p>All the things you want to keep track in your life can be recorded in this single application.</p>
 </li>
 </ul>
 </div>
-<div class="sidebarblock">
-<div class="content">
+</li>
+<li>
+<p>Many features such as</p>
 <div class="ulist">
 <ul>
 <li>
@@ -3177,16 +3185,16 @@ e.g. <code>editTask INDEX n/REDO CS2113T</code></p>
 <p>Recording of Workouts</p>
 </li>
 <li>
-<p>Documenting of Journal</p>
+<p>Documentation of Habits</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="ulist">
-<ul>
+</li>
 <li>
 <p>Information can be located easily</p>
+</li>
+<li>
+<p>User-friendly</p>
 </li>
 </ul>
 </div>
@@ -3199,7 +3207,10 @@ e.g. <code>editTask INDEX n/REDO CS2113T</code></p>
 <p>Non-interactive user interface, used a console based interface instead</p>
 </li>
 <li>
-<p>Have to memorise commands</p>
+<p>Have to type out individual commands</p>
+</li>
+<li>
+<p>Cannot be stored in mobiles (which are even more convenient)</p>
 </li>
 </ul>
 </div>
@@ -3236,7 +3247,7 @@ These instructions only provide a starting point for testers to work on; testers
 </li>
 <li>
 <p>Double-click the jar file<br>
-Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.</p>
+Expected: Shows the GUI with a set of sample data (Tasks, Purchases, Workouts, Habits). The window size may not be optimum.</p>
 </li>
 </ol>
 </div>
@@ -3257,31 +3268,25 @@ Expected: The most recent window size and location is retained.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">H.2. Deleting a person</a></h3>
+<h3 id="adding-a-task"><a class="link" href="#adding-a-task">H.2. Adding a task</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Deleting a person while all persons are listed</p>
+<p>Adding a new task to the existing task list</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all persons using the <code>list</code> command. Multiple persons in the list.</p>
+<p>Test case: <code>addtask n/CS2101 user guide d/100419 h/0930</code><br>
+Expected: New task added to the task list with a different index number. Timestamp in the status bar is updated.</p>
 </li>
 <li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+<p>Test case: <code>addtask n/ST2334 tutorial 8! d/150419 t/1400</code><br>
+Expected: No new task added. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar is not updated.</p>
 </li>
 <li>
-<p>Test case: <code>delete 0</code><br>
-Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
-</li>
-<li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
+<p>Other incorrect addtask commands to try: <code>addtask n/testtask d/219019 t/2020</code>, <code>addtask</code> (without any inputs)<br>
 Expected: Similar to previous.</p>
 </li>
 </ol>
@@ -3289,29 +3294,126 @@ Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.3. Saving data</a></h3>
+<h3 id="removing-a-task"><a class="link" href="#removing-a-task">H.3. Removing a task</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Dealing with missing/corrupted data files</p>
+<p>Deleting an existing task in the task list</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Refer to task list to check index number of a particular task
+</td>
+</tr>
+</table>
+</div>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
+<p>Test case: <code>deletetask 1</code><br>
+Expected: Task with index number 1 will be removed from the task list. Subsequent tasks will be shifted up. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>deletetask 0</code><br>
+Expected: No task will be deleted. Details of invalid command will be reflected in the status message under the status bar. Timestamp in the status bar is not updated.</p>
+</li>
+<li>
+<p>Other incorrect deletetask commands to try:
+<code>delete task1</code>, <code>deletetask</code><br>
+Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+<div class="sect2">
+<h3 id="ticking-a-task"><a class="link" href="#ticking-a-task">H.4. Ticking a task</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Indicating on the completed task list when a task has been completed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>ticktask 2</code><br>
+Expected: Task with index number 2 will be removed from the existing task list. This deleted task will then be added into another panel called <code>Completed Task List</code>.
+          Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>ticktask 0</code><br>
+Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar is not updated.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-purchase"><a class="link" href="#adding-a-purchase">H.5. Adding a purchase</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Adding a new purchase to the existing expenditure list</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+prefix of purchasename is 'pn' not 'n'
+</td>
+</tr>
+</table>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: 'addpurchase pn/chicken rice pr/3.50`<br>
+Expected: New purchase added to the expenditure list with a different index number. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>addpurchase pn/ice cream pr/$2.70</code><br>
+Expected: No new purchase added. Details of invalid command is reflected in the status message under the command bar. Timestamp in the status bar not updated.</p>
+</li>
+<li>
+<p>Other incorrect addpurchase commands to try:
+<code>addpurchase pn/bicycle rental pr/10</code>, <code>addpurchase n/movie tickets pr/23.00</code><br>
+Expected: No purchases will be added. Details of error will be reflected.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-expenditure-list"><a class="link" href="#clearing-expenditure-list">H.6. Clearing expenditure list</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clearing the existing populated expenditure list</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>clearexplist</code><br>
+Expected: If existing expenditure list has data, the list will be cleared successfully. Timestamp is updated in the status bar.
+          If existing expenditure list was already empty, invalid command will be shown.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-12 18:28:09 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-13 08:53:44 UTC</div></div></div></body></html>
