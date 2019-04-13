@@ -66,5 +66,6 @@ public class HabitCard extends UiPart<Region> {
         HabitCard card = (HabitCard) other;
         return id.getText().equals(card.id.getText())
                 && habit.equals(card.habit);
+
     }
 }
