@@ -424,6 +424,11 @@ public class AddTaskCommandTest {
         }
 
         @Override
+        public void deleteHabit(Habit habit) {
+
+        }
+
+        @Override
         public Purchase getSelectedPurchase() {
             return null;
         }
