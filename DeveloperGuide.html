@@ -83,11 +83,10 @@
 <li><a href="#use-case-add-a-new-purchase">C.6. Use Case: Add a new purchase</a></li>
 <li><a href="#use-case-view-expenditure-list">C.7. Use Case: View Expenditure List</a></li>
 <li><a href="#use-case-clear-expenditure-list">C.8. Use Case: Clear Expenditure List</a></li>
-<li><a href="#use-case-find-a-specific-purchase">C.9. Use Case: Find a specific purchase</a></li>
-<li><a href="#use-case-start-stopwatch">C.10. Use Case: Start Stopwatch</a></li>
-<li><a href="#use-case-stop-stopwatch">C.11. Use Case: Stop Stopwatch</a></li>
-<li><a href="#use-case-record-completed-workout">C.12. Use Case: Record Completed Workout</a></li>
-<li><a href="#use-case-view-workout-log">C.13. Use Case: View Workout Log</a></li>
+<li><a href="#use-case-start-stopwatch">C.9. Use Case: Start Stopwatch</a></li>
+<li><a href="#use-case-stop-stopwatch">C.10. Use Case: Stop Stopwatch</a></li>
+<li><a href="#use-case-record-completed-workout">C.11. Use Case: Record Completed Workout</a></li>
+<li><a href="#use-case-view-workout-log">C.12. Use Case: View Workout Log</a></li>
 </ul>
 </li>
 <li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
@@ -309,10 +308,10 @@ This will generate all resources required by the application and tests.</p>
 <div class="sect3">
 <h4 id="updating-documentation-to-match-your-fork"><a class="link" href="#updating-documentation-to-match-your-fork">3.4.2. Updating documentation to match your fork</a></h4>
 <div class="paragraph">
-<p>After forking the repo, the documentation will still have the SE-EDU branding and refer to the <code>se-edu/addressbook-level4</code> repo.</p>
+<p>After forking the repo, the documentation will still have the cs2113-ay1819s2-t08-2 branding and refer to the <code>cs2113-ay1819s2-t08-2/main</code> repo.</p>
 </div>
 <div class="paragraph">
-<p>If you plan to develop this fork as a separate product (i.e. instead of contributing to <code>se-edu/addressbook-level4</code>), you should do the following:</p>
+<p>If you plan to develop this fork as a separate product (i.e. instead of contributing to <code>cs2113-ay1819s2-t08-2/main</code>), you should do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -973,9 +972,9 @@ before adding the <code>Task</code> instance into the <code>UniqueTaskList</code
 <div class="paragraph">
 <p>The <code>task</code> package follows the model of the <code>person</code> package which existed before our
  team started this project. This was because the <code>TaskList</code> was ideated to have the data
- stored in an ArrayList like the Addressbook.
+ stored in an ArrayList like the <a href="https://github.com/se-edu/addressbook-level4">Addressbook</a>.
 This made it easier for us to implement our features as we could reuse some of the existing code
-and follow the style of how the Addressbook was implemented to made the code
+and follow the style of how the <a href="https://github.com/se-edu/addressbook-level4">Addressbook</a> was implemented to made the code
 more readable.</p>
 </div>
 </div>
@@ -1219,8 +1218,14 @@ have enough expertise to utilise the Hash Map.</p>
 </div>
 <div class="sect2">
 <h3 id="expenditure-list-feature"><a class="link" href="#expenditure-list-feature">5.3. Expenditure List Feature</a></h3>
+<div class="paragraph">
+<p>This section describes the technical aspects of the <code>Expenditure List</code> feature and the design considerations made for the feature.</p>
+</div>
 <div class="sect3">
 <h4 id="code-purchase-code-package"><a class="link" href="#code-purchase-code-package">5.3.1. <code>Purchase</code> package</a></h4>
+<div class="paragraph">
+<p>This section describes the inner dimensions of the <code>Purchase</code> package.</p>
+</div>
 <div class="sect4">
 <h5 id="reason-for-implementation-6"><a class="link" href="#reason-for-implementation-6">Reason for implementation</a></h5>
 <div class="paragraph">
@@ -1294,27 +1299,63 @@ have enough expertise to utilise the Hash Map.</p>
 <div class="sect4">
 <h5 id="reasons-for-how-it-is-implemented-2"><a class="link" href="#reasons-for-how-it-is-implemented-2">Reasons for how it is implemented</a></h5>
 <div class="paragraph">
-<p>The <code>purchase</code> package follows the model of the <code>person</code> package which existed before our team started this project. This made it easier for us to implement our features as we could follow the style of how the <code>person</code> package was implemented, improving the modularity and organization.</p>
+<p>Similar to the <code>task</code> package, the <code>purchase</code> package follows the model of the <code>person</code> package in the <a href="https://github.com/se-edu/addressbook-level4">Addressbook</a>.
+This made it easier for us to implement our features as we could follow the style of how the <code>person</code> package was implemented, at the same time improving the modularity and organization.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="model-2"><a class="link" href="#model-2">Model</a></h5>
+<div class="paragraph">
+<p>The <code>ExpenditureList</code> is a separate feature as well, being one of the four features in the <em>LIFE</em> application.
+Likewise, this would allow future enhancement of this <code>ExpenditureList</code> to be built on with additional features such as finding a particular purchase without affecting the
+other features due to the low coupling other features have with this feature.</p>
+</div>
+<div class="paragraph">
+<p>The following is a model diagram of the <code>ExpenditureList</code> component.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ExpenditureListModelComponentDiagram.png" alt="ExpenditureListModelComponentDiagram" width="800">
+</div>
+<div class="title">Figure 15. Model Component of <code>ExpenditureList</code>.</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="add-purchase"><a class="link" href="#add-purchase">5.3.2. Add Purchase</a></h4>
-<div class="sect4">
-<h5 id="reason-for-implementation-7"><a class="link" href="#reason-for-implementation-7">Reason for implementation</a></h5>
 <div class="paragraph">
-<p>To be able to track expenditure, students should be able to add the purchases bought, together with the prices.</p>
-</div>
+<p>The <code>AddPurchaseCommand</code> will create an instance of the <code>Purchase</code> class and store it in the <code>ExpenditureList</code>..
+===== Reason for implementation
+To be able to track expenditure, students should be able to add the purchases bought, together with the prices.</p>
 </div>
 <div class="sect4">
 <h5 id="current-implementation-8"><a class="link" href="#current-implementation-8">Current Implementation</a></h5>
 <div class="paragraph">
-<p>The <code>AddPurchaseCommand</code> is created when the command word <code>addPurchase</code> is detected in the user input. Through the <code>AddPurchaseCommand</code>, the user input will then be split into its seperate components(e.g. <code>PurchaseName</code>, <code>Price</code>, <code>Tag</code>) through <code>ParserUtil</code>, creating a <code>Purchase</code> instance and pass it from the <code>logic</code> component to the <code>model</code> component.</p>
+<p>The <code>AddPurchaseCommand</code> is created when the command word <code>addPurchase</code> and the corresponding compulsory parameters are detected in the user input. Through the <code>AddPurchaseCommand</code>, the user input will then be split into its separate components(e.g. <code>PurchaseName</code>, <code>Price</code>, <code>Tag</code>) through <code>ParserUtil</code>, creating a <code>Purchase</code> instance and pass it from the <code>logic</code> component to the <code>model</code> component.
+Given below is an example usage scenario and how the <code>addpurchase</code> mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. <em>LIFE</em> will initialize with the initial expenditure list state and the currentStatePointer pointing to that single purchase list state.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes the <code>addpurchase</code> command with <code>addpurchase pn/chickenrice pr/3.50</code></p>
+</div>
+<div class="paragraph">
+<p>Step 3. This command goes through the AddPurchaseCommandParser to extract the values of the input string and to process it. It also searches for invalid input.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. Once valid, it passes the Purchase from the logic component to the model component into an ArrayList called ExpenditureList.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram illustrates how the <code>addpurchase</code> operation works.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="model-2"><a class="link" href="#model-2">5.3.3. Model</a></h4>
+<h4 id="model-3"><a class="link" href="#model-3">5.3.3. Model</a></h4>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how the add mechanism behaves at each step.</p>
 </div>
@@ -1323,7 +1364,7 @@ have enough expertise to utilise the Hash Map.</p>
 LIFE will initialize with the initial expenditure list state.</p>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes the <code>addPurchase</code> command with <code>addPurchase pn/Ice Cream pr/$1.50</code></p>
+<p>Step 2. The user executes the <code>addPurchase</code> command with <code>addpurchase pn/Ice Cream pr/1.50</code></p>
 </div>
 <div class="paragraph">
 <p>Step 3. This command goes through the <code>AddPurchaseCommandParser</code> to extract the values of the input string and to process it. It also identifies invalid input.</p>
@@ -1331,11 +1372,83 @@ LIFE will initialize with the initial expenditure list state.</p>
 <div class="paragraph">
 <p>Step 4. Once valid, it passes the purchase from the <code>logic</code> component to the <code>model</code> component into an ArrayList called ExpenditureList.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddPurchaseSequenceDiagram.PNG" alt="AddPurchaseSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 16. Add Purchase Logic Diagram</div>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
+<div class="paragraph">
+<p>The following activity diagram illustrates an example with a user executing the <code>addpurchase</code> command.
+.Activity Diagram of user executing a <code>addpurchase</code> command
+image::AddPurchaseActivityDiagram.PNG[width='800']</p>
+</div>
+<div class="paragraph">
+<p>&#160;<br></p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="alternatives-considered-2"><a class="link" href="#alternatives-considered-2">5.3.4. Alternatives considered</a></h4>
+<h4 id="clear-expenditure-list"><a class="link" href="#clear-expenditure-list">5.3.4. Clear Expenditure List</a></h4>
 <div class="paragraph">
-<p>Similarly to the task list, a hash map could be considered, but the arraylist was decided to be used due to the lack of time and the presence of already made list functions.</p>
+<p>The <code>ClearExpList</code> command will clear all the existing data shown in the expenditure list.</p>
+</div>
+<div class="sect4">
+<h5 id="reason-for-implementation-7"><a class="link" href="#reason-for-implementation-7">Reason for implementation</a></h5>
+<div class="paragraph">
+<p>The Expenditure List is not just a platform to record spendings, it is also a feature to help manage finances. Hence, every week the list can be cleared to reset the data for the user to start over and better plan the spendings the following week.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="current-implementation-9"><a class="link" href="#current-implementation-9">Current implementation</a></h5>
+<div class="paragraph">
+<p>The <code>ClearExpList</code> command is called when the command word <code>clearexplist</code> is detected in the user input. Through the <code>CleapExpList</code> command, an empty expenditure list model will be set and committed as the new expenditure list.
+Given below is an example usage scenario and how the <code>ClearExpList</code> mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user has previously added purchases into the expenditure list. The current list is populated with one or more purchases with the corresponding prices.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes the <code>clearexplist</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. <code>resetData</code> method in <code>ExpenditureList</code> class is used to reset the data in the expenditure list into a new clean slate.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="alternatives-considered-2"><a class="link" href="#alternatives-considered-2">5.3.5. Alternatives considered</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 (current choice): Create a new Array List Object to store the purchases e.g. <code>purchaselist</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Using this simple data structure allows for manipulation of data such as sorting. Like how the existing <code>UniquePersonList</code> was implemented, we can implement this <code>PurchaseList</code> in the same way. Standardizing this format will also make the overall code more readable and the implementation to be much simpler.</p>
+</li>
+<li>
+<p>Cons: Some possible future operations may require the traversing of the list which require O(N) time complexity. For instance, a <code>findpurchase</code> command.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Using a Hash Map to store the purchases</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Future possible operations like <code>findpurchase</code> can be executed with O(1) time complexity.</p>
+</li>
+<li>
+<p>Cons:  Implementation of Hash Map is a lot more complex than the implemented Array List, which our team currently lacks the expertise to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1350,7 +1463,7 @@ LIFE will initialize with the initial expenditure list state.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="current-implementation-9"><a class="link" href="#current-implementation-9">Current Implementation</a></h5>
+<h5 id="current-implementation-10"><a class="link" href="#current-implementation-10">Current Implementation</a></h5>
 <div class="paragraph">
 <p>Each attribute of a Workout, such as the exercise, sets, reps and time are classes in the <code>Workout</code> package. Each of the class provide utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.</p>
 </div>
@@ -1434,14 +1547,14 @@ LIFE will initialize with the initial expenditure list state.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="current-implementation-10"><a class="link" href="#current-implementation-10">Current Implementation</a></h5>
+<h5 id="current-implementation-11"><a class="link" href="#current-implementation-11">Current Implementation</a></h5>
 <div class="paragraph">
 <p>The <code>RecordCommand</code> is created when the command word <code>record</code> is detected in the user input. Through the <code>RecordCommand</code>, the user input will then be split into its seperate components(e.g. <code>Exercise</code>, <code>Sets</code>, <code>Reps</code>, <code>Time</code>) through <code>ParserUtil</code>, creating a <code>Workout</code> instance and pass it from the <code>logic</code> component to the <code>model</code> component.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="model-3"><a class="link" href="#model-3">5.4.3. Model</a></h4>
+<h4 id="model-4"><a class="link" href="#model-4">5.4.3. Model</a></h4>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how the add mechanism behaves at each step.</p>
 </div>
@@ -1566,7 +1679,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 15. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 17. Saving documentation as PDF files in Chrome</div>
 </div>
 </div>
 <div class="sect2">
@@ -2353,7 +2466,8 @@ Use case ends.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to add a new purchase into the Expenditure List</p>
+<p>User requests to add a new purchase into the Expenditure List<br>
+example: addpurchase pn/chicken rice pr/3.50<br></p>
 </li>
 <li>
 <p><em>LIFE</em> adds the purchase into the Expenditure List with name of purchase and its price</p>
@@ -2417,25 +2531,6 @@ Use case ends.</p>
 </li>
 </ol>
 </div>
-</div>
-<div class="sect2">
-<h3 id="use-case-find-a-specific-purchase"><a class="link" href="#use-case-find-a-specific-purchase">C.9. Use Case: Find a specific purchase</a></h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to see log of a specific purchase</p>
-</li>
-<li>
-<p><em>LIFE</em> shows this particular purchase with its price</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p><strong>Extensions</strong></p>
 </div>
@@ -2443,16 +2538,10 @@ Use case ends.</p>
 <ul>
 <li>
 <p>1a. Expenditure List is empty.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-<li>
-<p>2a. Index not in Daily List.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>2a1. <em>LIFE</em> shows an error message.</p>
+<p>1a1. <em>LIFE</em> shows an error message.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2464,7 +2553,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-start-stopwatch"><a class="link" href="#use-case-start-stopwatch">C.10. Use Case: Start Stopwatch</a></h3>
+<h3 id="use-case-start-stopwatch"><a class="link" href="#use-case-start-stopwatch">C.9. Use Case: Start Stopwatch</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2483,7 +2572,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-stop-stopwatch"><a class="link" href="#use-case-stop-stopwatch">C.11. Use Case: Stop Stopwatch</a></h3>
+<h3 id="use-case-stop-stopwatch"><a class="link" href="#use-case-stop-stopwatch">C.10. Use Case: Stop Stopwatch</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2522,7 +2611,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-record-completed-workout"><a class="link" href="#use-case-record-completed-workout">C.12. Use Case: Record Completed Workout</a></h3>
+<h3 id="use-case-record-completed-workout"><a class="link" href="#use-case-record-completed-workout">C.11. Use Case: Record Completed Workout</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2541,7 +2630,7 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-view-workout-log"><a class="link" href="#use-case-view-workout-log">C.13. Use Case: View Workout Log</a></h3>
+<h3 id="use-case-view-workout-log"><a class="link" href="#use-case-view-workout-log">C.12. Use Case: View Workout Log</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2731,21 +2820,21 @@ features that they did are listed below</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Refactored the entire application to match our product <em>LIFE</em>.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This allowed the morphing of our product from addressbook to <em>LIFE</em>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
 <p>Implemented the <code>Purchase</code> feature</p>
 <div class="ulist">
 <ul>
 <li>
 <p>This allowed the users to manage their expenses.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Refactored the entire application to match our product <em>LIFE</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This allowed the morphing of our product from AddressBook to <em>LIFE</em>.</p>
 </li>
 </ul>
 </div>
@@ -3027,4 +3116,4 @@ Expected: If existing expenditure list has data, the list will be cleared succes
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 05:41:47 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 07:13:37 UTC</div></div></div></body></html>

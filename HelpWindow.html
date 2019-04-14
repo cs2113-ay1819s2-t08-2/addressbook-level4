@@ -15,21 +15,31 @@
 <ul class="sectlevel2">
 <li><a href="#task-list">3.1. Task List</a></li>
 <li><a href="#expenditure-list">3.2. Expenditure List</a></li>
-<li><a href="#contact-list">3.3. Contact List</a></li>
-<li><a href="#habit-tracker-coming-in-v1-4">3.4. Habit Tracker [coming in v1.4]</a></li>
-<li><a href="#workout-tracker">3.5. Workout Tracker</a></li>
+<li><a href="#habit-tracker-coming-in-v1-4">3.3. Habit Tracker [coming in v1.4]</a></li>
+<li><a href="#workout-tracker-coming-in-v1-4">3.4. Workout Tracker [coming in v1.4]</a></li>
+<li><a href="#contact-list">3.5. Contact List</a></li>
 </ul>
 </li>
 <li><a href="#general-commands">4. General Commands</a>
 <ul class="sectlevel2">
-<li><a href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">4.2. Listing entered commands : <code>history</code></a></li>
+<li><a href="#Help">4.1. Viewing help : <code>help</code></a></li>
+<li><a href="#History">4.2. Listing entered commands : <code>history</code></a></li>
+<li><a href="#Undo">4.3. Undoing previous command : <code>undo</code> [currently only applicable for contact list commands]</a></li>
+<li><a href="#Redo">4.4. Redoing the previously undone command : <code>redo</code> [currently only applicable for contact list commands]</a></li>
+<li><a href="#Exit">4.5. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
-<li><a href="#exiting-the-program-code-exit-code">5. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">6. Saving the data</a></li>
-<li><a href="#faq">7. FAQ</a></li>
-<li><a href="#command-summary">8. Command Summary</a></li>
+<li><a href="#saving-the-data">5. Saving the data</a></li>
+<li><a href="#faq">6. FAQ</a></li>
+<li><a href="#command-summary">7. Command Summary</a>
+<ul class="sectlevel2">
+<li><a href="#general-commands-2">7.1. General Commands</a></li>
+<li><a href="#task-list-commands">7.2. Task List Commands</a></li>
+<li><a href="#expenditure-list-commands">7.3. Expenditure List Commands</a></li>
+<li><a href="#workout-tracker-commands">7.4. Workout Tracker Commands</a></li>
+<li><a href="#habit-tracker-commands">7.5. Habit Tracker Commands</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -170,7 +180,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p>The following subsections are commands of the task list.</p>
 </div>
 <div class="sect3">
-<h4 id="adding-a-task-code-addtask-code"><a class="link" href="#adding-a-task-code-addtask-code">3.1.1. Adding a Task : <code>addtask</code></a></h4>
+<h4 id="AddTask"><a class="link" href="#AddTask">3.1.1. Adding a Task : <code>addtask</code></a></h4>
 <div class="paragraph">
 <p>The first step to managing your tasks is to <strong>add</strong> them into the task list!<br>
 Format: <code>addtask n/TASK_NAME d/DEADLINE_DATE h/DEADLINE_TIME [t/TAGS]</code></p>
@@ -219,7 +229,7 @@ Format: <code>addtask n/TASK_NAME d/DEADLINE_DATE h/DEADLINE_TIME [t/TAGS]</code
 </div>
 </div>
 <div class="sect3">
-<h4 id="delete-task-code-deletetask-code"><a class="link" href="#delete-task-code-deletetask-code">3.1.2. Delete Task : <code>deletetask</code></a></h4>
+<h4 id="DeleteTask"><a class="link" href="#DeleteTask">3.1.2. Delete Task : <code>deletetask</code></a></h4>
 <div class="paragraph">
 <p>In case the task is no longer required, you can <strong>delete</strong> it off the task list by specifying the index of
 the task you want to delete!<br>
@@ -262,7 +272,7 @@ The index must be a valid index in the task list and it must be present.
 </div>
 </div>
 <div class="sect3">
-<h4 id="edit-task-code-edittask-code"><a class="link" href="#edit-task-code-edittask-code">3.1.3. Edit Task : <code>edittask</code></a></h4>
+<h4 id="EditTask"><a class="link" href="#EditTask">3.1.3. Edit Task : <code>edittask</code></a></h4>
 <div class="paragraph">
 <p>In case you want to change the details of a task, you can <strong>edit</strong> it through specifying the index of the task
 as well as the information you want to edit.<br>
@@ -315,7 +325,7 @@ At least one optional field must be provided.
 </div>
 </div>
 <div class="sect3">
-<h4 id="tick-task-code-ticktask-code"><a class="link" href="#tick-task-code-ticktask-code">3.1.4. Tick Task : <code>ticktask</code></a></h4>
+<h4 id="TickTask"><a class="link" href="#TickTask">3.1.4. Tick Task : <code>ticktask</code></a></h4>
 <div class="paragraph">
 <p><strong>Ticks</strong> off the task that you have completed off the task list and adds it into the completed task list!<br>
 Format: <code>ticktask</code> INDEX</p>
@@ -346,7 +356,7 @@ Once the application restarts, all the data in the Completed Task List will be g
 </div>
 </div>
 <div class="sect3">
-<h4 id="sort-task-list-code-sorttask-code"><a class="link" href="#sort-task-list-code-sorttask-code">3.1.5. Sort Task List : <code>sorttask</code></a></h4>
+<h4 id="SortTask"><a class="link" href="#SortTask">3.1.5. Sort Task List : <code>sorttask</code></a></h4>
 <div class="paragraph">
 <p>Helps you to <strong>sort</strong> the tasks in the task list according to their deadline with upcoming deadlines first!<br>
 Format: <code>sorttask</code></p>
@@ -359,7 +369,7 @@ Format: <code>sorttask</code></p>
 <p>A list to help you keep track of all your expenses so that you can better manage your finances!<br></p>
 </div>
 <div class="sect3">
-<h4 id="adding-a-purchase-code-addpurchase-code"><a class="link" href="#adding-a-purchase-code-addpurchase-code">3.2.1. Adding a purchase: <code>addpurchase</code></a></h4>
+<h4 id="AddPurchase"><a class="link" href="#AddPurchase">3.2.1. Adding a purchase: <code>addpurchase</code></a></h4>
 <div class="paragraph">
 <p>Adds a new purchase to the expenditure list<br>
 Format: <code>addpurchase n/NAME pr/PRICE [t/TAG]&#8230;&#8203;</code></p>
@@ -369,7 +379,7 @@ Format: <code>addpurchase n/NAME pr/PRICE [t/TAG]&#8230;&#8203;</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Only SGD currency is supported.</p>
+<p>Only Singapore Dollar(SGD) currency is supported.</p>
 </li>
 <li>
 <p>You only have to input the value (see example)</p>
@@ -393,14 +403,21 @@ Format: <code>addpurchase n/NAME pr/PRICE [t/TAG]&#8230;&#8203;</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-all-past-expenditures-code-explist-code"><a class="link" href="#listing-all-past-expenditures-code-explist-code">3.2.2. Listing all past expenditures: <code>explist</code></a></h4>
+<h4 id="ClearExpList"><a class="link" href="#ClearExpList">3.2.2. Clearing expenditure list: <code>clearexplist</code></a></h4>
+<div class="paragraph">
+<p>Clears all past purchases recorded from the expenditure list.<br>
+Format: <code>clearexplist</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ExpList"><a class="link" href="#ExpList">3.2.3. Listing all past expenditures: <code>explist</code></a></h4>
 <div class="paragraph">
 <p>Shows a list of all recorded purchases with the corresponding price in the expenditure list.<br>
 Format: <code>explist</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-purchase-code-deletepurchase-code-coming-soon"><a class="link" href="#deleting-a-purchase-code-deletepurchase-code-coming-soon">3.2.3. Deleting a purchase: <code>deletepurchase</code> [coming soon]</a></h4>
+<h4 id="deleting-a-purchase-code-deletepurchase-code-coming-in-v2-0"><a class="link" href="#deleting-a-purchase-code-deletepurchase-code-coming-in-v2-0">3.2.4. Deleting a purchase: <code>deletepurchase</code> [coming in v2.0]</a></h4>
 <div class="paragraph">
 <p>Deletes an existing purchase in the expenditure list.<br>
 Format: <code>deletepurchase INDEX</code></p>
@@ -436,14 +453,7 @@ Deletes the 2nd purchase in the expenditure list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="clearing-expenditure-list-code-clearexplist-code"><a class="link" href="#clearing-expenditure-list-code-clearexplist-code">3.2.4. Clearing expenditure list: <code>clearexplist</code></a></h4>
-<div class="paragraph">
-<p>Clears all past purchases recorded from the expenditure list.<br>
-Format: <code>clearexplist</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="calculating-total-expenditure-for-the-day-code-totalexpday-code-coming-soon"><a class="link" href="#calculating-total-expenditure-for-the-day-code-totalexpday-code-coming-soon">3.2.5. Calculating total expenditure for the day: <code>totalexpday</code> [coming soon]</a></h4>
+<h4 id="calculating-total-expenditure-for-the-day-code-totalexpday-code-coming-in-v2-0"><a class="link" href="#calculating-total-expenditure-for-the-day-code-totalexpday-code-coming-in-v2-0">3.2.5. Calculating total expenditure for the day: <code>totalexpday</code> [coming in v2.0]</a></h4>
 <div class="paragraph">
 <p>Views total expenditure for the day<br>
 Format: <code>totalexpday DATE</code></p>
@@ -461,7 +471,7 @@ Format: <code>totalexpday DATE</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="set-spending-limit-code-setlimit-code-coming-soon"><a class="link" href="#set-spending-limit-code-setlimit-code-coming-soon">3.2.6. Set spending limit: <code>setlimit</code> [coming soon]</a></h4>
+<h4 id="set-spending-limit-code-setlimit-code-coming-in-v2-0"><a class="link" href="#set-spending-limit-code-setlimit-code-coming-in-v2-0">3.2.6. Set spending limit: <code>setlimit</code> [coming in v2.0]</a></h4>
 <div class="paragraph">
 <p>Sets a spending limit for one day to control expenditure.<br>
 Format: <code>setlimit VALUE</code></p>
@@ -487,12 +497,101 @@ Format: <code>setlimit VALUE</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="contact-list"><a class="link" href="#contact-list">3.3. Contact List</a></h3>
+<h3 id="habit-tracker-coming-in-v1-4"><a class="link" href="#habit-tracker-coming-in-v1-4">3.3. Habit Tracker [coming in v1.4]</a></h3>
+<div class="paragraph">
+<p>Change your lifestyle now by recording an activity regularly to turn it into a habit!<br></p>
+</div>
+<div class="sect3">
+<h4 id="AddHabit"><a class="link" href="#AddHabit">3.3.1. Add desired Habits: <code>addHabit</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>Add habit which you wish to track into your monthly habit tracker.<br>
+Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>A calendar of the month is shown, along with previous records of the month.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addHabit d/010119 n/SleepBefore12am a/Done</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="workout-tracker-coming-in-v1-4"><a class="link" href="#workout-tracker-coming-in-v1-4">3.4. Workout Tracker [coming in v1.4]</a></h3>
+<div class="paragraph">
+<p>Record your workouts and reps so that you can make the most out of the exercises!<br></p>
+</div>
+<div class="sect3">
+<h4 id="Workout"><a class="link" href="#Workout">3.4.1. View workout: <code>workout</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>View the past 5 most recent workout.<br>
+Format: <code>workout</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Only the most recent 5 workout will be displayed, older workout will not be shown</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>workout</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Record"><a class="link" href="#Record">3.4.2. Record workout : <code>record</code> [coming soon]</a></h4>
+<div class="paragraph">
+<p>Record your current workout and add them into your workout records.<br>
+Format: <code>record e/EXERCISE s/SETS r/REPS t/TIME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Words in <code>UPPER_CASE</code> are the parameters.
+EXERCISE must only contain alphanumeric.<br>
+SETS, REPS and TIME must only contain integer, and TIME must be in minutes<br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>record e/SIT UPS s/5 r/20 t/10</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="contact-list"><a class="link" href="#contact-list">3.5. Contact List</a></h3>
 <div class="paragraph">
 <p>Manage all your contacts easily in this ultimate list holding your contacts with their information!<br></p>
 </div>
 <div class="sect3">
-<h4 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">3.3.1. Adding a person : <code>add</code></a></h4>
+<h4 id="Add"><a class="link" href="#Add">3.5.1. Adding a person : <code>add</code></a></h4>
 <div class="paragraph">
 <p>Adds a person to the contact list<br>
 Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
@@ -524,14 +623,14 @@ A person can have any number of tags (including 0)
 </div>
 </div>
 <div class="sect3">
-<h4 id="listing-all-persons-code-list-code"><a class="link" href="#listing-all-persons-code-list-code">3.3.2. Listing all persons : <code>list</code></a></h4>
+<h4 id="List"><a class="link" href="#List">3.5.2. Listing all persons : <code>list</code></a></h4>
 <div class="paragraph">
 <p>Shows a list of all persons in the contact list.<br>
 Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.3.3. Editing a person : <code>edit</code></a></h4>
+<h4 id="Edit"><a class="link" href="#Edit">3.5.3. Editing a person : <code>edit</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing person in the contact list.<br>
 Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
@@ -576,7 +675,7 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 </div>
 </div>
 <div class="sect3">
-<h4 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.3.4. Locating persons by name: <code>find</code></a></h4>
+<h4 id="Find"><a class="link" href="#Find">3.5.4. Locating persons by name: <code>find</code></a></h4>
 <div class="paragraph">
 <p>Finds persons whose names contain any of the given keywords.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -621,7 +720,7 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>J
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.3.5. Deleting a person : <code>delete</code></a></h4>
+<h4 id="Delete"><a class="link" href="#Delete">3.5.5. Deleting a person : <code>delete</code></a></h4>
 <div class="paragraph">
 <p>Deletes the specified person from the contact list.<br>
 Format: <code>delete INDEX</code></p>
@@ -662,7 +761,7 @@ Deletes the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.3.6. Selecting a person : <code>select</code></a></h4>
+<h4 id="Select"><a class="link" href="#Select">3.5.6. Selecting a person : <code>select</code></a></h4>
 <div class="paragraph">
 <p>Selects the person identified by the index number used in the displayed person list.<br>
 Format: <code>select INDEX</code></p>
@@ -702,8 +801,67 @@ Selects the 1st person in the results of the <code>find</code> command.</p>
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.3.7. Undoing previous command : <code>undo</code></a></h4>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="general-commands"><a class="link" href="#general-commands">4. General Commands</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Help"><a class="link" href="#Help">4.1. Viewing help : <code>help</code></a></h3>
+<div class="paragraph">
+<p>Format: <code>help</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use this if you face trouble navigating the application or entering the correct commands!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="History"><a class="link" href="#History">4.2. Listing entered commands : <code>history</code></a></h3>
+<div class="paragraph">
+<p>Lists all the commands that you have entered in reverse chronological order (most recent at the top).<br>
+Format: <code>history</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Undo"><a class="link" href="#Undo">4.3. Undoing previous command : <code>undo</code> [currently only applicable for contact list commands]</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Implementation of this feature will be available for the other lists in v2.0
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Restores <em>LIFE</em> application to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -747,8 +905,20 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.3.8. Redoing the previously undone command : <code>redo</code></a></h4>
+<div class="sect2">
+<h3 id="Redo"><a class="link" href="#Redo">4.4. Redoing the previously undone command : <code>redo</code> [currently only applicable for contact list commands]</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Implementation of this feature will be available for the other lists in v2.0
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -778,156 +948,25 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="habit-tracker-coming-in-v1-4"><a class="link" href="#habit-tracker-coming-in-v1-4">3.4. Habit Tracker [coming in v1.4]</a></h3>
-<div class="paragraph">
-<p>Change your lifestyle now by recording an activity regularly to turn it into a habit!<br></p>
-</div>
-<div class="sect3">
-<h4 id="add-desired-habits-code-addhabit-code-coming-soon"><a class="link" href="#add-desired-habits-code-addhabit-code-coming-soon">3.4.1. Add desired Habits: <code>addHabit</code> [coming soon]</a></h4>
-<div class="paragraph">
-<p>Add habit which you wish to track into your monthly habit tracker.<br>
-Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'</p>
-</div>
-<div class="sidebarblock">
+<div class="exampleblock">
 <div class="content">
-<div class="paragraph">
-<p>A calendar of the month is shown, along with previous records of the month.</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>addHabit d/010119 n/SleepBefore12am a/Done</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="workout-tracker"><a class="link" href="#workout-tracker">3.5. Workout Tracker</a></h3>
-<div class="paragraph">
-<p>Record your workouts and reps so that you can make the most out of the exercises!<br></p>
-</div>
-<div class="sect3">
-<h4 id="view-workout-code-workout-code"><a class="link" href="#view-workout-code-workout-code">3.5.1. View workout: <code>workout</code></a></h4>
-<div class="paragraph">
-<p>View the past 5 most recent workout.<br>
-Format: <code>workout</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Only up to 5 most recent workout will be displayed, older workout will not be shown</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>workout</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="record-workout-code-record-code"><a class="link" href="#record-workout-code-record-code">3.5.2. Record workout : <code>record</code></a></h4>
-<div class="paragraph">
-<p>Record your current workout and add them into your workout records.<br>
-Format: <code>record e/EXERCISE s/SETS r/REPS t/TIME</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Words in <code>UPPER_CASE</code> are the parameters.
-EXERCISE must only contain alphanumeric.<br>
-SETS, REPS and TIME must only contain integers, and TIME must be in minutes<br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>record e/SIT UPS s/5 r/20 t/10</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="general-commands"><a class="link" href="#general-commands">4. General Commands</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">4.1. Viewing help : <code>help</code></a></h3>
-<div class="paragraph">
-<p>Format: <code>help</code></p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Use this if you face trouble navigating the application or entering the correct commands!</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.2. Listing entered commands : <code>history</code></a></h3>
-<div class="paragraph">
-<p>Lists all the commands that you have entered in reverse chronological order (most recent at the top).<br>
-Format: <code>history</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 <div class="paragraph">
 <p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
 </div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">5. Exiting the program : <code>exit</code></a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="Exit"><a class="link" href="#Exit">4.5. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="saving-the-data"><a class="link" href="#saving-the-data">6. Saving the data</a></h2>
+<h2 id="saving-the-data"><a class="link" href="#saving-the-data">5. Saving the data</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Data of <em>LIFE</em> are saved in the hard disk automatically after any command that changes the data.<br>
@@ -936,7 +975,7 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">7. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">6. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
@@ -945,66 +984,220 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">8. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">7. Command Summary</a></h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Add</strong> : <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
-</li>
-<li>
-<p><strong>List</strong> : <code>list</code></p>
-</li>
-<li>
-<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
-</li>
-<li>
-<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
-e.g. <code>find James Jake</code></p>
-</li>
-<li>
-<p><strong>Delete</strong> : <code>delete INDEX</code><br>
-e.g. <code>delete 3</code></p>
-</li>
-<li>
-<p><strong>Select</strong> : <code>select INDEX</code><br>
-e.g.<code>select 2</code></p>
-</li>
-<li>
-<p><strong>Help</strong> : <code>help</code></p>
-</li>
-<li>
-<p><strong>Add Task</strong> : <code>addTask  n/TASK d/DEADLINE_DATE h/DEADLINE_TIME</code><br>
-e.g. <code>addTask n/Submit Exchange Application d/200319 h/0800</code></p>
-</li>
-<li>
-<p><strong>Add Purchase</strong> : <code>addpurchase pn/NAME pr/PRICE [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>addpurchase pn/Bicycle rental pr/10.00 t/family</code></p>
-</li>
-<li>
-<p><strong>View Purchases</strong>: <code>explist</code></p>
-</li>
-<li>
-<p><strong>Clear Expenditure List</strong>: <code>clearexplist</code></p>
-</li>
-<li>
-<p><strong>History</strong> : <code>history</code></p>
-</li>
-<li>
-<p><strong>Undo</strong> : <code>undo</code></p>
-</li>
-<li>
-<p><strong>Redo</strong> : <code>redo</code></p>
-</li>
-<li>
-<p><strong>Clear</strong> : <code>clear</code></p>
-</li>
-<li>
-<p><strong>Exit</strong> : <code>exit</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>This section provides a quick summary of the existing commands in the <em>LIFE</em> application, for easier reference.</p>
+</div>
+<div class="sect2">
+<h3 id="general-commands-2"><a class="link" href="#general-commands-2">7.1. General Commands</a></h3>
+<div class="paragraph">
+<p>General commands for easier navigability within the application.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Help">Help</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows you the user guide for reference in app</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#History">History</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows you a history of all commands used</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>history</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>history</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Undo">Undo</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undo your previous command [currently only available for contact list commands]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>undo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>undo</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Redo">Redo</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redo your undo [currently only available for contact list commands]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>redo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>redo</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="task-list-commands"><a class="link" href="#task-list-commands">7.2. Task List Commands</a></h3>
+<div class="paragraph">
+<p>Commands to help you maximise utility of Task List:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#AddTask">Add Task</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adds a new task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addtask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addtask n/Complete CS2113T Assignment d/180319 h/2359</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#DeleteTask">Delete Task</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes a task off the task list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deletetask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deletetask 1</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#EditTask">Edit Task</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edits the task specified with the entered parameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edittask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>edittask 2 n/Banana</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Tick Task">Tick Task</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows that a task has been completed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ticktask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ticktask 5</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Sort Task">Sort Task</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sorts the task list according to the deadline of each task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sorttask</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sorttask</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="expenditure-list-commands"><a class="link" href="#expenditure-list-commands">7.3. Expenditure List Commands</a></h3>
+<div class="paragraph">
+<p>Commands to help you use the expenditure list to manage your expenses:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#AddPurchase">Add Purchase</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adds a new purchase</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addpurchase</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addpurchase pn/Ice cream pr/1.50</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ClearExpList">Clear Expenditure List</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clears the existing expenditure list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clearexplist</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clearexplist</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ExpList">Expenditure List</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows list of purchases with the price</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>explist</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>explist</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="workout-tracker-commands"><a class="link" href="#workout-tracker-commands">7.4. Workout Tracker Commands</a></h3>
+<div class="paragraph">
+<p>Commands to help you utilise the workout book:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Workout">Workout</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Views the past 5 most recent workout</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>workout</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>workout</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Record">Record workout</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Records a new workout and add into existing workout records</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>record</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>record e/Sit ups s/5 r/20 t/10</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="habit-tracker-commands"><a class="link" href="#habit-tracker-commands">7.5. Habit Tracker Commands</a></h3>
+<div class="paragraph">
+<p>Commands to help you navigate about the habit list:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Add Habit">Add Habit</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adds a newly desired habit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>addhabit</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>d/010119 n/SleepBefore12am a/Done</code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 05:41:47 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 07:13:37 UTC</div></div></div></body></html>
