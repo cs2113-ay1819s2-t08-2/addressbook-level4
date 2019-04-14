@@ -37,7 +37,7 @@
 <li><a href="#implementation">5. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature-currently-only-for-contact-list">5.1. Undo/Redo feature (Currently only for Contact List)</a></li>
-<li><a href="#task-feature">5.2. Task Feature</a></li>
+<li><a href="#task-list-feature">5.2. Task List Feature</a></li>
 <li><a href="#expenditure-list-feature">5.3. Expenditure List Feature</a></li>
 <li><a href="#workout-feature">5.4. Workout Feature</a></li>
 </ul>
@@ -787,9 +787,9 @@ If the <code>currentStatePointer</code> is at index <code>contactListStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="task-feature"><a class="link" href="#task-feature">5.2. Task Feature</a></h3>
+<h3 id="task-list-feature"><a class="link" href="#task-list-feature">5.2. Task List Feature</a></h3>
 <div class="paragraph">
-<p>+ This entire section describes comprehensively the technical aspects of the <code>Task</code> feature as well
+<p>This entire section describes comprehensively the technical aspects of the <code>Task</code> feature as well
 as considerations made during the design of the feature.+</p>
 </div>
 <div class="sect3">
@@ -1266,9 +1266,13 @@ other features due to the low coupling other features have with this feature.</p
 <div class="sect3">
 <h4 id="add-purchase"><a class="link" href="#add-purchase">5.3.2. Add Purchase</a></h4>
 <div class="paragraph">
-<p>The <code>AddPurchaseCommand</code> will create an instance of the <code>Purchase</code> class and store it in the <code>ExpenditureList</code>..
-===== Reason for implementation
-To be able to track expenditure, students should be able to add the purchases bought, together with the prices.</p>
+<p>The <code>AddPurchaseCommand</code> will create an instance of the <code>Purchase</code> class and store it in the <code>ExpenditureList</code></p>
+</div>
+<div class="sect4">
+<h5 id="reason-for-implementation-7"><a class="link" href="#reason-for-implementation-7">Reason for implementation</a></h5>
+<div class="paragraph">
+<p>To be able to track expenditure, students should be able to add the purchases bought, together with the prices.</p>
+</div>
 </div>
 <div class="sect4">
 <h5 id="current-implementation-8"><a class="link" href="#current-implementation-8">Current Implementation</a></h5>
@@ -1335,7 +1339,7 @@ image::AddPurchaseActivityDiagram.PNG[width='800']</p>
 <p>The <code>ClearExpList</code> command will clear all the existing data shown in the expenditure list.</p>
 </div>
 <div class="sect4">
-<h5 id="reason-for-implementation-7"><a class="link" href="#reason-for-implementation-7">Reason for implementation</a></h5>
+<h5 id="reason-for-implementation-8"><a class="link" href="#reason-for-implementation-8">Reason for implementation</a></h5>
 <div class="paragraph">
 <p>The Expenditure List is not just a platform to record spendings, it is also a feature to help manage finances. Hence, every week the list can be cleared to reset the data for the user to start over and better plan the spendings the following week.</p>
 </div>
@@ -1396,7 +1400,7 @@ Given below is an example usage scenario and how the <code>ClearExpList</code> m
 <div class="sect3">
 <h4 id="code-workout-code-package"><a class="link" href="#code-workout-code-package">5.4.1. <code>Workout</code> package</a></h4>
 <div class="sect4">
-<h5 id="reason-for-implementation-8"><a class="link" href="#reason-for-implementation-8">Reason for implementation</a></h5>
+<h5 id="reason-for-implementation-9"><a class="link" href="#reason-for-implementation-9">Reason for implementation</a></h5>
 <div class="paragraph">
 <p><em>LIFE</em> is a tool for helping students manage their workout records too, having this features will aid them in recording down their previous workouts.</p>
 </div>
@@ -1480,7 +1484,7 @@ Given below is an example usage scenario and how the <code>ClearExpList</code> m
 <div class="sect3">
 <h4 id="add-workout"><a class="link" href="#add-workout">5.4.2. Add Workout</a></h4>
 <div class="sect4">
-<h5 id="reason-for-implementation-9"><a class="link" href="#reason-for-implementation-9">Reason for implementation</a></h5>
+<h5 id="reason-for-implementation-10"><a class="link" href="#reason-for-implementation-10">Reason for implementation</a></h5>
 <div class="paragraph">
 <p>To be able to document workout, students should be able to add the workouts into the application.</p>
 </div>
@@ -1515,7 +1519,7 @@ the input string and to process it. It also searches for invalid input and dupli
 <div class="sect3">
 <h4 id="view-recent-workout"><a class="link" href="#view-recent-workout">5.4.4. View recent workout</a></h4>
 <div class="sect4">
-<h5 id="reason-for-implementation-10"><a class="link" href="#reason-for-implementation-10">Reason for implementation</a></h5>
+<h5 id="reason-for-implementation-11"><a class="link" href="#reason-for-implementation-11">Reason for implementation</a></h5>
 <div class="paragraph">
 <p>To be able to plan for their future workouts, students should able to view their recent workouts.</p>
 </div>
@@ -2693,7 +2697,7 @@ features that they did are listed below</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Implemented the <code>Task</code> feature which includes the 5 <code>Task</code> commands.</p>
+<p>Implemented the <code>Task List</code> feature which includes the 5 <code>Task</code> commands.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -2720,7 +2724,7 @@ features that they did are listed below</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Implemented the <code>Purchase</code> feature</p>
+<p>Implemented the <code>Expenditure List</code> feature</p>
 <div class="ulist">
 <ul>
 <li>
@@ -2747,7 +2751,7 @@ features that they did are listed below</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Added the <code>Workout</code> feature</p>
+<p>Added the <code>Workout Tracker</code> feature</p>
 <div class="ulist">
 <ul>
 <li>
@@ -2774,7 +2778,7 @@ features that they did are listed below</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Added the <code>Habit</code> feature</p>
+<p>Added the <code>Habit Tracker</code> feature</p>
 <div class="ulist">
 <ul>
 <li>
@@ -3068,4 +3072,4 @@ Expected: If workout list is empty, "No workout found"<br>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 08:03:29 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 08:14:47 UTC</div></div></div></body></html>
