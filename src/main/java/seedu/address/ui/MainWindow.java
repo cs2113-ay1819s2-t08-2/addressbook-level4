@@ -228,6 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         return purchaseListPanel;
     }
 
+    public HabitListPanel getHabitListPanel() { return habitListPanel; }
     /**
      * Executes the command and returns the result.
      *

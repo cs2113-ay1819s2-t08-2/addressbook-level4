@@ -28,7 +28,8 @@ public class AddHabitCommandParser implements Parser<AddHabitCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddHabitCommand.MESSAGE_USAGE));
         }
 
-        HabitTitle name = ParserUtil.parseHabitTitle(argMultimap.getValue(PREFIX_HABITTITLE).get());
+        HabitTitle name;
+        name = ParserUtil.parseHabitTitle(argMultimap.getValue(PREFIX_HABITTITLE).get());
         Progress progress = ParserUtil.parseProgress(argMultimap.getValue(PREFIX_PROGRESS).get());
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

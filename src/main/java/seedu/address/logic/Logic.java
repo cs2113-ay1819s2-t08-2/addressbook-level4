@@ -122,6 +122,11 @@ public interface Logic {
      */
     void setSelectedPurchase(Purchase purchase);
 
+    /**
+     * Returns the user prefs' contact list file path.
+     */
+    Path getExpenditureListFilePath();
+
     ReadOnlyProperty<Workout> selectedWorkoutProperty();
 
     void setSelectedWorkout(Workout workout);

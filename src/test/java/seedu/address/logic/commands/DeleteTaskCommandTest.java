@@ -23,8 +23,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * Unit tests for {@code DeleteTaskCommand}.
  */
 public class DeleteTaskCommandTest {
 
@@ -71,20 +70,6 @@ public class DeleteTaskCommandTest {
 
         assertCommandSuccess(deleteTaskCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-
-    /*@Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showTaskAtIndex(model, INDEX_FIRST_TASK);
-
-        Index outOfBoundIndex = INDEX_SECOND_TASK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskList().getTaskList().size());
-
-        DeleteTaskCommand deleteTaskCommand = new DeleteTaskCommand(outOfBoundIndex);
-
-        assertTaskCommandFailure(deleteTaskCommand, model, commandHistory, Messages
-        .MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-    }*/
 
     @Test
     public void equals() {

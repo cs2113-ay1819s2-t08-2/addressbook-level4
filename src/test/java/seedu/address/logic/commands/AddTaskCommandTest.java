@@ -29,8 +29,9 @@ import seedu.address.testutil.TaskBuilder;
 
 
 
-
-
+/**
+ * Unit tests for {@code AddTaskCommand}.
+ */
 public class AddTaskCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -331,6 +332,16 @@ public class AddTaskCommandTest {
 
         @Override
         public void setSelectedPurchase(Purchase purchase) {
+
+        }
+
+        @Override
+        public Path getExpenditureListFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setExpenditureListFilePath(Path expenditureListFilePath) {
 
         }
 

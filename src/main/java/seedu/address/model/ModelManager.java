@@ -120,6 +120,17 @@ public class ModelManager implements Model {
         userPrefs.setContactListFilePath(contactListFilePath);
     }
 
+    @Override
+    public Path getExpenditureListFilePath() {
+        return userPrefs.getExpenditureListFilePath();
+    }
+
+    @Override
+    public void setExpenditureListFilePath(Path expenditureListFilePath) {
+        requireNonNull(expenditureListFilePath);
+        userPrefs.setExpenditureListFilePath(expenditureListFilePath);
+    }
+
     //=========== ContactList ================================================================================
 
     @Override
@@ -165,7 +176,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addTickedTaskList(Task task) {
-        task.addCompletedTag();
+        //task.addCompletedTag();
         versionedTickedTaskList.addTask(task);
     }
 
@@ -348,6 +359,11 @@ public class ModelManager implements Model {
             throw new HabitNotFoundException();
         }
         selectedHabit.setValue(habit);
+    }
+
+    @Override
+    public void deleteHabit(Habit habit) { versionedHabitTrackerList.removeHabit(habit);
+
     }
 
 
