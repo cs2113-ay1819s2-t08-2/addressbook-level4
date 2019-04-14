@@ -288,18 +288,18 @@ Examples:
 Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
 // end::workout[]
 
-=== Habit Tracker [coming in v1.4]
+=== Habit Tracker
 Change your lifestyle now by recording an activity regularly to turn it into a habit! +
 
 // tag::addhabit[]
 [[AddHabit]]
-==== Add desired Habits: `addHabit` [coming soon]
+==== Add desired Habits: `addHabit`
 
 Add habit which you wish to track into your monthly habit tracker. +
-Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'
+Format: 'addHabit ht/HABIT_TITLE pg/PROGRESS'
 
 ****
-A calendar of the month is shown, along with previous records of the month.
+Update the progress of your habits daily by recording the number of consecutive days you complete them.
 ****
 
 Example:
