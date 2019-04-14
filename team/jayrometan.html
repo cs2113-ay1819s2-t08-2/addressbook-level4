@@ -441,57 +441,42 @@ more readable.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="add-task"><a class="link" href="#add-task">Add Task</a></h4>
+<h4 id="delete-task"><a class="link" href="#delete-task">Delete Task</a></h4>
 <div class="paragraph">
-<p>The <code>AddTaskCommand</code> will create an instance of the <code>Task</code> class and store it in the <code>TaskList</code></p>
+<p>The <code>DeleteTaskCommand</code> will find and delete the specified <code>Task</code> <em>(that is according to the Task List shown
+in the UI)</em> from the <code>TaskList</code>.</p>
 </div>
 <div class="sect4">
 <h5 id="reason-for-implementation-2"><a class="link" href="#reason-for-implementation-2">Reason for implementation</a></h5>
 <div class="paragraph">
-<p>To be able to document tasks, students should be able to add their tasks into the application.</p>
+<p>This <code>DeleteTaskCommand</code> is essential if the task is longer needed on the task list. For example,
+the user&#8217;s boss has reassigned the task or the task is no longer valid.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h5>
 <div class="paragraph">
-<p>The <code>AddTaskCommand</code> is created when the command word <code>addtask</code> is detected in the user input alongside
-the compulsory parameters as shown in <a href="#Current-Implementation-of-Task">Classes in the <code>Task</code> Package</a>. If the parameters are invalid, an error
-message will be displayed.</p>
+<p>The <code>DeleteTaskCommand</code> is created when the command word <code>deletetask</code> is detected in the user input alongside
+the compulsory parameter which is an index in the <code>TaskList</code>. The <code>DeleteTaskCommand</code> will then check for the
+validity of the index given. If index is invalid, an error message will be displayed.</p>
 </div>
 <div class="paragraph">
-<p>Through the <code>AddTaskCommand</code>, the user input will then be split into its separate
-  components(e.g. <code>TaskName</code>, <code>DeadlineDate</code>, <code>DeadlineTime</code>, <code>Tag</code>) through <code>ParserUtil</code>,
-   creating a <code>Task</code> instance. This instance is then passed from the <code>logic</code> component to the <code>model</code>
-   component as shown in <a href="#Add-Task-Sequence-Diagram">Add Task Sequence Diagram</a>.</p>
+<p>The following sequence diagram shows how the <code>deletetask</code> operation works.</p>
 </div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the <code>addTask</code> mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time.
-<em>LIFE</em> will initialize with the initial task list state and the currentStatePointer pointing to that single task list state.</p>
-</div>
-<div class="paragraph">
-<p>Step 2. The user executes the <code>addtask</code> command with <code>addtask n/CS2101 Guides d/140419 h/2359</code></p>
-</div>
-<div class="paragraph">
-<p>Step 3. This command goes through the <code>AddTaskCommandParser</code> to extract the values of
-the input string and to process it. It also searches for invalid input and duplicates.</p>
-</div>
-<div class="paragraph">
-<p>Step 4. Once valid, it passes the Task from the <code>logic</code> component to the <code>model</code> component into an ArrayList called <code>TaskList</code>.</p>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the <code>addtask</code> operation works.</p>
-</div>
-<div id="Add-Task-Sequence-Diagram" class="imageblock">
+<div class="imageblock">
 <div class="content">
-<img src="../images/AddTaskSequenceDiagram.PNG" alt="AddTaskSequenceDiagram" width="800">
+<img src="../images/DeleteTaskSequenceDiagram.PNG" alt="Delete Task Sequence Diagram" width="800">
 </div>
-<div class="title">Figure 3. Add Task Sequence Diagram</div>
+<div class="title">Figure 3. Delete Task Sequence Diagram</div>
 </div>
 <div class="paragraph">
-<p>&#160;<br></p>
+<p>The following activity diagrams illustrates an example when the user executes a <code>deletetask</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/DeleteTaskActivityDiagram.PNG" alt="Delete Task Activity Diagram" width="800">
+</div>
+<div class="title">Figure 4. Activity Diagram of user executing a <code>deletetask</code> command</div>
 </div>
 </div>
 </div>
@@ -523,7 +508,7 @@ validity of the index given. If index is invalid, an error message will be displ
 <div class="content">
 <img src="../images/TickTaskSequenceDiagram.PNG" alt="Tick Task Sequence Diagram" width="800">
 </div>
-<div class="title">Figure 4. Tick Task Sequence Diagram</div>
+<div class="title">Figure 5. Tick Task Sequence Diagram</div>
 </div>
 <div class="paragraph">
 <p>&#160;<br></p>
@@ -568,7 +553,7 @@ replace the former <code>Task</code> with the <code>editedTask</code>.</p>
 <div class="content">
 <img src="../images/EditTaskSequenceDiagram.PNG" alt="Edit Task Sequence Diagram" width="800">
 </div>
-<div class="title">Figure 5. Edit Task Sequence Diagram</div>
+<div class="title">Figure 6. Edit Task Sequence Diagram</div>
 </div>
 </div>
 </div>
@@ -610,10 +595,15 @@ have enough expertise to utilise the Hash Map.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-cases"><a class="link" href="#use-cases">Appendix A: Use Cases</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>(For all use cases below, the <strong>System</strong> is the <em>LIFE</em> application and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="use-case-add-a-task"><a class="link" href="#use-case-add-a-task">Use case: Add a  task</a></h3>
@@ -663,28 +653,6 @@ Use case ends.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="use-case-sort-task"><a class="link" href="#use-case-sort-task">Use Case: Sort Task</a></h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><em>LIFE</em> already displays the task list.</p>
-</li>
-<li>
-<p>User wishes to sort the tasks according to their deadline</p>
-</li>
-<li>
-<p><em>LIFE</em> sorts the task in the task list.</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
 <h3 id="use-case-tick-task"><a class="link" href="#use-case-tick-task">Use Case: Tick Task</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
@@ -722,120 +690,6 @@ Use case ends.</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="feature-contribution"><a class="link" href="#feature-contribution">Feature Contribution</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In case you want to improve a specific feature in the <em>LIFE</em> App or
-if you want to know how the creators did it, you can contact the creators
-of that specific feature.<br>
-The contact details of the creators and the
-features that they did are listed below</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Jerome Tan</strong> <a href="https://github.com/jayrometan/"><sub>Contact</sub></a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Implemented the <code>Task List</code> feature which includes the 5 <code>Task</code> commands.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This allowed the users to manage their tasks.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Created the Task List and Completed Task List Panel in the UI.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This enabled the visualization of the <code>Task</code> they have entered.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Wei Zhong</strong> <a href="https://github.com/weizhonglauw/"><sub>Contact</sub></a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Implemented the <code>Expenditure List</code> feature</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This allowed the users to manage their expenses.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Refactored the entire application to match our product <em>LIFE</em>.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This allowed the morphing of our product from AddressBook to <em>LIFE</em>.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Yong Jia</strong> <a href="https://github.com/yongjia96"><sub>Contact</sub></a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Added the <code>Workout Tracker</code> feature</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This allowed the users to manage their workout.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Created Workout list Panel in the UI.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This enabled the visualization of the <code>Workout</code> they have entered.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Yu Qi</strong> <a href="https://github.com/wongyuqi"><sub>Contact</sub></a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Added the <code>Habit Tracker</code> feature</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This allowed the users to document their habits.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
 </div>
 <div class="sect2">
 <h3 id="editing-a-task"><a class="link" href="#editing-a-task">Editing a task</a></h3>
@@ -899,4 +753,25 @@ Expected: Tasks in the existing task list will stay intact. Details of invalid c
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 09:55:38 UTC</div></div></div></body></html>
+</div>
+<div class="sect1">
+<h2 id="here-are-the-rest-of-the-contributions-that-could-be-useful-br"><a class="link" href="#here-are-the-rest-of-the-contributions-that-could-be-useful-br">Here are the rest of the contributions that could be useful!<br></a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-scope">Product Scope</a></p>
+</li>
+<li>
+<p><a href="https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-survey">Product Survey</a></p>
+</li>
+<li>
+<p><a href="https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#instructions-for-manual-testing">Manual Testing</a></p>
+</li>
+<li>
+<p><a href="https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#feature-contribution">Feature Contribution</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 10:24:07 UTC</div></div></div></body></html>
