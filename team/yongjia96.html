@@ -369,10 +369,16 @@ technical depth of my contributions to the project.</em></p></td>
 <li>
 <p><em>LIFE</em> shows the Workout Log</p>
 <div class="paragraph">
-<p>Use case ends.
-=== Recording new workout</p>
+<p>Use case ends.</p>
 </div>
 </li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="recording-new-workout"><a class="link" href="#recording-new-workout">Recording new workout</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Add a new workout to the workout list</p>
 <div class="olist loweralpha">
@@ -411,23 +417,70 @@ Expected: If workout list is empty, "No workout found"<br>
 </div>
 </div>
 <div class="sect1">
-<h2 id="here-are-the-rest-of-the-contributions-that-could-be-useful-br"><a class="link" href="#here-are-the-rest-of-the-contributions-that-could-be-useful-br">Here are the rest of the contributions that could be useful!<br></a></h2>
+<h2 id="designs-considerations"><a class="link" href="#designs-considerations">Designs considerations</a></h2>
 <div class="sectionbody">
+
+</div>
+</div>
+<h1 id="aspect-how-code-workout-code-executes" class="sect0"><a class="link" href="#aspect-how-code-workout-code-executes">Aspect: How <code>workout</code> executes</a></h1>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-scope">Product Scope</a></p>
+<p>Alternative 1 (current choice): Display it as a command line message to the user</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement, clearer to the user</p>
 </li>
 <li>
-<p><a href="https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-survey">Product Survey</a></p>
-</li>
-<li>
-<p><a href="https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#instructions-for-manual-testing">Manual Testing</a></p>
-</li>
-<li>
-<p><a href="https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#feature-contribution">Feature Contribution</a></p>
+<p>Cons: Less graphically appealing</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>Alternative 2: Filter the Workout List in the UI</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More appealing to the user</p>
+</li>
+<li>
+<p>Cons: Hard to implement</p>
+</li>
+</ul>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 12:47:16 UTC</div></div></div></body></html>
+</li>
+</ul>
+</div>
+<h1 id="aspect-data-structure-to-store-the-recent-workout-for-code-workout-code" class="sect0"><a class="link" href="#aspect-data-structure-to-store-the-recent-workout-for-code-workout-code">Aspect: Data structure to store the recent workout for <code>workout</code></a></h1>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 (current choice): Array List</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement, add and remove operations is easy</p>
+</li>
+<li>
+<p>Cons: Additional memory space needed for the extra Array List</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Run through the Observable list and print it out as a feedback string in <code>CommandResult</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: No need for extra memory for additional data structure</p>
+</li>
+<li>
+<p>Cons: Difficult to implement</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 13:14:42 UTC</div></div></div></body></html>
