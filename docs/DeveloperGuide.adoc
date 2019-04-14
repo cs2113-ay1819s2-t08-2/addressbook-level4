@@ -697,6 +697,130 @@ Step 3. `resetData` method in `ExpenditureList` class is used to reset the data 
 ** Pros: Future possible operations like `findpurchase` can be executed with O(1) time complexity.
 ** Cons:  Implementation of Hash Map is a lot more complex than the implemented Array List, which our team currently lacks the expertise to implement.
 
+
+// tag::Habit[]
+=== Habit Tracker List Feature
+This section describes the technical aspects of the `Habit Tracker List` feature and the design considerations made for the feature.
+
+==== `Habit` package
+This section describes the inner dimensions of the `Purchase` package.
+
+===== Reason for implementation
+
+_LIFE_ is also a tool for helping students manage their lifestyle and encourage them to develop good habits, therefore it is important to have a feature to help them record their expenditure regularly.
+
+===== Current Implementation
+
+Each attribute of a Habit, the habit title and progress are classes in the `Habit` package. Each class provides utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|HabitTitle |new HabitTitle("No Supper")|Stores a `String` that represents the habit.
+|Progress|new Progress("0")|Stores a `String` of numbers that represents the number of the consecutive days the user has been accomplishing the habit. String stored has to be in the format of integers.
+|Tag|new Tag()|Stores a `String` that acts as a tag to the new habit. This field is *optional*.
+|=======
+
+The `Habit` package includes the `Habit` class which documents information about the a habit. The `Habit` class provides utility methods to retrieve the different objects (e.g. `Progress`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Habit |`new Habit(HabitTitle, Progress, Tag)` |Stores `HabitTitle`, `Progress`, `Tag` objects to document information of about a habit.
+|=======
+
+===== Reasons for how it is implemented
+Similar to the `purchase` package, the `habit` package follows the model of the `person` package in the link:https://github.com/se-edu/addressbook-level4[Addressbook].
+This made it easier for us to implement our features as we could follow the style of how the `person` package was implemented, at the same time improving the modularity and organization.
+
+
+===== Model
+
+The `HabitTrackerList` is a separate feature as well, being one of the four features in the _LIFE_ application.
+Likewise, this would allow future enhancement of this `HabitTrackerList` to be built on with additional features such as finding a particular habit without affecting the
+other features due to the low coupling other features have with this feature.
+
+// TODO: The following is a model diagram of the `ExpenditureList` component.
+//.Model Component of `ExpenditureList`.
+//image::ExpenditureListModelComponentDiagram.png[width='800']
+//end::Purchase[]
+{nbsp} +
+
+
+==== Add Habit
+
+The `AddHabitCommand` will create an instance of the `Habit` class and store it in the `HabitTrackerList`
+
+===== Reason for implementation
+To be able to track expenditure, students should be able to add the purchases bought, together with the prices.
+
+===== Current Implementation
+The `AddPurchaseCommand` is created when the command word `addPurchase` and the corresponding compulsory parameters are detected in the user input. Through the `AddPurchaseCommand`, the user input will then be split into its separate components(e.g. `PurchaseName`, `Price`, `Tag`) through `ParserUtil`, creating a `Purchase` instance and pass it from the `logic` component to the `model` component.
+Given below is an example usage scenario and how the `addpurchase` mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. _LIFE_ will initialize with the initial expenditure list state and the currentStatePointer pointing to that single purchase list state.
+
+Step 2. The user executes the `addpurchase` command with `addpurchase pn/chickenrice pr/3.50`
+
+Step 3. This command goes through the AddPurchaseCommandParser to extract the values of the input string and to process it. It also searches for invalid input.
+
+Step 4. Once valid, it passes the Purchase from the logic component to the model component into an ArrayList called ExpenditureList.
+
+The following sequence diagram illustrates how the `addpurchase` operation works.
+
+==== Model
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+LIFE will initialize with the initial expenditure list state.
+
+Step 2. The user executes the `addPurchase` command with `addpurchase pn/Ice Cream pr/1.50`
+
+Step 3. This command goes through the `AddPurchaseCommandParser` to extract the values of the input string and to process it. It also identifies invalid input.
+
+Step 4. Once valid, it passes the purchase from the `logic` component to the `model` component into an ArrayList called ExpenditureList.
+
+.Add Purchase Sequence Diagram
+image::AddPurchaseSequenceDiagram.png[width="800"]
+
+{nbsp} +
+
+The following activity diagram illustrates an example with a user executing the `addpurchase` command.
+
+.Activity Diagram of user executing a `addpurchase` command
+image::AddPurchaseActivityDiagram.png[width='800']
+
+{nbsp} +
+
+==== Clear Expenditure List
+The `ClearExpList` command will clear all the existing data shown in the expenditure list.
+
+===== Reason for implementation
+The Expenditure List is not just a platform to record spendings, it is also a feature to help manage finances. Hence, every week the list can be cleared to reset the data for the user to start over and better plan the spendings the following week.
+
+===== Current implementation
+The `ClearExpList` command is called when the command word `clearexplist` is detected in the user input. Through the `CleapExpList` command, an empty expenditure list model will be set and committed as the new expenditure list.
+Given below is an example usage scenario and how the `ClearExpList` mechanism behaves at each step.
+
+Step 1. The user has previously added purchases into the expenditure list. The current list is populated with one or more purchases with the corresponding prices.
+
+Step 2. The user executes the `clearexplist` command.
+
+Step 3. `resetData` method in `ExpenditureList` class is used to reset the data in the expenditure list into a new clean slate.
+
+==== Alternatives considered
+
+* Alternative 1 (current choice): Create a new Array List Object to store the purchases e.g. `purchaselist`.
+** Pros: Using this simple data structure allows for manipulation of data such as sorting. Like how the existing `UniquePersonList` was implemented, we can implement this `PurchaseList` in the same way. Standardizing this format will also make the overall code more readable and the implementation to be much simpler.
+** Cons: Some possible future operations may require the traversing of the list which require O(N) time complexity. For instance, a `findpurchase` command.
+
+* Alternative 2: Using a Hash Map to store the purchases
+** Pros: Future possible operations like `findpurchase` can be executed with O(1) time complexity.
+** Cons:  Implementation of Hash Map is a lot more complex than the implemented Array List, which our team currently lacks the expertise to implement.
+
+
 // tag::Workout[]
 === Workout Feature
 
