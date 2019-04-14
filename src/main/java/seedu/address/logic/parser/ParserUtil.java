@@ -199,6 +199,11 @@ public class ParserUtil {
         return new PurchaseName(trimmedPurchaseName);
     }
 
+    /**
+     * Parses a {@code String name} into a {@code Hname}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code progress} is invalid.
+     */
     public static HabitTitle parseHabitTitle(String name) throws ParseException {
         requireNonNull(name);
         String trimmedHabitTitle = name.trim();
@@ -237,6 +242,13 @@ public class ParserUtil {
         }
         return new Progress(trimmedProgress);
     }
+
+    /**
+     * Parses a {@code String exercise} into a {@code Exercise}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Exercise} is invalid.
+     */
 
     public static Exercise parseExercise(String exercise) throws ParseException {
         requireNonNull(exercise);

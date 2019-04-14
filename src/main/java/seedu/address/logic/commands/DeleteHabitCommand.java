@@ -11,6 +11,9 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ *  Deletes a Habit from the Habit Tracker List.
+ */
 public class DeleteHabitCommand extends Command {
     public static final String COMMAND_WORD = "delHabit";
 

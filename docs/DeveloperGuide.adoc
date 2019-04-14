@@ -754,13 +754,13 @@ other features due to the low coupling other features have with this feature.
 The `AddHabitCommand` will create an instance of the `Habit` class and store it in the `HabitTrackerList`
 
 ===== Reason for implementation
-To be able to track expenditure, students should be able to add the purchases bought, together with the prices.
+To be able to keep track of one's progress with developing a habit, students should be able to add the habits they want to cultivate into the tracker along with their progress.
 
 ===== Current Implementation
-The `AddPurchaseCommand` is created when the command word `addPurchase` and the corresponding compulsory parameters are detected in the user input. Through the `AddPurchaseCommand`, the user input will then be split into its separate components(e.g. `PurchaseName`, `Price`, `Tag`) through `ParserUtil`, creating a `Purchase` instance and pass it from the `logic` component to the `model` component.
-Given below is an example usage scenario and how the `addpurchase` mechanism behaves at each step.
+The `AddHabitCommand` is created when the command word `addHabit` and the corresponding compulsory parameters are detected in the user input. Through the `AddHabitCommand`, the user input will then be split into its separate components(e.g. `HabitTitle`, `Progress`, `Tag`) through `ParserUtil`, creating a `Habit` instance and pass it from the `logic` component to the `model` component.
+Given below is an example usage scenario and how the `addHabit` mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. _LIFE_ will initialize with the initial expenditure list state and the currentStatePointer pointing to that single purchase list state.
+Step 1. The user launches the application for the first time. _LIFE_ will initialize with the initial habit tracker list state and the currentStatePointer pointing to that single purchase list state.
 
 Step 2. The user executes the `addpurchase` command with `addpurchase pn/chickenrice pr/3.50`
 

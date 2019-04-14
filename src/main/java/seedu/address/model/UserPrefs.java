@@ -1,12 +1,12 @@
 package seedu.address.model;
 
-import seedu.address.commons.core.GuiSettings;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.core.GuiSettings;
+
 
 /**
  * Represents User's preferences.
@@ -67,12 +67,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public Path getTaskListFilePath(){
+
         return taskListFilePath;
     }
 
     public void setTaskListFilePath(Path taskListFilePath){
+
         requireNonNull(taskListFilePath);
         this.taskListFilePath = taskListFilePath;
+
     }
     public Path getTickedTaskListFilePath() {
         return tickedTaskListFilePath;
@@ -92,7 +95,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.expenditureListFilePath = expenditureListFilePath;
     }
 
-    public Path getHabitTrackerListFilePath() { return habitTrackerListFilePath; }
+    public Path getHabitTrackerListFilePath() {
+
+        return habitTrackerListFilePath;
+
+    }
 
     public void setHabitTrackerListFilePath(Path habitTrackerListFilePath) {
         requireNonNull(habitTrackerListFilePath);
@@ -102,9 +109,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public Path getWorkoutBookFilePath() { return workoutBookFilePath;}
 
     public void setWorkoutBookFilePath (Path workoutBookFilePath) {
+
         requireNonNull(workoutBookFilePath);
         this.workoutBookFilePath = workoutBookFilePath;
-        }
+
+    }
 
     @Override
     public boolean equals(Object other) {

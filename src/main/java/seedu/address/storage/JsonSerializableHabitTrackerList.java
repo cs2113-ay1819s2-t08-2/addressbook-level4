@@ -1,16 +1,16 @@
 package seedu.address.storage;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.HabitTrackerList;
 import seedu.address.model.ReadOnlyHabitTrackerList;
 import seedu.address.model.habit.Habit;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
@@ -45,7 +45,7 @@ public class JsonSerializableHabitTrackerList {
     public HabitTrackerList toModelType() throws IllegalValueException {
         HabitTrackerList habitTrackerList = new HabitTrackerList();
         for (JsonAdaptedHabit jsonAdaptedHabit : habits) {
-            Habit habit= jsonAdaptedHabit.toModelType();
+            Habit habit = jsonAdaptedHabit.toModelType();
             habitTrackerList.addHabit(habit);
         }
         return habitTrackerList;

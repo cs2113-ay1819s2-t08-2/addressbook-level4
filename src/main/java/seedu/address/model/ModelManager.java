@@ -57,7 +57,8 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given lifeApp and userPrefs.
      */
     public ModelManager(ReadOnlyContactList contactList, ReadOnlyUserPrefs userPrefs, ReadOnlyTaskList taskList,
-                        ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook, ReadOnlyHabitTrackerList habitTrackerList) {
+                        ReadOnlyExpenditureList expenditureList, ReadOnlyWorkoutBook workoutBook,
+                        ReadOnlyHabitTrackerList habitTrackerList) {
         super();
         requireAllNonNull(contactList, userPrefs, taskList, expenditureList, workoutBook, habitTrackerList);
 
@@ -82,7 +83,8 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new ContactList(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook(), new HabitTrackerList());
+        this(new ContactList(), new UserPrefs(), new TaskList(), new ExpenditureList(), new WorkoutBook(),
+                new HabitTrackerList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -254,14 +256,21 @@ public class ModelManager implements Model {
 
     @Override
     public void setHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList) {
+
         versionedHabitTrackerList.resetData(habitTrackerList);
+
     }
 
     @Override
-    public ReadOnlyHabitTrackerList getHabitTrackerList() { return versionedHabitTrackerList;}
+    public ReadOnlyHabitTrackerList getHabitTrackerList() {
+
+        return versionedHabitTrackerList;
+
+    }
 
     @Override
     public void addHabit(Habit habit) {
+
         versionedHabitTrackerList.addHabit(habit);
     }
 
@@ -270,8 +279,10 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredHabitList(Predicate<Habit> predicate) {
+
         requireAllNonNull(predicate);
         filteredHabit.setPredicate(predicate);
+
     }
 
 
@@ -283,6 +294,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
+
         return filteredPersons;
     }
 
@@ -290,79 +302,115 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
+
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+
     }
+
     //=========== Filtered task List Accessors =============================================================
 
     @Override
     public ObservableList<Task> getFilteredTaskList(){
+
         return filteredTasks;
     }
 
     @Override
     public ObservableList<Task> getFilteredTickedTaskList() {
+
         return filteredTickTasks;
     }
 
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate){
+
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+
     }
 
     @Override
     public void updateFilteredTickedTaskList(Predicate<Task> predicate) {
+
         requireNonNull(predicate);
         filteredTickTasks.setPredicate(predicate);
+
     }
 
     //======================================================================================================
 
     @Override
     public void commitExpenditureList() {
+
         versionedExpenditureList.commit();
     }
 
     @Override
     public ReadOnlyProperty<Purchase> selectedPurchaseProperty() {
+
         return selectedPurchase;
     }
 
     @Override
     public Purchase getSelectedPurchase() {
+
         return selectedPurchase.getValue();
     }
 
     @Override
     public void setSelectedPurchase(Purchase purchase) {
+
         if (purchase != null && !filteredPurchases.contains(purchase)) {
+
             throw new PurchaseNotFoundException();
+
         }
+
         selectedPurchase.setValue(purchase);
+
     }
 
     //=============================================================
 
     @Override
-    public void commitHabitTrackerList() { versionedHabitTrackerList.commit(); }
+    public void commitHabitTrackerList() {
 
-    @Override
-    public ReadOnlyProperty<Habit> selectedHabitProperty() { return selectedHabit; }
+        versionedHabitTrackerList.commit();
 
-    @Override
-    public Habit getSelectedHabit() { return  selectedHabit.getValue(); }
-
-    @Override
-    public void setSelectedHabit(Habit habit) {
-        if(habit != null && !filteredHabit.contains(habit)) {
-            throw new HabitNotFoundException();
-        }
-        selectedHabit.setValue(habit);
     }
 
     @Override
-    public void deleteHabit(Habit habit) { versionedHabitTrackerList.removeHabit(habit);
+    public ReadOnlyProperty<Habit> selectedHabitProperty() {
+
+        return selectedHabit;
+
+    }
+
+    @Override
+    public Habit getSelectedHabit() {
+
+        return  selectedHabit.getValue();
+
+    }
+
+    @Override
+    public void setSelectedHabit(Habit habit) {
+
+        if(habit != null && !filteredHabit.contains(habit)) {
+
+            throw new HabitNotFoundException();
+
+        }
+
+        selectedHabit.setValue(habit);
+
+    }
+
+    @Override
+    public void deleteHabit(Habit habit) {
+
+        versionedHabitTrackerList.removeHabit(habit);
 
     }
 
@@ -423,10 +471,15 @@ public class ModelManager implements Model {
 
     @Override
     public void setSelectedPerson(Person person) {
+
         if (person != null && !filteredPersons.contains(person)) {
+
             throw new PersonNotFoundException();
+
         }
+
         selectedPerson.setValue(person);
+
     }
 
     @Override

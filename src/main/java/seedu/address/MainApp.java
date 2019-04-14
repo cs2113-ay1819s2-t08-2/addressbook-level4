@@ -15,11 +15,39 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.*;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.address.model.ContactList;
+import seedu.address.model.ExpenditureList;
+import seedu.address.model.HabitTrackerList;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyContactList;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyHabitTrackerList;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.TaskList;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.WorkoutBook;
+import seedu.address.storage.ContactListStorage;
+import seedu.address.storage.ExpenditureListStorage;
+import seedu.address.storage.HabitTrackerListStorage;
+import seedu.address.storage.WorkoutBookStorage;
+import seedu.address.storage.JsonContactListStorage;
+import seedu.address.storage.JsonExpenditureListStorage;
+import seedu.address.storage.JsonTaskListStorage;
+import seedu.address.storage.JsonHabitTrackerListStorage;
+import seedu.address.storage.JsonTickedTaskListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonWorkoutBookStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.TaskListStorage;
+import seedu.address.storage.TickedTaskListStorage;
+import seedu.address.storage.UserPrefsStorage;
 
 
 
@@ -61,7 +89,8 @@ public class MainApp extends Application {
         ExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListStorage(userPrefs.getExpenditureListFilePath());
         WorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(userPrefs.getWorkoutBookFilePath());
-        HabitTrackerListStorage habitTrackerListStorage= new JsonHabitTrackerListStorage(userPrefs.getHabitTrackerListFilePath());
+        HabitTrackerListStorage habitTrackerListStorage =
+                new JsonHabitTrackerListStorage(userPrefs.getHabitTrackerListFilePath());
         storage = new StorageManager(contactListStorage, userPrefsStorage, taskListStorage,
                 expenditureListStorage, workoutBookStorage, tickedTaskListStorage, habitTrackerListStorage);
 

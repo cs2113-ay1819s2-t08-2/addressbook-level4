@@ -13,13 +13,19 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.LifeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.*;
 import seedu.address.model.habit.Habit;
 import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
 import seedu.address.storage.Storage;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyContactList;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyHabitTrackerList;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyWorkoutBook;
+
 
 /**
  * The main LogicManager of the app.
@@ -72,7 +78,7 @@ public class LogicManager implements Logic {
         } finally {
             history.add(commandText);
         }
-        if (taskListModified){
+        if (taskListModified) {
             logger.info("Task list modified, saving to file.");
             try {
                 storage.saveTaskList(model.getTaskList());
@@ -124,131 +130,166 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyContactList getContactList() {
+
         return model.getContactList();
     }
 
     @Override
-    public ReadOnlyHabitTrackerList getHabitTrackerList() {return model.getHabitTrackerList();}
+    public ReadOnlyHabitTrackerList getHabitTrackerList() {
+
+        return model.getHabitTrackerList();
+
+    }
 
     @Override
     public ReadOnlyTaskList getTaskList() {
+
         return model.getTaskList();
     }
 
     @Override
     public ReadOnlyTaskList getTickedTaskList() {
+
         return model.getTickedTaskList();
     }
 
     @Override
     public ReadOnlyExpenditureList getExpenditureList() {
+
         return model.getExpenditureList();
     }
 
     @Override
     public ReadOnlyWorkoutBook getWorkoutList() {
+
         return model.getWorkoutList();
     }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
+
         return model.getFilteredPersonList();
+
     }
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {
+
         return model.getFilteredTaskList();
     }
 
     @Override
-    public ObservableList<Habit> getFilteredHabitList() { return model.getFilteredHabitList();}
+    public ObservableList<Habit> getFilteredHabitList() {
+
+        return model.getFilteredHabitList();
+
+    }
 
     @Override
     public ObservableList<Task> getFilteredTickedTaskList() {
+
         return model.getFilteredTickedTaskList();
     }
 
     @Override
     public ObservableList<Purchase> getFilteredPurchaseList() {
+
         return model.getFilteredPurchaseList();
     }
 
     @Override
     public ObservableList<Workout> getFilteredWorkoutList() {
+
         return model.getFilteredWorkoutList();
     }
 
     @Override
     public ObservableList<String> getHistory() {
+
         return history.getHistory();
     }
 
     @Override
     public Path getContactListFilePath() {
+
         return model.getContactListFilePath();
     }
 
     @Override
     public Path getExpenditureListFilePath() {
+
         return model.getExpenditureListFilePath();
     }
 
     @Override
     public GuiSettings getGuiSettings() {
+
         return model.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
+
         model.setGuiSettings(guiSettings);
     }
 
     @Override
     public ReadOnlyProperty<Person> selectedPersonProperty() {
+
         return model.selectedPersonProperty();
+
     }
 
     @Override
     public ReadOnlyProperty<Task> selectedTaskProperty() {
+
         return model.selectedTaskProperty();
     }
     @Override
     public ReadOnlyProperty<Workout> selectedWorkoutProperty() {
+
         return model.selectedWorkoutProperty();
     }
 
     @Override
     public ReadOnlyProperty<Habit> selectedHabitProperty() {
+
         return model.selectedHabitProperty();
     }
 
     @Override
     public ReadOnlyProperty<Purchase> selectedPurchaseProperty() {
+
         return model.selectedPurchaseProperty();
     }
 
     @Override
     public void setSelectedPerson(Person person) {
+
         model.setSelectedPerson(person);
     }
 
     @Override
     public void setSelectedTask(Task task) {
+
         model.setSelectedTask(task);
     }
 
     @Override
     public void setSelectedPurchase(Purchase purchase) {
+
         model.setSelectedPurchase(purchase);
     }
 
     @Override
     public void setSelectedWorkout(Workout workout) {
+
         model.setSelectedWorkout(workout);
     }
 
     @Override
     public void setSelectedHabit(Habit habit) {
+
         model.selectedHabitProperty();
     }
 }

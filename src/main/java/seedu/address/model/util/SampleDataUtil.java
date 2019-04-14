@@ -4,7 +4,17 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.*;
+import seedu.address.model.ReadOnlyTaskList;
+
+import seedu.address.model.ReadOnlyContactList;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyHabitTrackerList;
+import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.ContactList;
+import seedu.address.model.ExpenditureList;
+import seedu.address.model.HabitTrackerList;
+import seedu.address.model.TaskList;
+import seedu.address.model.WorkoutBook;
 import seedu.address.model.habit.Habit;
 import seedu.address.model.habit.HabitTitle;
 import seedu.address.model.habit.Progress;
@@ -80,16 +90,24 @@ public class SampleDataUtil {
         };
     }
     public static Habit[] getSampleHabits() {
+
         return new Habit[] {
+
                 new Habit(new HabitTitle("no supper"), new Progress("2"), getTagSet("food"))
         };
     }
     public static ReadOnlyContactList getSampleContactList() {
+
         ContactList sampleCl = new ContactList();
+
         for (Person samplePerson : getSamplePersons()) {
+
             sampleCl.addPerson(samplePerson);
+
         }
+
         return sampleCl;
+
     }
 
     /**

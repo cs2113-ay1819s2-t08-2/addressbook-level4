@@ -2,17 +2,18 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.habit.Habit;
 import seedu.address.model.habit.HabitTitle;
 import seedu.address.model.habit.Progress;
 import seedu.address.model.tag.Tag;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+
 
 /**
  * Jackson-friendly version of {@link seedu.address.model.habit.Habit}
@@ -60,7 +61,8 @@ public class JsonAdaptedHabit {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, HabitTitle.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    HabitTitle.class.getSimpleName()));
         }
         if (!HabitTitle.isValidName(name)) {
             throw new IllegalValueException(HabitTitle.MESSAGE_CONSTRAINTS);
@@ -68,7 +70,8 @@ public class JsonAdaptedHabit {
         final HabitTitle modelName = new HabitTitle(name);
 
         if (progress == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Progress.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Progress.class.getSimpleName()));
         }
         if (!Progress.isValidProgress(progress)) {
             throw new IllegalValueException(Progress.MESSAGE_CONSTRAINTS);

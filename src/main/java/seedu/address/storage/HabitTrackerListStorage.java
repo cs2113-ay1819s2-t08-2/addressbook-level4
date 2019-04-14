@@ -1,11 +1,12 @@
 package seedu.address.storage;
 
+import java.nio.file.Path;
+import java.io.IOException;
+import java.util.Optional;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyHabitTrackerList;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
 
 /**
  * Represents a storage for {@link seedu.address.model.HabitTrackerList}.

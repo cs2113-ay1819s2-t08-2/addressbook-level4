@@ -7,7 +7,14 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.*;
+
+import seedu.address.model.ReadOnlyContactList;
+import seedu.address.model.ReadOnlyExpenditureList;
+import seedu.address.model.ReadOnlyHabitTrackerList;
+import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.UserPrefs;
 
 /**
  * Manages storage of ContactList data in local storage.
@@ -26,7 +33,8 @@ public class StorageManager implements Storage {
 
     public StorageManager(ContactListStorage contactListStorage, UserPrefsStorage userPrefsStorage,
                           TaskListStorage taskListStorage, ExpenditureListStorage expenditureListStorage,
-                          WorkoutBookStorage workoutBookStorage, TickedTaskListStorage tickedTaskListStorage, HabitTrackerListStorage habitTrackerListStorage) {
+                          WorkoutBookStorage workoutBookStorage, TickedTaskListStorage tickedTaskListStorage,
+                          HabitTrackerListStorage habitTrackerListStorage) {
       super();
 
         this.taskListStorage = taskListStorage;
@@ -69,7 +77,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyContactList> readContactList(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyContactList> readContactList(Path filePath) throws DataConversionException,
+            IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return contactListStorage.readContactList(filePath);
     }

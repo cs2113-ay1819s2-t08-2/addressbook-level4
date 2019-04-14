@@ -113,7 +113,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-     void updateFilteredTaskList(Predicate<Task> predicate);
+    void updateFilteredTaskList(Predicate<Task> predicate);
     /**
      * Updates the filter of the filtered ticked task list by the given {@code predicate}.
      * @throws NullPointerException IF {@code predicate} is null;
