@@ -40,6 +40,67 @@
 <li><a href="#task-list-feature">5.2. Task List Feature</a></li>
 <li><a href="#expenditure-list-feature">5.3. Expenditure List Feature</a></li>
 <li><a href="#workout-feature">5.4. Workout Feature</a></li>
+<li><a href="#logging">5.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">5.6. Configuration</a></li>
+</ul>
+</li>
+<li><a href="#documentation">6. Documentation</a>
+<ul class="sectlevel2">
+<li><a href="#editing-documentation">6.1. Editing Documentation</a></li>
+<li><a href="#publishing-documentation">6.2. Publishing Documentation</a></li>
+<li><a href="#converting-documentation-to-pdf-format">6.3. Converting Documentation to PDF format</a></li>
+<li><a href="#Docs-SiteWideDocSettings">6.4. Site-wide Documentation Settings</a></li>
+<li><a href="#Docs-PerFileDocSettings">6.5. Per-file Documentation Settings</a></li>
+<li><a href="#site-template">6.6. Site Template</a></li>
+</ul>
+</li>
+<li><a href="#Testing">7. Testing</a>
+<ul class="sectlevel2">
+<li><a href="#running-tests">7.1. Running Tests</a></li>
+<li><a href="#types-of-tests">7.2. Types of tests</a></li>
+<li><a href="#troubleshooting-testing">7.3. Troubleshooting Testing</a></li>
+</ul>
+</li>
+<li><a href="#dev-ops">8. Dev Ops</a>
+<ul class="sectlevel2">
+<li><a href="#build-automation">8.1. Build Automation</a></li>
+<li><a href="#continuous-integration">8.2. Continuous Integration</a></li>
+<li><a href="#coverage-reporting">8.3. Coverage Reporting</a></li>
+<li><a href="#documentation-previews">8.4. Documentation Previews</a></li>
+<li><a href="#making-a-release">8.5. Making a Release</a></li>
+<li><a href="#managing-dependencies">8.6. Managing Dependencies</a></li>
+</ul>
+</li>
+<li><a href="#product-scope">Appendix A: Product Scope</a></li>
+<li><a href="#user-stories">Appendix B: User Stories</a></li>
+<li><a href="#use-cases">Appendix C: Use Cases</a>
+<ul class="sectlevel2">
+<li><a href="#use-case-add-a-task">C.1. Use case: Add a  task</a></li>
+<li><a href="#use-case-edit-a-task">C.2. Use case: Edit a task</a></li>
+<li><a href="#use-case-delete-a-task">C.3. Use Case: Delete a Task</a></li>
+<li><a href="#use-case-tick-task">C.4. Use Case: Tick Task</a></li>
+<li><a href="#use-case-sort-task">C.5. Use Case: Sort Task</a></li>
+<li><a href="#use-case-add-a-new-purchase">C.6. Use Case: Add a new purchase</a></li>
+<li><a href="#use-case-view-expenditure-list">C.7. Use Case: View Expenditure List</a></li>
+<li><a href="#use-case-clear-expenditure-list">C.8. Use Case: Clear Expenditure List</a></li>
+<li><a href="#use-case-record-completed-workout">C.9. Use Case: Record Completed Workout</a></li>
+<li><a href="#use-case-view-workout-log">C.10. Use Case: View Workout Log</a></li>
+</ul>
+</li>
+<li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
+<li><a href="#glossary">Appendix E: Glossary</a></li>
+<li><a href="#product-survey">Appendix F: Product Survey</a></li>
+<li><a href="#feature-contribution">Appendix G: Feature Contribution</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
+<ul class="sectlevel2">
+<li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
+<li><a href="#adding-a-task">H.2. Adding a task</a></li>
+<li><a href="#deleting-a-task">H.3. Deleting a task</a></li>
+<li><a href="#editing-a-task">H.4. Editing a task</a></li>
+<li><a href="#ticking-a-task">H.5. Ticking a task</a></li>
+<li><a href="#clearing-expenditure-list">H.6. Clearing expenditure list</a></li>
+<li><a href="#recording-new-workout">H.7. Recording new workout</a></li>
+<li><a href="#viewing-recent-workout">H.8. Viewing recent workout</a></li>
 </ul>
 </li>
 </ul>
@@ -1553,16 +1614,20 @@ workouts</p>
 <div class="paragraph">
 <p>Step 5. <code>WorkoutCommand</code> will then output up to 5 most recent workout back to the user through <code>CommandResult</code></p>
 </div>
-<div class="paragraph">
-<p>=== Logging</p>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">5.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">[Implementation-Configuration]</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 5.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1591,15 +1656,18 @@ workouts</p>
 </li>
 </ul>
 </div>
-<div id="Implementation-Configuration" class="paragraph">
-<p>=== Configuration</p>
 </div>
+<div class="sect2">
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">5.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
-<div class="paragraph">
-<p>== Documentation</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="documentation"><a class="link" href="#documentation">6. Documentation</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>We use asciidoc for writing documentation.</p>
 </div>
@@ -1615,22 +1683,21 @@ We chose asciidoc over Markdown because asciidoc, although a bit more complex th
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>=== Editing Documentation</p>
-</div>
+<div class="sect2">
+<h3 id="editing-documentation"><a class="link" href="#editing-documentation">6.1. Editing Documentation</a></h3>
 <div class="paragraph">
 <p>See <a href="UsingGradle.html#rendering-asciidoc-files">UsingGradle.adoc</a> to learn how to render <code>.adoc</code> files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your <code>.adoc</code> files in real-time.</p>
 </div>
-<div class="paragraph">
-<p>=== Publishing Documentation</p>
 </div>
+<div class="sect2">
+<h3 id="publishing-documentation"><a class="link" href="#publishing-documentation">6.2. Publishing Documentation</a></h3>
 <div class="paragraph">
 <p>See <a href="UsingTravis.html#deploying-github-pages">UsingTravis.adoc</a> to learn how to deploy GitHub Pages using Travis.</p>
 </div>
-<div class="paragraph">
-<p>=== Converting Documentation to PDF format</p>
 </div>
+<div class="sect2">
+<h3 id="converting-documentation-to-pdf-format"><a class="link" href="#converting-documentation-to-pdf-format">6.3. Converting Documentation to PDF format</a></h3>
 <div class="paragraph">
 <p>We use <a href="https://www.google.com/chrome/browser/desktop/">Google Chrome</a> for converting documentation to PDF format, as Chrome&#8217;s PDF engine preserves hyperlinks used in webpages.</p>
 </div>
@@ -1659,9 +1726,9 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 </div>
 <div class="title">Figure 18. Saving documentation as PDF files in Chrome</div>
 </div>
-<div id="Docs-SiteWideDocSettings" class="paragraph">
-<p>=== Site-wide Documentation Settings</p>
 </div>
+<div class="sect2">
+<h3 id="Docs-SiteWideDocSettings"><a class="link" href="#Docs-SiteWideDocSettings">6.4. Site-wide Documentation Settings</a></h3>
 <div class="paragraph">
 <p>The <a href="https://github.com/cs2113-ay1819s2-t08-2/main/build.gradle"><code>build.gradle</code></a> file specifies some project-specific <a href="https://asciidoctor.org/docs/user-manual/#attributes">asciidoc attributes</a> which affects how all documentation files within this project are rendered.</p>
 </div>
@@ -1718,9 +1785,9 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 </tr>
 </tbody>
 </table>
-<div id="Docs-PerFileDocSettings" class="paragraph">
-<p>=== Per-file Documentation Settings</p>
 </div>
+<div class="sect2">
+<h3 id="Docs-PerFileDocSettings"><a class="link" href="#Docs-PerFileDocSettings">6.5. Per-file Documentation Settings</a></h3>
 <div class="paragraph">
 <p>Each <code>.adoc</code> file may also specify some file-specific <a href="https://asciidoctor.org/docs/user-manual/#attributes">asciidoc attributes</a> which affects how the file is rendered.</p>
 </div>
@@ -1775,9 +1842,9 @@ One of: <code>UserGuide</code>, <code>DeveloperGuide</code>, <code>LearningOutco
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>=== Site Template</p>
 </div>
+<div class="sect2">
+<h3 id="site-template"><a class="link" href="#site-template">6.6. Site Template</a></h3>
 <div class="paragraph">
 <p>The files in <a href="https://github.com/cs2113-ay1819s2-t08-2/main/docs/stylesheets"><code>docs/stylesheets</code></a> are the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS stylesheets</a> of the site.
 You can modify them to change some properties of the site&#8217;s design.</p>
@@ -1786,21 +1853,30 @@ You can modify them to change some properties of the site&#8217;s design.</p>
 <p>The files in <a href="https://github.com/cs2113-ay1819s2-t08-2/main/docs/templates"><code>docs/templates</code></a> controls the rendering of <code>.adoc</code> files into HTML5.
 These template files are written in a mixture of <a href="https://www.ruby-lang.org">Ruby</a> and <a href="http://slim-lang.com">Slim</a>.</p>
 </div>
-</div>
-</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>Modifying the template files in <a href="https://github.com/cs2113-ay1819s2-t08-2/main/docs/templates"><code>docs/templates</code></a> requires some knowledge and experience with Ruby and Asciidoctor&#8217;s API.
 You should only modify them if you need greater control over the site&#8217;s layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div id="Testing" class="paragraph">
-<p>== Testing</p>
+</td>
+</tr>
+</table>
 </div>
-<div class="paragraph">
-<p>=== Running Tests</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Testing"><a class="link" href="#Testing">7. Testing</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="running-tests"><a class="link" href="#running-tests">7.1. Running Tests</a></h3>
 <div class="paragraph">
 <p>There are three ways to run tests.</p>
 </div>
@@ -1860,9 +1936,9 @@ See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run 
 <div class="paragraph">
 <p>To run tests in headless mode, open a console and run the command <code>gradlew clean headless allTests</code> (Mac/Linux: <code>./gradlew clean headless allTests</code>)</p>
 </div>
-<div class="paragraph">
-<p>=== Types of tests</p>
 </div>
+<div class="sect2">
+<h3 id="types-of-tests"><a class="link" href="#types-of-tests">7.2. Types of tests</a></h3>
 <div class="paragraph">
 <p>We have two types of tests:</p>
 </div>
@@ -1902,9 +1978,11 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="troubleshooting-testing"><a class="link" href="#troubleshooting-testing">7.3. Troubleshooting Testing</a></h3>
 <div class="paragraph">
-<p>=== Troubleshooting Testing
-<strong>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</strong></p>
+<p><strong>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</strong></p>
 </div>
 <div class="ulist">
 <ul>
@@ -1916,34 +1994,38 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>== Dev Ops</p>
 </div>
-<div class="paragraph">
-<p>=== Build Automation</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="dev-ops"><a class="link" href="#dev-ops">8. Dev Ops</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="build-automation"><a class="link" href="#build-automation">8.1. Build Automation</a></h3>
 <div class="paragraph">
 <p>See <a href="UsingGradle.html">UsingGradle.adoc</a> to learn how to use Gradle for build automation.</p>
 </div>
-<div class="paragraph">
-<p>=== Continuous Integration</p>
 </div>
+<div class="sect2">
+<h3 id="continuous-integration"><a class="link" href="#continuous-integration">8.2. Continuous Integration</a></h3>
 <div class="paragraph">
 <p>We use <a href="https://travis-ci.org/">Travis CI</a> and <a href="https://www.appveyor.com/">AppVeyor</a> to perform <em>Continuous Integration</em> on our projects. See <a href="UsingTravis.html">UsingTravis.adoc</a> and <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a> for more details.</p>
 </div>
-<div class="paragraph">
-<p>=== Coverage Reporting</p>
 </div>
+<div class="sect2">
+<h3 id="coverage-reporting"><a class="link" href="#coverage-reporting">8.3. Coverage Reporting</a></h3>
 <div class="paragraph">
 <p>We use <a href="https://coveralls.io/">Coveralls</a> to track the code coverage of our projects. See <a href="UsingCoveralls.html">UsingCoveralls.adoc</a> for more details.</p>
 </div>
-<div class="paragraph">
-<p>=== Documentation Previews
-When a pull request has changes to asciidoc files, you can use <a href="https://www.netlify.com/">Netlify</a> to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <a href="UsingNetlify.html">UsingNetlify.adoc</a> for more details.</p>
 </div>
+<div class="sect2">
+<h3 id="documentation-previews"><a class="link" href="#documentation-previews">8.4. Documentation Previews</a></h3>
 <div class="paragraph">
-<p>=== Making a Release</p>
+<p>When a pull request has changes to asciidoc files, you can use <a href="https://www.netlify.com/">Netlify</a> to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <a href="UsingNetlify.html">UsingNetlify.adoc</a> for more details.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="making-a-release"><a class="link" href="#making-a-release">8.5. Making a Release</a></h3>
 <div class="paragraph">
 <p>Here are the steps to create a new release.</p>
 </div>
@@ -1963,9 +2045,9 @@ When a pull request has changes to asciidoc files, you can use <a href="https://
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Managing Dependencies</p>
 </div>
+<div class="sect2">
+<h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">8.6. Managing Dependencies</a></h3>
 <div class="paragraph">
 <p>A project often depends on third-party libraries. For example, <em>LIFE</em> depends on the <a href="https://github.com/FasterXML/jackson">Jackson library</a> for JSON parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:</p>
 </div>
@@ -1979,9 +2061,12 @@ When a pull request has changes to asciidoc files, you can use <a href="https://
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>== Product Scope</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="product-scope"><a class="link" href="#product-scope">Appendix A: Product Scope</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>Target user profile</strong>:</p>
 </div>
@@ -2020,9 +2105,11 @@ When a pull request has changes to asciidoc files, you can use <a href="https://
 <p><strong>Value proposition</strong>: One-stop application for students to improve their student life through
  documentation of their priorities and daily targets, enhancing their ability to manage their lives.</p>
 </div>
-<div class="paragraph">
-<p>== User Stories</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="user-stories"><a class="link" href="#user-stories">Appendix B: User Stories</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
 </div>
@@ -2210,15 +2297,16 @@ have completed at the end of the day</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>== Use Cases</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>(For all use cases below, the <strong>System</strong> is the <em>LIFE</em> application and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
 </div>
-<div class="paragraph">
-<p>=== Use case: Add a  task</p>
-</div>
+<div class="sect2">
+<h3 id="use-case-add-a-task"><a class="link" href="#use-case-add-a-task">C.1. Use case: Add a  task</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2263,9 +2351,9 @@ Use case ends.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>=== Use case: Edit a task</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-edit-a-task"><a class="link" href="#use-case-edit-a-task">C.2. Use case: Edit a task</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2314,9 +2402,9 @@ Use case ends.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>=== Use Case: Delete a Task</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-delete-a-task"><a class="link" href="#use-case-delete-a-task">C.3. Use Case: Delete a Task</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2353,9 +2441,9 @@ Use case ends.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>=== Use Case: Tick Task</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-tick-task"><a class="link" href="#use-case-tick-task">C.4. Use Case: Tick Task</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2392,9 +2480,9 @@ Use case ends.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>=== Use Case: Sort Task</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-sort-task"><a class="link" href="#use-case-sort-task">C.5. Use Case: Sort Task</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2414,9 +2502,9 @@ Use case ends.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Use Case: Add a new purchase</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-add-a-new-purchase"><a class="link" href="#use-case-add-a-new-purchase">C.6. Use Case: Add a new purchase</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2434,9 +2522,9 @@ example: addpurchase pn/chicken rice pr/3.50<br></p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Use Case: View Expenditure List</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-view-expenditure-list"><a class="link" href="#use-case-view-expenditure-list">C.7. Use Case: View Expenditure List</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2466,9 +2554,9 @@ example: addpurchase pn/chicken rice pr/3.50<br></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>=== Use Case: Clear Expenditure List</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-clear-expenditure-list"><a class="link" href="#use-case-clear-expenditure-list">C.8. Use Case: Clear Expenditure List</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2528,9 +2616,9 @@ example: addpurchase pn/chicken rice pr/3.50<br></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>=== Use Case: Record Completed Workout</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-record-completed-workout"><a class="link" href="#use-case-record-completed-workout">C.9. Use Case: Record Completed Workout</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2547,9 +2635,9 @@ example: addpurchase pn/chicken rice pr/3.50<br></p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Use Case: View Workout Log</p>
 </div>
+<div class="sect2">
+<h3 id="use-case-view-workout-log"><a class="link" href="#use-case-view-workout-log">C.10. Use Case: View Workout Log</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2579,9 +2667,12 @@ example: addpurchase pn/chicken rice pr/3.50<br></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>== Non Functional Requirements</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
+<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2604,9 +2695,11 @@ example: addpurchase pn/chicken rice pr/3.50<br></p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>== Glossary</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
+<div class="sectionbody">
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><a id="mainstream-os"></a> Mainstream OS</dt>
@@ -2619,9 +2712,11 @@ example: addpurchase pn/chicken rice pr/3.50<br></p>
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>== Product Survey</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong><em>LIFE</em></strong></p>
 </div>
@@ -2686,9 +2781,13 @@ example: addpurchase pn/chicken rice pr/3.50<br></p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="feature-contribution"><a class="link" href="#feature-contribution">Appendix G: Feature Contribution</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>== Feature Contribution
-In case you want to improve a specific feature in the <em>LIFE</em> App or
+<p>In case you want to improve a specific feature in the <em>LIFE</em> App or
 if you want to know how the creators did it, you can contact the creators
 of that specific feature.<br>
 The contact details of the creators and the
@@ -2796,9 +2895,11 @@ features that they did are listed below</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>== Instructions for Manual Testing</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
 </div>
@@ -2814,9 +2915,8 @@ These instructions only provide a starting point for testers to work on; testers
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>=== Launch and Shutdown</p>
-</div>
+<div class="sect2">
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">H.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2849,9 +2949,9 @@ Expected: The most recent window size and location is retained.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Adding a task</p>
 </div>
+<div class="sect2">
+<h3 id="adding-a-task"><a class="link" href="#adding-a-task">H.2. Adding a task</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2875,9 +2975,9 @@ Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Deleting a task</p>
 </div>
+<div class="sect2">
+<h3 id="deleting-a-task"><a class="link" href="#deleting-a-task">H.3. Deleting a task</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2918,9 +3018,9 @@ Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Editing a task</p>
 </div>
+<div class="sect2">
+<h3 id="editing-a-task"><a class="link" href="#editing-a-task">H.4. Editing a task</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2954,9 +3054,9 @@ Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Ticking a task</p>
 </div>
+<div class="sect2">
+<h3 id="ticking-a-task"><a class="link" href="#ticking-a-task">H.5. Ticking a task</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3012,9 +3112,9 @@ Expected: No purchases will be added. Details of error will be reflected.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Clearing expenditure list</p>
 </div>
+<div class="sect2">
+<h3 id="clearing-expenditure-list"><a class="link" href="#clearing-expenditure-list">H.6. Clearing expenditure list</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3031,9 +3131,9 @@ Expected: If existing expenditure list has data, the list will be cleared succes
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Recording new workout</p>
 </div>
+<div class="sect2">
+<h3 id="recording-new-workout"><a class="link" href="#recording-new-workout">H.7. Recording new workout</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3049,9 +3149,9 @@ Expected: "New workout added: Push ups | 5 SETS, 20 REPS, COMPLETED IN: 10 MINUT
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>=== Viewing recent workout</p>
 </div>
+<div class="sect2">
+<h3 id="viewing-recent-workout"><a class="link" href="#viewing-recent-workout">H.8. Viewing recent workout</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3072,8 +3172,4 @@ Expected: If workout list is empty, "No workout found"<br>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 08:56:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-04-14 09:01:22 UTC</div></div></div></body></html>
