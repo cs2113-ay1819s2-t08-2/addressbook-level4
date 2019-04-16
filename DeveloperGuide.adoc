@@ -1,0 +1,1555 @@
+= LIFE - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/cs2113-ay1819s2-t08-2/main
+
+By: `Team T08-2`  	Since: `May 2019`  	Licence: `MIT`
+
+//tag::Introduction[]
+== Introduction
+=== What is LIFE
+_LIFE_ - Lifestyle Improvement For Everyone +
+This is a one stop lifestyle management application made for people to better manage their lives through documenting
+ and tracking their tasks, expenses, workouts and habits. +
+
+Features include:
+
+* Task List +
+* Expenditure List +
+* Workout Tracker +
+* Habit Tracker +
+* Contact List
+
+=== Core Team
+_LIFE_ was developed and is continually being maintained and improved upon
+by link:https://github.com/cs2113-ay1819s2-t08-2/main[Team T08-2]
+
+== About this Developer Guide
+This developer guide serves to assist you in making contributions to the _LIFE_ application.
+To get started, jump to <<Setting Up>>.
+
+== Setting up
+Follow the instructions below to set up and configure _LIFE_ project files on your computer.
+
+=== Prerequisites
+
+. *JDK `8`* (revision `1.8.0_201` or later)
++
+[TIP]
+If you do not
+already have it installed, you can download it from
+link:http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html[here].
++
+[NOTE]
+Only JDK 8 is supported. +
+This app will not work with later major JDK releases such as JDK 9, 10, 11, etc.
++
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+
+=== Setting up the project in your computer
+
+. Fork this repo, and clone the fork to your computer
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+=== Verifying the setup
+
+. Run the `seedu.address.MainApp` and try a few commands
+. <<Testing,Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
+. Select `Editor` > `Code Style` > `Java`
+. Click on the `Imports` tab to set the order
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, the documentation will still have the cs2113-ay1819s2-t08-2 branding and refer to the `cs2113-ay1819s2-t08-2/main` repo.
+
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `cs2113-ay1819s2-t08-2/main`), you should do the following:
+
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
+==== Getting started with coding
+
+When you are ready to start coding,
+
+1. Get some sense of the overall design by reading <<Design-Architecture>>.
+2. Take a look at <<GetStartedProgramming>>.
+
+//end::Introduction[]
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+[TIP]
+The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:
+
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+The rest of the App consists of four components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Each of the four components
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+
+.Component interactions for `delete 1` command
+image::SDforDeletePerson.png[width="800"]
+
+The sections below give more details of each component.
+
+//tag::uicomponent[]
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `PurchaseListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+//end::uicomponent[]
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `LifeAppParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a new task).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeletePersonSdForLogic.png[width="800"]
+
+// tag::developerModel[]
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+//end::developerModel[]
+
+//tag::modelandstorage[]
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the _LIFE_ application data.
+* exposes an unmodifiable `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change. +
+(There exists `ObservableList<Workout>`, `ObservableList<Habit>` and `ObservableList<Person>` as well)
+* does not depend on any of the other three components.
+
+
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Expenditure List`, which `Purchase` can reference. This would allow `Expenditure List` to only require one `Tag` object per unique `Tag`, instead of each `Purchase` needing their own `Tag` object. An example of how such a model may look like is given below. +
+(This goes the same for each `Task`, `Workout`, `Habit` and `Person`)
+ +
+image:ModelClassBetterOopDiagram.png[width="800"]
+
+
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the _LIFE_ application data in json format and read it back.
+
+//end::modelandstorage[]
+
+[[Design-Commons]]
+=== Common classes
+
+Classes used by multiple components are in the `seedu.addressbook.commons` package.
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+// tag::undoredo[]
+=== Undo/Redo feature (Currently only for Contact List)
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedContactList`.
+It extends `ContactList` with an undo/redo history, stored internally as an `contactListStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedContactList#commit()` -- Saves the current contact list state in its history.
+* `VersionedContactList#undo()` -- Restores the previous contact list state from its history.
+* `VersionedContactList#redo()` -- Restores a previously undone contact list state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitContactList()`, `Model#undoContactList()` and `Model#redoContactList()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedContactList` will be initialized with the initial contact list state, and the `currentStatePointer` pointing to that single contact list state.
+
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the contact list. The `delete` command calls `Model#commitContactList()`, causing the modified state of the contact list after the `delete 5` command executes to be saved in the `contactListStateList`, and the `currentStatePointer` is shifted to the newly inserted contact list state.
+
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitContactList()`, causing another modified contact list state to be saved into the `contactListStateList`.
+
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitContactList()`, so the contact list state will not be saved into the `contactListStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoContactList()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous contact list state, and restores the contact list to that state.
+
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial contact list state, then there are no previous contact list states to restore. The `undo` command uses `Model#canUndoContactList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoContactList()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the contact list to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `contactListStateList.size() - 1`, pointing to the latest contact list state, then there are no undone contact list states to restore. The `redo` command uses `Model#canRedoContactList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the contact list, such as `list`, will usually not call `Model#commitContactList()`, `Model#undoContactList()` or `Model#redoContactList()`. Thus, the `contactListStateList` remains unchanged.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitContactList()`. Since the `currentStatePointer` is not pointing at the end of the `contactListStateList`, all contact list states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire contact list.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of contact list states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedContactList`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+
+// tag::developerTask[]
+=== Task List Feature
+This entire section describes comprehensively the technical aspects of the `Task` feature as well
+as considerations made during the design of the feature. +
+
+==== `Task` package
+This section describes the inner dimensions of the `Task` package. +
+
+===== Reason for implementation
+
+_LIFE_ is a tool for helping users manage their priorities, therefore the ability to help them document their tasks is highly essential.
+
+
+===== Current Implementation
+
+Each attribute of a `Task`, such as the task name, date of the deadline,
+time of the deadline are classes in the `Task` package.
+Each of the classes provide utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[[Current-Implementation-of-Task]]
+.Classes in the `Task` Package
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|`TaskName` |new TaskName("CS2101 Developer Guide")|Stores a `String` that represents the name
+ of the task.
+|`DeadlineDate` |new DeadlineDate("020419")|Stores a `String` that represents the deadline date of the task. String stored has to be in the DDMMYY format.
+|`DeadlineTime` |new DeadlineTime("2359")|Stores a `String` that represents the deadline time of the task.  String stored has to be in the 24HRS format.
+|`Tag` |new Tag()|Stores a `String` that acts as a tag to the task. This field is *optional*.
+|=======
+
+
+The `Task` package includes the `Task` class which documents information about a task.
+The `Task` class provides utility methods to retrieve the different objects (e.g. `DeadlineDate`). The `Task` class is shown below.
+
+.Table of `Task` Class
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Task |`new Task(TaskName, DeadlineDate, DeadlineTime, Tag)` |Stores `TaskName`, `DeadlineDate`,
+ `DeadlineTime`, `Tag` objects to document a task's information.
+|=======
+
+{nbsp} +
+
+There is a check for duplicates when adding the task. This check
+is found in the `AddTaskCommand.java` file which calls for `model` to verify for any duplication
+before adding the `Task` instance into the `UniqueTaskList`.
+
+****
+TIP: `_Task_` objects have to be unique and they are considered duplicates if they share the same `_TaskName_`.
+****
+
+{nbsp} +
+
+===== Reasons for how it is implemented
+The `task` package follows the model of the `person` package which existed before our
+ team started this project. This was because the `TaskList` was ideated to have the data
+ stored in an ArrayList like the link:https://github.com/se-edu/addressbook-level4[Addressbook].
+This made it easier for us to implement our features as we could reuse some of the existing code
+and follow the style of how the link:https://github.com/se-edu/addressbook-level4[Addressbook] was implemented to made the code
+more readable.
+
+//end::developerTask[]
+
+===== Model
+
+The `TaskList` is a separate feature that is distinct from the other features.
+This is done intentionally as the _LIFE_ application is meant to be made up of four
+distinct features. Also, this would allow future enhancement of this `TaskList` to include more
+functionalities for the `TaskList` such as priority tagging without affecting the
+other features due to the low coupling other features have with `Task`.
+
+The following is a model diagram of the `TaskList` component.
+
+.Model Component of `TaskList`.
+image::TaskListModelDiagramComponent.png[width='800']
+
+
+{nbsp} +
+
+// tag::developerAddTask[]
+==== Add Task
+The `AddTaskCommand` will create an instance of the `Task` class and store it in the `TaskList`
+
+===== Reason for implementation
+To be able to document tasks, students should be able to add their tasks into the application.
+
+===== Current Implementation
+The `AddTaskCommand` is created when the command word `addtask` is detected in the user input alongside
+the compulsory parameters as shown in <<Current-Implementation-of-Task>>. If the parameters are invalid, an error
+message will be displayed.
+
+Through the `AddTaskCommand`, the user input will then be split into its separate
+  components(e.g. `TaskName`, `DeadlineDate`, `DeadlineTime`, `Tag`) through `ParserUtil`,
+   creating a `Task` instance. This instance is then passed from the `logic` component to the `model`
+   component as shown in <<Add-Task-Sequence-Diagram>>.
+
+
+Given below is an example usage scenario and how the `addTask` mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+_LIFE_ will initialize with the initial task list state and the currentStatePointer pointing to that single task list state.
+
+Step 2. The user executes the `addtask` command with `addtask n/CS2101 Guides d/140419 h/2359`
+
+Step 3. This command goes through the `AddTaskCommandParser` to extract the values of
+the input string and to process it. It also searches for invalid input and duplicates.
+
+Step 4. Once valid, it passes the Task from the `logic` component to the `model` component into an ArrayList called `TaskList`.
+
+
+The following sequence diagram shows how the `addtask` operation works.
+
+[[Add-Task-Sequence-Diagram]]
+.Add Task Sequence Diagram
+image::AddTaskSequenceDiagram.PNG[width="800"]
+
+{nbsp} +
+
+//end::developerAddTask[]
+// tag::developerDeleteTask[]
+==== Delete Task
+The `DeleteTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
+in the UI)_ from the `TaskList`.
+
+===== Reason for implementation
+This `DeleteTaskCommand` is essential if the task is longer needed on the task list. For example,
+the user's boss has reassigned the task or the task is no longer valid.
+
+===== Current Implementation
+The `DeleteTaskCommand` is created when the command word `deletetask` is detected in the user input alongside
+the compulsory parameter which is an index in the `TaskList`. The `DeleteTaskCommand` will then check for the
+validity of the index given. If index is invalid, an error message will be displayed.
+
+The following sequence diagram shows how the `deletetask` operation works.
+
+[Delete Task Sequence Diagram]
+.Delete Task Sequence Diagram
+image::DeleteTaskSequenceDiagram.PNG[width='800']
+
+The following activity diagrams illustrates an example when the user executes a `deletetask` command.
+[Delete Task Activity Diagram]
+.Activity Diagram of user executing a `deletetask` command
+image::DeleteTaskActivityDiagram.PNG[width='800']
+
+//end::developerDeleteTask[]
+{nbsp} +
+
+
+
+==== Tick Task
+The `TickTaskCommand` will find and delete the specified `Task` _(that is according to the Task List shown
+in the UI)_ from the `TaskList` and add them into the `TickedTaskList`.
+
+===== Reason for implementation
+Through ticking the tasks that the users have completed and adding them into the
+`TickedTaskList` (shown in the UI), the users will feel more motivated to complete more tasks.
+This is supported by research that is done by us.
+
+===== Current Implementation
+The `TickTaskCommand` is created when the command word `ticktask` is detected in the user input alongside
+the compulsory parameter which is an index in the `TaskList`. The `TickTaskCommand` will then check for the
+validity of the index given. If index is invalid, an error message will be displayed.
+
+The following sequence diagram shows how the `ticktask` operation works.
+
+[Tick Task Sequence Diagram]
+.Tick Task Sequence Diagram
+image::TickTaskSequenceDiagram.PNG[width='800']
+
+{nbsp} +
+
+// tag::developerTickEditTask[]
+
+==== Edit Task
+The `EditTaskCommand` will find and edit the specified `Task` _(that is according to the Task List shown
+in the UI)_ from the `TaskList` and along with the given input by the user, edit accordingly.
+
+===== Reason for implementation
+We believe that this is essential as the user might have entered the wrong details of a task, there
+is a change in the deadline of the task, etc. We do not want to inconvenience the user by making him
+find the index of the task to be edited, deleting the task and adding the new task.
+
+===== Current Implementation
+The `EditTaskCommand` is created when the command word `edittask` is detected in the user input alongside
+the compulsory parameter consisting of the index in the `TaskList` and the details to be changed. (e.g. `TaskName,
+`DeadlineDate, `DeadlineTime`, `Set<Tag>`)
+Like previous commands, The `EditTaskCommand` will also check for the
+validity of the index given. If index is invalid, an error message will be displayed.
+
+The following is what makes `EditTask` different from the other `Task` commands.
+
+The `EditTaskCommand` will locate the `Task` to be edited and from it, create a newly edited instance called `editedTask`.
+The model will take it both the `Task` to be edited and the `editedTask` and
+replace the former `Task` with the `editedTask`.
+
+
+The following sequence diagram shows how the `edittask` operation works.
+
+[Edit Task Sequence Diagram]
+.Edit Task Sequence Diagram
+image::EditTaskSequenceDiagram.PNG[width='800']
+
+
+==== Alternatives considered
+* Alternative 1 (current choice): Create a new Array List Object to store the tasks e.g. `UniqueTaskList`.
+
+** Pros: Array List is the simplest data structure which allows for manipulation of data such as sorting.
+Like how the existing `UniquePersonList` was implemented,
+We can implement this `UniqueTaskList` in the same way. Therefore, making the overall code more
+readable and implementation much simpler.
+
+** Cons : Some operations require the traversing of the list which require O(N) time complexity.
+For instance, the `deletetask` command and the checking of duplicates.
+
+* Alternative 2 : Using a Hash Map to store the tasks
+
+** Pros: The `deletetask` command and checking of duplicates has time complexity of  O(1).
+
+** Cons: Implementation of Hash Map is a lot more complex than the implemented Array List. At the point
+of implementation, My team and I do not
+have enough expertise to utilise the Hash Map.
+
+//end::developerTickEditTask[]
+
+// tag::ExpListFeature[]
+=== Expenditure List Feature
+This section describes the technical aspects of the `Expenditure List` feature and the design considerations made for the feature.
+
+==== `Purchase` package
+This section describes the inner dimensions of the `Purchase` package.
+
+===== Reason for implementation
+
+_LIFE_ is also a tool for helping students manage their finances and spendings, therefore it is important to have a feature to help them record their expenditure regularly.
+
+===== Current Implementation
+
+Each attribute of a Purchase, the purchase name and price are classes in the `Purchase` package. Each class provides utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|PurchaseName |new PurchaseName("Ice cream")|Stores a `String` that represents the name of the purchase.
+|Price|new Price("1.50")|Stores a `String` that represents the price of the task. String stored has to be in the format of integers, followed by a decimal point then 2 integers.
+|Tag|new Tag()|Stores a `String` that acts as a tag to the new purchase. This field is *optional*.
+|=======
+
+The `purchase` package includes the `Purchase` class which documents information about the a purchase. The `Purchase` class provided utility methods to retrieve the different objects (e.g. `Price`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Purchase |`new Purchase(PurchaseName, Price, Tag)` |Stores `PurchaseName`, `Price`, `Tag` objects to document information of about a task.
+|=======
+
+===== Reasons for how it is implemented
+Similar to the `task` package, the `purchase` package follows the model of the `person` package in the link:https://github.com/se-edu/addressbook-level4[Addressbook].
+This made it easier for us to implement our features as we could follow the style of how the `person` package was implemented, at the same time improving the modularity and organization.
+
+
+===== Model
+
+The `ExpenditureList` is a separate feature as well, being one of the four features in the _LIFE_ application.
+Likewise, this would allow future enhancement of this `ExpenditureList` to be built on with additional features such as finding a particular purchase without affecting the
+other features due to the low coupling other features have with this feature.
+
+The following is a model diagram of the `ExpenditureList` component.
+
+.Model Component of `ExpenditureList`.
+image::ExpenditureListModelComponentDiagram.png[width='800']
+
+
+{nbsp} +
+
+==== Add Purchase
+
+The `AddPurchaseCommand` will create an instance of the `Purchase` class and store it in the `ExpenditureList`
+
+===== Reason for implementation
+To be able to track expenditure, students should be able to add the purchases bought, together with the prices.
+
+===== Current Implementation
+The `AddPurchaseCommand` is created when the command word `addPurchase` and the corresponding compulsory parameters are detected in the user input. Through the `AddPurchaseCommand`, the user input will then be split into its separate components(e.g. `PurchaseName`, `Price`, `Tag`) through `ParserUtil`, creating a `Purchase` instance and pass it from the `logic` component to the `model` component.
+Given below is an example usage scenario and how the `addpurchase` mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. _LIFE_ will initialize with the initial expenditure list state and the currentStatePointer pointing to that single purchase list state.
+
+Step 2. The user executes the `addpurchase` command with `addpurchase pn/chickenrice pr/3.50`
+
+Step 3. This command goes through the AddPurchaseCommandParser to extract the values of the input string and to process it. It also searches for invalid input.
+
+Step 4. Once valid, it passes the Purchase from the logic component to the model component into an ArrayList called ExpenditureList.
+
+The following sequence diagram illustrates how the `addpurchase` operation works.
+
+==== Model
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+LIFE will initialize with the initial expenditure list state.
+
+Step 2. The user executes the `addPurchase` command with `addpurchase pn/Ice Cream pr/1.50`
+
+Step 3. This command goes through the `AddPurchaseCommandParser` to extract the values of the input string and to process it. It also identifies invalid input.
+
+Step 4. Once valid, it passes the purchase from the `logic` component to the `model` component into an ArrayList called ExpenditureList.
+
+.Add Purchase Sequence Diagram
+image::AddPurchaseSequenceDiagram.png[width="800"]
+
+{nbsp} +
+
+The following activity diagram illustrates an example with a user executing the `addpurchase` command.
+
+.Activity Diagram of user executing a `addpurchase` command
+image::AddPurchaseActivityDiagram.png[width='800']
+
+{nbsp} +
+
+==== Clear Expenditure List
+The `ClearExpList` command will clear all the existing data shown in the expenditure list.
+
+===== Reason for implementation
+The Expenditure List is not just a platform to record spendings, it is also a feature to help manage finances. Hence, every week the list can be cleared to reset the data for the user to start over and better plan the spendings the following week.
+
+===== Current implementation
+The `ClearExpList` command is called when the command word `clearexplist` is detected in the user input. Through the `CleapExpList` command, an empty expenditure list model will be set and committed as the new expenditure list.
+Given below is an example usage scenario and how the `ClearExpList` mechanism behaves at each step.
+
+Step 1. The user has previously added purchases into the expenditure list. The current list is populated with one or more purchases with the corresponding prices.
+
+Step 2. The user executes the `clearexplist` command.
+
+Step 3. `resetData` method in `ExpenditureList` class is used to reset the data in the expenditure list into a new clean slate.
+
+==== Alternatives considered
+
+* Alternative 1 (current choice): Create a new Array List Object to store the purchases e.g. `purchaselist`.
+** Pros: Using this simple data structure allows for manipulation of data such as sorting. Like how the existing `UniquePersonList` was implemented, we can implement this `PurchaseList` in the same way. Standardizing this format will also make the overall code more readable and the implementation to be much simpler.
+** Cons: Some possible future operations may require the traversing of the list which require O(N) time complexity. For instance, a `findpurchase` command.
+
+* Alternative 2: Using a Hash Map to store the purchases
+** Pros: Future possible operations like `findpurchase` can be executed with O(1) time complexity.
+** Cons:  Implementation of Hash Map is a lot more complex than the implemented Array List, which our team currently lacks the expertise to implement.
+
+// end:: ExpListFeature[]
+
+// tag::Workout[]
+=== Workout Feature
+
+==== `Workout` package
+
+===== Reason for implementation
+
+_LIFE_ is a tool for helping students manage their workout records too, having this features will aid them in recording down their previous workouts.
+
+===== Current Implementation
+
+Each attribute of a Workout, such as the exercise, sets, reps and time are classes in the `Workout` package. Each of the class provide utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Exercise |new Exercise("Push ups")|Stores a `String` that represents the name of the exercise.
+|Sets|new Sets("1")|Stores a `String` that represents the sets of the exercise done. Sets have to be integers only.
+|Reps|new Reps("20")|Stores a `String` that represents the reps per set.  String stored has to be integers only.
+|Time|new Time(‘15’)|Stores a `String` that represent the time taken in minutes to finish the exercise. String stored has to be integers only.
+|=======
+
+The `Workout` package includes the `Workout` class which documents information about the workout. The `Workout` class provides utility methods to retrieve the different objects (e.g. `Sets`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Workout |`new Workout(Exercise, Sets, Reps, Time)` |Stores `Exercise`, `Sets`, `Reps`, `Time` objects to document information of about a workout.
+|=======
+
+
+===== Reasons for how it is implemented
+The reason is the same for the implementation of the `Task` feature.
+//end::Workout[]
+
+
+==== Add Workout
+
+===== Reason for implementation
+To be able to document workout, students should be able to add the workouts into the application.
+
+===== Current Implementation
+The `RecordCommand` is created when the command word `record` is detected in the user input. Through the `RecordCommand`, the user input will then be split into its seperate components(e.g. `Exercise`, `Sets`, `Reps`, `Time`) through `ParserUtil`, creating a `Workout` instance and pass it from the `logic` component to the `model` component.
+
+
+==== Model
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single workout book state.
+
+Step 2. The user executes the `record` command with `record e/push ups s/5 r/20 t/20`
+
+Step 3. This command goes through the `RecordCommandParser` to extract the values of
+the input string and to process it. It also searches for invalid input and duplicates.
+
+Step 4. Once valid, it passes the Workout from the `logic` component to the `model` component into an ArrayList called  ‘WorkoutList`.
+
+==== View recent workout
+
+===== Reason for implementation
+To be able to plan for their future workouts, students should able to view their recent workouts.
+
+===== Current Implementation
+The `WorkoutCommand` is created when command word `workout` is detected in the user input. Through the `WorkoutCommand`, the command
+will then search through the `Workout List` in which workout records are stored and output up to 5 most recent workouts.
+
+====
+Step 1. The user launches the application for the first time.
+_LIFE_ will initialize with the initial workout list state and the currentStatePointer pointing to that single workout book state.
+
+Step 2. The user execute the `workout` command with `workout`.
+
+Step 3. This command goes through `LifeParser` which will create a `WorkoutCommand` instance.
+
+Step 4. `WorkoutCommand` will then search through the `Workout List` in the `storage` component and will find up to 5 most recent
+workouts
+
+Step 5. `WorkoutCommand` will then output up to 5 most recent workout back to the user through `CommandResult`
+====
+// end::Workout[]
+
+// tag::HabitFeature[]
+=== Habit Tracker List Feature
+This section describes the technical aspects of the `Habit Tracker List` feature and the design considerations made for the feature.
+
+==== `Habit` package
+This section describes the inner dimensions of the `Habit` package.
+
+===== Reason for implementation
+
+_LIFE_ also provides a platform for students to track the progress of their habits, to relief them from the worry of forgetting the habits
+they wish to inculcate, especially when the semester becomes busier.
+
+===== Current Implementation
+
+Each attribute of a Habit, the habit title and progress are classes in the `Habit` package. Each class provides utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|HabitTitle |new HabitTitle("No Supper")|Stores a `String` that represents the title of the habit.
+|Progress|new Progress("2")|Stores a `String` that represents the progress of the habit, which represents the number of consecutive days the habit is completed. String stored has to be in the format of integer.
+|Tag|new Tag()|Stores a `String` that acts as a tag to the new habit. This field is *optional*.
+|=======
+
+The `habit` package includes the `Habit` class which documents information about the a habit. The `Habit` class provided utility methods to retrieve the different objects (e.g. `Progress`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Habit |`new Habit(HabitTitle, Progress, Tag)` |Stores `HabitTitle`, `Progress`, `Tag` objects to document information of about a habit.
+|=======
+
+===== Reasons for how it is implemented
+Similar to the `task` package, the `habit` package follows the model of the `person` package in the link:https://github.com/se-edu/addressbook-level4[Addressbook].
+This made it easier for us to implement our features as we could follow the style of how the `person` package was implemented, at the same time improving the modularity and organization.
+
+
+===== Model
+
+The `HabitTrackerList` is a separate feature as well, being one of the four features in the _LIFE_ application.
+Likewise, this would allow future enhancement of this `HabitTrackerList` to be built on with additional features such as finding a particular habit without affecting the
+other features due to the low coupling other features have with this feature.
+{nbsp} +
+
+==== Add Habit
+
+The `AddHabitCommand` will create an instance of the `Habit` class and store it in the `HabitTrackerList`
+
+===== Reason for implementation
+To be able to track habits, students should be able to add the desired habits, together with their progress.
+
+===== Current Implementation
+The `AddHabitCommand` is created when the command word `addHabit` and the corresponding compulsory parameters are detected in the user input. Through the `AddHabitCommand`, the user input will then be split into its separate components(e.g. `HabitTitle`, `Progress`, `Tag`) through `ParserUtil`, creating a `Habit` instance and pass it from the `logic` component to the `model` component.
+
+===== Model
+Given below is an example usage scenario and how the `addHabit` mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. _LIFE_ will initialize with the initial habit tracker list state and the currentStatePointer pointing to that single habit tracker list state.
+
+Step 2. The user executes the `addHabit` command with `addHabit ht/No Supper pg/2`.
+
+Step 3. This command goes through the AddHabitCommandParser to extract the values of the input string and to process it. It also searches for invalid input.
+
+Step 4. Once valid, it passes the Habit from the logic component to the model component into an ArrayList called HabitTrackerList.
+
+//{nbsp} +
+
+The following activity diagram illustrates an example with a user executing the `addpurchase` command.
+
+.Activity Diagram of user executing a `addpurchase` command
+image::AddHabitActivityDiagram.png[width='800']
+{nbsp} +
+
+==== Delete Habit
+The `delHabit` command will remove selected habit from the habit tracker list.
+
+===== Reason for implementation
+This command allows for rectification in case the user had mistyped or allows the user to remove habits he no longer wants to keep track of.
+
+===== Current implementation
+The `DeleteHabitCommand` is created when the command word `delHabit` is detected in the user input alongside
+the compulsory parameter which is an index in the `HabitTrackerList`. The `DeleteHabitCommand` will then check for the
+validity of the index given. If index is invalid, an error message will be displayed.
+
+The following activity diagrams illustrates an example when the user executes a `delHabit` command.
+[Delete Habit Activity Diagram]
+.Activity Diagram of user executing a `delHabit` command
+image::DeleteTaskActivityDiagram.PNG[width='800']
+
+==== Alternatives considered
+
+* Alternative 1 (current choice): Create a new Array List Object to store the habit e.g. `habitlist`.
+** Pros: Using this simple data structure allows for manipulation of data such as sorting. Like how the existing `UniquePersonList` was implemented, we can implement this `HabitList` in the same way. Standardizing this format will also make the overall code more readable and the implementation to be much simpler.
+** Cons: Some possible future operations may require the traversing of the list which require O(N) time complexity. For instance, a `findHabit` command.
+
+* Alternative 2: Using a Hash Map to store the purchases
+** Pros: Future possible operations like `findHabit` can be executed with O(1) time complexity.
+** Cons:  Implementation of Hash Map is a lot more complex than the implemented Array List, which our team currently lacks the expertise to implement.
+
+//end::HabitFeature[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+== Documentation
+
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
+
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+
+|`site-seedu`
+|Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
+|_not set_
+
+|===
+
+[[Docs-PerFileDocSettings]]
+=== Per-file Documentation Settings
+
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+
+[TIP]
+Attributes left unset in `.adoc` files will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+
+_{asterisk} Official SE-EDU projects only_
+|_not set_
+
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
+
+=== Site Template
+
+The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+You can modify them to change some properties of the site's design.
+
+The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+
+[WARNING]
+====
+Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
+The SE-EDU team does not provide support for modified template files.
+====
+
+[[Testing]]
+== Testing
+
+=== Running Tests
+
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+
+=== Types of tests
+
+We have two types of tests:
+
+.  *GUI Tests* - These are tests involving the GUI. They include,
+.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.address.commons.StringUtilTest`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.address.storage.StorageManagerTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.address.logic.LogicManagerTest`
+
+
+=== Troubleshooting Testing
+**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
+
+* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
+* Solution: Execute Gradle task `processResources`.
+
+== Dev Ops
+
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+
+A project often depends on third-party libraries. For example, _LIFE_ depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+[loweralpha]
+. Include those libraries in the repo (this bloats the repo size)
+. Require developers to download those libraries manually (this creates extra work for developers)
+
+[appendix]
+// tag::developerProductScope[]
+== Product Scope
+
+*Target user profile*:
+
+* anyone who needs a tool in helping them manage their time
+* has a need to manage a significant number of contacts, tasks
+* wishes to manage his/her expenditure
+* likes to journal
+* wants to keep track of their workout
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: One-stop application for students to improve their student life through
+ documentation of their priorities and daily targets, enhancing their ability to manage their lives.
+//end::developerProductScope[]
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
+|===========================================================================================================================================
+4.1+^s| First Time User Related User Stories
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |view the user guide |learn how to use the features of the application
+|`* * *` |new user |view the list of available instructions |navigate and use the application
+4.1+^s| Task Related User Stories
+|`* * *` |user |create a list of tasks |form a habit
+|`* * *` |user |tick off tasks from the list of tasks that i have completed|
+know what uncompleted tasks are there
+|`* * *` |user |add the ticked tasks into a completed task list|feel good knowing what tasks i
+have completed at the end of the day
+|`* * *` |user |view the list of tasks that i need to do |remember what else I should accomplish
+|`* * *` |user |delete the task off the task list| remove the tasks that became irrelevant
+|`* * *` |user |sort out the list of tasks according to their deadline |now which task to prioritize first
+|`* *` |user |sort the tasks out according to some tags |categorize my tasks
+|`*` |user |view the statistics of number of tasks done per week |know my productivity for the week
+4.1+^s| Expenditure Related User Stories
+|`* * *` |user |add a new purchase I had spent on |keep a record of my expenditure
+|`* * *` |user |view list of expenses made |check on what i have spent on
+|`* * *` |user |clear list of expenses made |have a new record of my expenditure
+|`* *`|user |have a warning sign pop out when i exceed my budget| i can control my expenditure
+|`* *` |user |delete a purchase made |remove items I had keyed n wrongly
+|`* *` |user |find a purchase made |check back on the amount I had spent on a particular purchase
+|`*`|user |come up with some statistics on my purchases |understand how i spent my money
+4.1+^s| Workout Related User Stories
+|`* * *` |user |view my previous workout logs |keep track of my workout history
+|`* * *` |user |record a completed workout |refer back to it
+|`* *`|user |view the statistics of my improvements of my workout|see whether i am improving physically
+4.1+^s| Habit Related User Stories
+|`* * *` |user |type my journal digitally|keep track of my life
+|`* * *` |user |add habits into a habit list|start creating a habit
+|`* *`|user |tick off habits off the habit list|know which habit i have completed for the day
+|`* *`|user |keep track of which day that i have completed all my habits|
+ meet my monthly goals for accomplishing all my habits for the day
+
+|===========================================================================================================================================
+
+[appendix]
+
+// tag::developerUseCase[]
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is the _LIFE_ application and the *Actor* is the `user`, unless specified otherwise)
+
+=== Use case: Add a  task
+
+*MSS*
+
+. User requests to add a new task  +
+example: `addtask n/Update CS2113T Developer Guide
+ d/311219 h/2359` +
+. _LIFE_ adds the task into the array list +
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The task details are invalid
++
+[none]
+**  _LIFE_ shows an error message. + Use Case ends.
+
+* 1b. Task already exists.
++
+[none]
+**  _LIFE_ shows an error message. +
+Use case ends.
+
+=== Use Case: Tick Task
+
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User completed the task and wishes to tick off the task with `ticktask INDEX`
+. Task ticked disappears from the task list panel and appears in the completed task list panel.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 4a. Index not in Task List.
+[none]
+** _LIFE_ shows an error message.+ Use case ends.
+
+//end::developerUseCase[]
+
+=== Use Case: Sort Task
+
+*MSS*
+
+. _LIFE_ already displays the task list.
+. User wishes to sort the tasks according to their deadline
+. _LIFE_ sorts the task in the task list.
++
+Use case ends.
+
+
+
+=== Use case: Edit a task
+
+*MSS*
+
+. _LIFE_ already shows a list of daily tasks
+. User requests to edit a specific task in the list via INDEX
+e.g. `edittask INDEX n/REDO CS2113T`
+. _LIFE_ edits the task at index INDEX
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. Index not in Task List. +
+[none]
+** _LIFE_ shows an error message. +
+Use case ends.
+
+* 2b. The task details are invalid. +
+[none]
+** _LIFE_ shows an error message + Use Case ends.
+
+
+=== Use Case: Delete a Task
+
+*MSS*
+
+. _LIFE_ already displays the task list
+. User requests to delete the task with `deletetask INDEX`
+. _LIFE_ delete the task
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. Index not in Task List.
+[none]
+** _LIFE_ shows an error message.+ Use case ends.
+
+
+=== Use Case: Add a new purchase
+
+*MSS*
+
+. User requests to add a new purchase into the Expenditure List +
+example: addpurchase pn/chicken rice pr/3.50 +
+. _LIFE_ adds the purchase into the Expenditure List with name of purchase and its price
++
+Use case ends.
+
+=== Use Case: View Expenditure List
+
+*MSS*
+
+. User requests to list expenditure
+. _LIFE_ shows the Expenditure List
++
+Use case ends.
+
+*Extensions*
+
+* 1a. Expenditure List is empty.
++
+Use case ends.
+
+//tag::wzusecases[]
+=== Use Case: Clear Expenditure List
+
+*MSS*
+
+. User requests to view Expenditure List
+. _LIFE_ shows the Expenditure List
+. User requests to clear the Expenditure List
++
+Use case ends.
+
+*Extensions*
+
+* 1a. Expenditure List is empty.
+** 1a1. _LIFE_ shows an error message.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. User did not start the stopwatch.
+** 1a1. _LIFE_ shows an error message.
++
+Use case ends.
+
+//end::wzusecases[]
+// tag::Workout1[]
+
+=== Use Case: Record Completed Workout
+
+*MSS*
+
+. User requests to add an entry of completed workout
+. _LIFE_ records the workout log
++
+Use case ends.
+
+=== Use Case: View Workout Log
+
+*MSS*
+
+. User requests to view Workout Log
+. _LIFE_ shows the Workout Log
++
+Use case ends.
+// end::Workout1[]
+*Extensions*
+
+* 1a. Workout Log is empty.
++
+Use case ends.
+
+[appendix]
+== Non Functional Requirements
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `8` (revision `1.8.0_201` or higher) installed.
+.  Should be able to hold up to 1000 persons, tasks, purchases, workouts and habits without a noticeable sluggishness in performance for typical usage.
+.  Should work on both 32-bit and 64-bit environments.
+.  Should respond to user commands within 2 seconds.
+.  Should be intuitive and easy to use for a first-time user.
+.  Should be able to work offline.
+
+[appendix]
+== Glossary
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+[[private-contact-detail]] Private contact detail::
+A contact detail that is not meant to be shared with others
+
+
+// tag::developerProjectSurvey[]
+
+[appendix]
+== Product Survey
+
+*_LIFE_*
+
+Authors: Jerome, YuQi, Wei Zhong, YongJia link:https://github.com/cs2113-ay1819s2-t08-2/main[@T08-2]
+
+Pros:
+
+* Convenience
+** All the things you want to keep track in your life can be recorded in this single application.
+
+* Many features such as
+** Task Management
+** Expenditure Management
+** Recording of Workouts
+** Documentation of Habits
+
+* Information can be located easily
+* User-friendly
+
+Cons:
+
+* Non-interactive user interface, used a console based interface instead
+* Have to type out individual commands
+* Cannot be stored in mobiles (which are even more convenient)
+
+//end::developerProjectSurvey[]
+[appendix]
+// tag::developerFeatureContribution[]
+== Feature Contribution
+In case you want to improve a specific feature in the _LIFE_ App or
+if you want to know how the creators did it, you can contact the creators
+of that specific feature. +
+The contact details of the creators and the
+features that they did are listed below
+
+* *Jerome Tan* link:https://github.com/jayrometan/[~Contact~]
+** Implemented the `Task List` feature which includes the 5 `Task` commands.
+*** This allowed the users to manage their tasks.
+** Created the Task List and Completed Task List Panel in the UI.
+*** This enabled the visualization of the `Task` they have entered.
+* *Wei Zhong* link:https://github.com/weizhonglauw/[~Contact~]
+** Implemented the `Expenditure List` feature
+*** This allowed the users to manage their expenses.
+** Refactored the entire application to match our product _LIFE_.
+*** This allowed the morphing of our product from AddressBook to _LIFE_.
+* *Yong Jia* link:https://github.com/yongjia96[~Contact~]
+** Added the `Workout Tracker` feature
+*** This allowed the users to manage their workout.
+** Created Workout list Panel in the UI.
+*** This enabled the visualization of the `Workout` they have entered.
+* *Yu Qi* link:https://github.com/wongyuqi[~Contact~]
+** Added the `Habit Tracker` feature
+*** This allowed the users to document their habits.
+** Created HabitTracker List Panel in the UI.
+*** This enabled the visualisation of the `Habit` they have entered.
+
+//end::developerFeatureContribution[]
+[appendix]
+//tag::developerManualHeader[]
+== Instructions for Manual Testing
+//end::developerManualHeader[]
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample data (Tasks, Purchases, Workouts, Habits). The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+//tag::wzmanualtesting[]
+=== Adding a task
+
+. Adding a new task to the existing task list
+
+.. Test case: `addtask n/CS2101 user guide d/100419 h/0930` +
+   Expected: New task added to the task list with a different index number.
+.. Test case: `addtask n/ST2334 tutorial 8! d/150419 t/1400` +
+   Expected: No new task added. Details of invalid command is reflected in the status message under the command bar.
+.. Other incorrect addtask commands to try: `addtask n/testtask d/219019 t/2020`, `addtask` (without any inputs) +
+   Expected: Similar to previous.
+
+=== Deleting a task
+
+. Deleting an existing task in the task list
+[NOTE]
+Refer to task list to check index number of a particular task
+
+.. Prerequisites: Index entered must available in the task list
+.. Test case: `deletetask 1` +
+   Expected: Task with index number 1 will be removed from the task list. Subsequent tasks will be shifted up.
+.. Test case: `deletetask 0` +
+   Expected: No task will be deleted. Details of invalid command will be
+    reflected in the status message under the status bar.
+.. Other incorrect deletetask commands to try:
+   `delete task1`, `deletetask` +
+   Expected: Similar to previous.
+//end::wzmanualtesting[]
+// tag::developerTaskManual[]
+=== Editing a task
+
+. Editing an existing task in the task list
+.. Prerequisites: Index entered must be available in the task list
+.. Test case: `edittask 1 n/Repair iPhone` +
+   Expected: The task name of the indicated task by the index is changed to Repair iPhone.
+.. Test case: `edittask 1 h/2400` +
+   Expected: Unable to edit the Deadline Time, as 2400HRS is not a valid time in the 24HR format.
+   Error details shown in the status message.
+.. Test case: `edittask 0 h/2359` +
+   Expected: No task is deleted as unable to detect a valid task index.
+   Error details shown in the status message.
+.. Other incorrect edittask commands to try:
+   `edit task1`, `edittask` +
+   Expected: Similar to previous.
+
+
+=== Ticking a task
+
+. Indicating on the completed task list when a task has been completed
+.. Prerequisites: Index entered must available in the task list
+.. Test case: `ticktask 2` +
+   Expected: Task with index number 2 will be removed from the existing task list. This deleted task will then be added into another panel called `Completed Task List`.
+
+.. Test case: `ticktask 0` +
+   Expected: Tasks in the existing task list will stay intact. Details of invalid command is reflected in the status message under the command bar.
+//end::developerTaskManual[]
+
+//tag::wzmanualtesting2[]
+=== Adding a purchase
+
+. Adding a new purchase to the existing expenditure list
+[NOTE]
+prefix of purchasename is 'pn' not 'n'
+
+.. Test case: 'addpurchase pn/chicken rice pr/3.50` +
+   Expected: New purchase added to the expenditure list with a different index number. Timestamp in the status bar is updated.
+.. Test case: `addpurchase pn/ice cream pr/$2.70` +
+   Expected: No new purchase added. Details of invalid command is reflected in the status message under the command bar.
+.. Other incorrect addpurchase commands to try:
+   `addpurchase pn/bicycle rental pr/10`, `addpurchase n/movie tickets pr/23.00` +
+   Expected: No purchases will be added. Details of error will be reflected.
+
+=== Clearing expenditure list
+
+. Clearing the existing populated expenditure list
+.. Test case: `clearexplist` +
+   Expected: If existing expenditure list has data, the list will be cleared successfully.
+             If existing expenditure list was already empty, invalid command will be shown.
+//end::wzmanualtesting2[]
+
+// tag::Workout2[]
+
+=== Recording new workout
+
+. Add a new workout to the workout list
+.. Test case: `record e/Push ups s/5 r/10 t/10` +
+   Expected: "New workout added: Push ups | 5 SETS, 20 REPS, COMPLETED IN: 10 MINUTES"
+
+=== Viewing recent workout
+
+. View up to 5 most recent workout in the workout list
+.. Test case: `workout` +
+   Expected: If workout list is empty, "No workout found" +
+             If workout list is not empty, "Recent workout(s) found!" +
+             "X most recent workout(s): ", where X is the number of recent workout found, up to 5, +
+             workout listed will be in the format "Exercise: EXERCISE, Sets: SETS, Reps: REPS, Duration: TIME minutes"
+// end::Workout2[]
+
+
+
+
