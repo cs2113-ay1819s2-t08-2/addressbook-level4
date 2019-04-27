@@ -11,28 +11,30 @@ This Project Portfolio documents my role and contributions to the project _LIFE_
 
 == About the project
 
-In our second year of university, my team and I were tasked with enhancing a basic address book
-application. Our enhancement was a morph from a given address book into a self-improvement lifestyle management application
+My team and I are a group of 4 Year 2 students in university. For one of our Software Engineering modules (CS2113T), we were tasked with
+enhancing a basic address book application. Our enhancement was a morph from a given address book into a self-improvement lifestyle management application
 called _LIFE_ (Lifestyle Improvement For Everyone) that uses the Command Line Interface (CFI). +
 
-This enhanced application helps people who are seeking to better their lives achieve their goals.
-This is done through keeping track of their tasks and documenting of their expenditure and physical activity, thereby increasing their mindfulness of their daily lives.
-We created 4 features, in hopes of building an application which focuses on enabling the user to develop holistically.
+This enhanced application helps our target audience, students, to improve their quality of life. This is done so
+by providing a platform to help students manage 4 main aspects of their lives. LIFE enables students to keep track of their
+tasks, keep a simple account of their expenditure, keep track of their habits and keep a log of their workouts.
+
+
 
 == My role
 
-For this project, I worked with 3 of my team-mates, to generate ideas and brainstorm to find the more convenient yet impactful design for our project.
- +
+My main task was to implement the Habit Tracker feature. +
+I was also in-charge of the respective sections for the User Guide and Developer Guide with the aim
+of ensuring that they are reader friendly and effective in providing
 
-In the technical aspect, my role was to design and write code for the Habit feature.
-In the non-technical aspect, I am in charge of the content and layout of the documentations.
+In the non-technical aspect, I took charge of the language and flow of our documentations.
 The following sections illustrate these enhancements and documentations in detail, other additional enhancements that I have made as well as the relevant sections that I have added to the user and developer guide in relation to these enhancements.
 
 
 Note the following symbols used in this document:
 
-TIP: A grey highlight (called a mark-up) e.g. `TASK` indicates that it is a Class
-or a command word that can be inputted into the command line
+TIP: A grey highlight (called a mark-up) e.g. `HABIT` indicates that it is a Class
+or a command word eg. `addHabit` that can be inputted into the command line
 and executed by the application.
 
 == Summary of contributions
@@ -43,35 +45,22 @@ that i have contributed to the team project.
 To aid the potential visualization of my work, here is the user interface of _LIFE_.
 
 .User Interface of _LIFE_
-image::https://raw.githubusercontent.com/cs2113-ay1819s2-t08-2/main/master/docs/images/jayrometanPPP.png[width="600"]
+image::LIFE_UI.png[width='800']
 
-* *Major Feature #1*: implemented the `Task` feature.
+* *Major Feature #1*: implemented the `Habit` feature.
 ** +What does it do:+
-*** Allows an individual to keep track of his tasks through adding a task
-*** Help organize and prioritize the tasks through editing, deleting and sorting
-the tasks. It also has a tick task command, where the ticked task will be added
-into the completed task list.
+*** Allows an individual to keep track of his progress in cultivating a desired habit through adding a habit
+along with its progress.
+*** Help provide a visual representation of his progress as the user keys in the number of consecutive days he
+has successfully completed a habit.
 ** +Justification+
-*** In the modern world, many people are increasingly bombarded with tasks to do,
-and they tend to forget what tasks they have until the deadline has reached.
-This application therefore helps them remember their tasks.
-*** The completed task list serves as a motivation booster to users
-when they see how many tasks they have completed so far.
+*** More often than not, people tend to give themselves more credit than they actually did. Hence, with this habit tracker,
+one's progress would be quantified. With this visual representation of his progress, it would allow him to have a better gauge,
+and provide an encouragement to persevere on.
 
-
-* Project Management
-** Created the organization and forked the repo. Also, all the labels and milestones for the repo. This includes wrapping
-up the milestones and moving the incomplete tasks to the future milestones.
-https://github.com/cs2113-ay1819s2-t08-2/main/milestones?state=closed[~milestone~]
-** There was a total of  2 releases, from version 1.3 to 1.4,
-I managed release 1.3. https://github.com/cs2113-ay1819s2-t08-2/main/releases/tag/v1.3[~v1.3~]
 
 * Documentation
-** Created and wrote content for the AboutUs page.
-https://github.com/cs2113-ay1819s2-t08-2/main/commit/86d17cacd7f591bfad32bf43d27a9d1802ffad05#diff-4747f5fd213c3cd2f4bdb06834f49fa8[~#8~]
 ** Refining and ensuring sufficient content of the developer and user guides.
-
-* Code contributed: [https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=jayrometan[Functional Code]][https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=jayrometan[Test Code]]
 
 == Contributions to the User Guide
 |===
@@ -80,7 +69,7 @@ my ability to write documentation and target end users._
 |===
 
 //include::../UserGuide.adoc[tag=UserGuideIntro]
-include::../UserGuide.adoc[tag=TaskFeature]
+include::../UserGuide.adoc[tag=HabitFeature]
 
 
 == Contributions to the Developer Guide
@@ -90,22 +79,8 @@ They showcase my ability to write technical documentation and the
 technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=Introduction]
 include::../DeveloperGuide.adoc[tag=developerModel]
-include::../DeveloperGuide.adoc[tag=developerTask]
-//include::../DeveloperGuide.adoc[tag=developerAddTask]
-include::../DeveloperGuide.adoc[tag=developerDeleteTask]
-include::../DeveloperGuide.adoc[tag=developerTickEditTask]
-//include::../DeveloperGuide.adoc[tag=developerProductScope]
-include::../DeveloperGuide.adoc[tag=developerUseCase]
-//include::../DeveloperGuide.adoc[tag=developerProjectSurvey]
-//include::../DeveloperGuide.adoc[tag=developerFeatureContribution]
-//tag::developerManualHeader[]
-include::../DeveloperGuide.adoc[tag=developerManualHeader]
-include::../DeveloperGuide.adoc[tag=developerTaskManual]
+include::../DeveloperGuide.adoc[tag=HabitFeature]
 
-== Here are the rest of the contributions that could be useful! +
-* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-scope[Product Scope]
-* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#product-survey[Product Survey]
-* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#instructions-for-manual-testing[Manual Testing]
-* https://github.com/cs2113-ay1819s2-t08-2/main/blob/master/docs/DeveloperGuide.adoc#feature-contribution[Feature Contribution]
 
