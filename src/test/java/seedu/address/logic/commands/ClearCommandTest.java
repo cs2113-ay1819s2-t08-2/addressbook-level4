@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
+import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
@@ -30,9 +31,9 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyContactList_success() {
         Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
         Model expectedModel = new ModelManager(getTypicalContactList(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
         expectedModel.setContactList(new ContactList());
         expectedModel.commitContactList();
 

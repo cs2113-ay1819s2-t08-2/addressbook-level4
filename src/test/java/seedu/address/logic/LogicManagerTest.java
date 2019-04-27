@@ -43,13 +43,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
-import seedu.address.storage.JsonContactListStorage;
-import seedu.address.storage.JsonExpenditureListStorage;
-import seedu.address.storage.JsonTaskListStorage;
-import seedu.address.storage.JsonTickedTaskListStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.JsonWorkoutBookStorage;
-import seedu.address.storage.StorageManager;
+import seedu.address.storage.*;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PurchaseBuilder;
 import seedu.address.testutil.TaskBuilder;
@@ -76,9 +70,10 @@ public class LogicManagerTest {
                 new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListStorage(temporaryFolder.newFile().toPath());
+        JsonHabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(contactListStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage, habitTrackerListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -119,9 +114,9 @@ public class LogicManagerTest {
         JsonExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
-
+        JsonHabitTrackerListStorage habitTrackerListStorage = new JsonHabitTrackerListStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(contactListStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage, habitTrackerListStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -165,10 +160,12 @@ public class LogicManagerTest {
                 new JsonTickedTaskListStorage(temporaryFolder.newFile().toPath());
         JsonExpenditureListStorage expenditureListStorage =
                 new JsonExpenditureListIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonHabitTrackerListStorage habitTrackerListStorage =
+                new JsonHabitTrackerListStorage(temporaryFolder.newFile().toPath());
         JsonWorkoutBookStorage workoutBookStorage = new JsonWorkoutBookStorage(temporaryFolder.newFile().toPath());
 
         StorageManager storage = new StorageManager(contactListStorage, userPrefsStorage,
-                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage);
+                taskListStorage, expenditureListStorage, workoutBookStorage, tickedTaskListStorage, habitTrackerListStorage);
         logic = new LogicManager(model, storage);
 
         // Execute addpurchase command
@@ -213,7 +210,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

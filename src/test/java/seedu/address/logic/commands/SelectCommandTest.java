@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
@@ -27,9 +28,9 @@ import seedu.address.model.UserPrefs;
  */
 public class SelectCommandTest {
     private Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     private Model expectedModel = new ModelManager(getTypicalContactList(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

@@ -35,11 +35,11 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private TaskListPanel taskListPanel;
     private PurchaseListPanel purchaseListPanel;
+    private HabitListPanel habitListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TickedTaskListPanel tickedTaskListPanel;
     private WorkoutListPanel workoutListPanel;
-
     private PersonListPanel personListPanel2;
 
 
@@ -72,8 +72,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane purchaseListPanelPlaceholder;
 
     @FXML
-    private StackPane workoutListPanelPlaceholder;
+    private StackPane habitListPanelPlaceholder;
 
+    @FXML
+    private StackPane workoutListPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -152,6 +154,10 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPurchase);
         purchaseListPanelPlaceholder.getChildren().add(purchaseListPanel.getRoot());
 
+        habitListPanel = new HabitListPanel(logic.getFilteredHabitList(), logic.selectedHabitProperty(),
+                logic::setSelectedHabit);
+        habitListPanelPlaceholder.getChildren().add(habitListPanel.getRoot());
+
         workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.selectedWorkoutProperty(),
                 logic::setSelectedWorkout);
         workoutListPanelPlaceholder.getChildren().add(workoutListPanel.getRoot());
@@ -222,6 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         return purchaseListPanel;
     }
 
+    public HabitListPanel getHabitListPanel() { return habitListPanel; }
     /**
      * Executes the command and returns the result.
      *

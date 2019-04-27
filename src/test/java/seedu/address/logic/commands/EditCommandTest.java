@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
@@ -38,7 +39,7 @@ import seedu.address.testutil.PersonBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -50,7 +51,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new ContactList(model.getContactList()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitContactList();
 
@@ -73,7 +74,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new ContactList(model.getContactList()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         expectedModel.setPerson(lastPerson, editedPerson);
         expectedModel.commitContactList();
 
@@ -88,7 +89,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new ContactList(model.getContactList()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         expectedModel.commitContactList();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -106,7 +107,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new ContactList(model.getContactList()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitContactList();
 
@@ -167,7 +168,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new ContactList(model.getContactList()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         expectedModel.setPerson(personToEdit, editedPerson);
         expectedModel.commitContactList();
 
@@ -210,7 +211,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new ContactList(model.getContactList()), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());

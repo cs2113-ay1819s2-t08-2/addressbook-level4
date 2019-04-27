@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
+import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
@@ -19,9 +20,9 @@ import seedu.address.model.UserPrefs;
 public class RedoCommandTest {
 
     private final Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     private final Model expectedModel = new ModelManager(getTypicalContactList(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

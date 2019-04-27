@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
+import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import static seedu.address.testutil.TypicalWorkouts.getTypicalWorkoutList;
@@ -28,14 +29,14 @@ public class AddCommandIntegrationTest {
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalContactList(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     }
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(getTypicalContactList(),
-                new UserPrefs(), getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+                new UserPrefs(), getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
         expectedModel.addPerson(validPerson);
         expectedModel.commitContactList();
 

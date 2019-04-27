@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
@@ -19,14 +20,14 @@ import seedu.address.model.UserPrefs;
  */
 public class SortTaskCommandTest {
     private Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         String expectedMessage = SortTaskCommand.MESSAGE_SUCCESS;
         ModelManager expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         expectedModel.sortTask();
         expectedModel.commitTaskList();
         assertCommandSuccess(new SortTaskCommand(), model, commandHistory, expectedMessage, expectedModel);

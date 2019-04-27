@@ -705,6 +705,160 @@ Step 3. `resetData` method in `ExpenditureList` class is used to reset the data 
 
 //end::ExpListFeature[]
 
+
+// tag::Habit[]
+=== Habit Tracker List Feature
+This section describes the technical aspects of the `Habit Tracker List` feature and the design considerations made for the feature.
+
+==== `Habit` package
+This section describes the inner dimensions of the `Purchase` package.
+
+===== Reason for implementation
+
+_LIFE_ is also a tool for helping students manage their lifestyle and encourage them to develop good habits, therefore it is important to have a feature to help them record their expenditure regularly.
+
+===== Current Implementation
+
+Each attribute of a Habit, the habit title and progress are classes in the `Habit` package. Each class provides utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|HabitTitle |new HabitTitle("No Supper")|Stores a `String` that represents the habit.
+|Progress|new Progress("0")|Stores a `String` of numbers that represents the number of the consecutive days the user has been accomplishing the habit. String stored has to be in the format of integers.
+|Tag|new Tag()|Stores a `String` that acts as a tag to the new habit. This field is *optional*.
+|=======
+
+The `Habit` package includes the `Habit` class which documents information about the a habit. The `Habit` class provides utility methods to retrieve the different objects (e.g. `Progress`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Habit |`new Habit(HabitTitle, Progress, Tag)` |Stores `HabitTitle`, `Progress`, `Tag` objects to document information of about a habit.
+|=======
+
+===== Reasons for how it is implemented
+Similar to the `purchase` package, the `habit` package follows the model of the `person` package in the link:https://github.com/se-edu/addressbook-level4[Addressbook].
+This made it easier for us to implement our features as we could follow the style of how the `person` package was implemented, at the same time improving the modularity and organization.
+
+
+===== Model
+
+The `HabitTrackerList` is a separate feature as well, being one of the four features in the _LIFE_ application.
+Likewise, this would allow future enhancement of this `HabitTrackerList` to be built on with additional features such as finding a particular habit without affecting the
+other features due to the low coupling other features have with this feature.
+
+// TODO: The following is a model diagram of the `ExpenditureList` component.
+//.Model Component of `ExpenditureList`.
+//image::ExpenditureListModelComponentDiagram.png[width='800']
+//end::Purchase[]
+{nbsp} +
+
+// tag::HabitFeature[]
+=== Habit Tracker List Feature
+This section describes the technical aspects of the `Habit Tracker List` feature and the design considerations made for the feature.
+
+==== `Habit` package
+This section describes the inner dimensions of the `Habit` package.
+
+===== Reason for implementation
+
+_LIFE_ also provides a platform for students to track the progress of their habits, to relief them from the worry of forgetting the habits
+they wish to inculcate, especially when the semester becomes busier.
+
+===== Current Implementation
+
+Each attribute of a Habit, the habit title and progress are classes in the `Habit` package. Each class provides utility methods to check the correctness of the string to be stored and to retrieve the string that is stored.
+
+The following classes are as such:
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|HabitTitle |new HabitTitle("No Supper")|Stores a `String` that represents the title of the habit.
+|Progress|new Progress("2")|Stores a `String` that represents the progress of the habit, which represents the number of consecutive days the habit is completed. String stored has to be in the format of integer.
+|Tag|new Tag()|Stores a `String` that acts as a tag to the new habit. This field is *optional*.
+|=======
+
+The `habit` package includes the `Habit` class which documents information about the a habit. The `Habit` class provided utility methods to retrieve the different objects (e.g. `Progress`)
+
+[width="100%", cols="1,2,2", options="header"]
+|=======
+|Class |Constructor |Remark
+|Habit |`new Habit(HabitTitle, Progress, Tag)` |Stores `HabitTitle`, `Progress`, `Tag` objects to document information of about a habit.
+|=======
+
+===== Reasons for how it is implemented
+Similar to the `task` package, the `habit` package follows the model of the `person` package in the link:https://github.com/se-edu/addressbook-level4[Addressbook].
+This made it easier for us to implement our features as we could follow the style of how the `person` package was implemented, at the same time improving the modularity and organization.
+
+
+===== Model
+
+The `HabitTrackerList` is a separate feature as well, being one of the four features in the _LIFE_ application.
+Likewise, this would allow future enhancement of this `HabitTrackerList` to be built on with additional features such as finding a particular habit without affecting the
+other features due to the low coupling other features have with this feature.
+{nbsp} +
+
+==== Add Habit
+
+The `AddHabitCommand` will create an instance of the `Habit` class and store it in the `HabitTrackerList`
+
+===== Reason for implementation
+To be able to track habits, students should be able to add the desired habits, together with their progress.
+
+===== Current Implementation
+The `AddHabitCommand` is created when the command word `addHabit` and the corresponding compulsory parameters are detected in the user input. Through the `AddHabitCommand`, the user input will then be split into its separate components(e.g. `HabitTitle`, `Progress`, `Tag`) through `ParserUtil`, creating a `Habit` instance and pass it from the `logic` component to the `model` component.
+
+===== Model
+Given below is an example usage scenario and how the `addHabit` mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. _LIFE_ will initialize with the initial habit tracker list state and the currentStatePointer pointing to that single habit tracker list state.
+
+Step 2. The user executes the `addHabit` command with `addHabit ht/No Supper pg/2`.
+
+Step 3. This command goes through the AddHabitCommandParser to extract the values of the input string and to process it. It also searches for invalid input.
+
+Step 4. Once valid, it passes the Habit from the logic component to the model component into an ArrayList called HabitTrackerList.
+
+//{nbsp} +
+
+The following activity diagram illustrates an example with a user executing the `addpurchase` command.
+
+.Activity Diagram of user executing a `addpurchase` command
+image::AddHabitActivityDiagram.png[width='800']
+{nbsp} +
+
+==== Delete Habit
+The `delHabit` command will remove selected habit from the habit tracker list.
+
+===== Reason for implementation
+This command allows for rectification in case the user had mistyped or allows the user to remove habits he no longer wants to keep track of.
+
+===== Current implementation
+The `DeleteHabitCommand` is created when the command word `delHabit` is detected in the user input alongside
+the compulsory parameter which is an index in the `HabitTrackerList`. The `DeleteHabitCommand` will then check for the
+validity of the index given. If index is invalid, an error message will be displayed.
+
+The following activity diagrams illustrates an example when the user executes a `delHabit` command.
+[Delete Habit Activity Diagram]
+.Activity Diagram of user executing a `delHabit` command
+image::DeleteHabitActivityDiagram.PNG[width='800']
+
+==== Alternatives considered
+
+* Alternative 1 (current choice): Create a new Array List Object to store the habit e.g. `habitlist`.
+** Pros: Using this simple data structure allows for manipulation of data such as sorting. Like how the existing `UniquePersonList` was implemented, we can implement this `HabitList` in the same way. Standardizing this format will also make the overall code more readable and the implementation to be much simpler.
+** Cons: Some possible future operations may require the traversing of the list which require O(N) time complexity. For instance, a `findHabit` command.
+
+* Alternative 2: Using a Hash Map to store the purchases
+** Pros: Future possible operations like `findHabit` can be executed with O(1) time complexity.
+** Cons:  Implementation of Hash Map is a lot more complex than the implemented Array List, which our team currently lacks the expertise to implement.
+
+//end::HabitFeature[]
+
 // tag::Workout[]
 === Workout Feature
 

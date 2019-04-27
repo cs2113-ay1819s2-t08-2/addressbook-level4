@@ -19,13 +19,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ContactList;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyContactList;
-import seedu.address.model.ReadOnlyExpenditureList;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.ReadOnlyWorkoutBook;
+import seedu.address.model.*;
+import seedu.address.model.habit.Habit;
 import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
@@ -387,6 +382,56 @@ public class AddCommandTest {
 
         @Override
         public void setWorkoutBook(ReadOnlyWorkoutBook workoutBook) {
+
+        }
+
+        @Override
+        public void setHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList) {
+
+        }
+
+        @Override
+        public ReadOnlyHabitTrackerList getHabitTrackerList() {
+            return null;
+        }
+
+        @Override
+        public void addHabit(Habit habit) {
+
+        }
+
+        @Override
+        public ObservableList<Habit> getFilteredHabitList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredHabitList(Predicate<Habit> predicate) {
+
+        }
+
+        @Override
+        public void commitHabitTrackerList() {
+
+        }
+
+        @Override
+        public ReadOnlyProperty<Habit> selectedHabitProperty() {
+            return null;
+        }
+
+        @Override
+        public Habit getSelectedHabit() {
+            return null;
+        }
+
+        @Override
+        public void setSelectedHabit(Habit habit) {
+
+        }
+
+        @Override
+        public void deleteHabit(Habit habit) {
 
         }
 

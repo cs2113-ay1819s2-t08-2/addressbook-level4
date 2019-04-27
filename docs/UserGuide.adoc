@@ -285,24 +285,49 @@ Examples:
 Record the workout of doing 5 SETS of 20 REPS of SIT UPS in 10 MINUTES
 // end::workout[]
 
+//tag::HabitFeature[]
 === Habit Tracker
 Change your lifestyle now by recording an activity regularly to turn it into a habit! +
 
 // tag::addhabit[]
-[[AddHabit]]
-==== Add desired Habits: `addHabit` [coming soon]
+[[addHabit]]
+==== Add desired Habits: `addHabit`
 
 Add habit which you wish to track into your monthly habit tracker. +
-Format: 'addHabit d/DATE h/HABIT a/ACCOMPLISHED'
+Format: 'addHabit ht/HABITTITLE pg/PROGRESS'
 
 ****
-A calendar of the month is shown, along with previous records of the month.
+Words in `UPPER_CASE` are the parameters.
+HABITTITLE must only contain alphanumeric. +
+PROGRESS must only contain integer.
 ****
 
 Example:
 
-* `addHabit d/010119 n/SleepBefore12am a/Done`
+* `addHabit ht/No Supper pg/3`
 
+Adds a habit of No Supper that has been completed for 3 consecutive days.
+
+// tag::delHabit[]
+[[delHabit]]
+==== Delete selected Habit: `delHabit`
+
+Delete a selected habit which you no longer wish to keep track of in your habit tracker. +
+Format: 'delHabit INDEX'
+
+****
+* Deletes the habit at the specified `INDEX`.
+* The index refers to the index number shown in the displayed expenditure list.
+* The index *must be a positive integer* (1, 2, 3, …) .
+****
+
+Example:
+
+* `delHabit 2`
+
+2nd habit from the habit tracker would be deleted.
+
+// end::HabitFeature[]
 
 === Contact List
 Manage all your contacts easily in this ultimate list holding your contacts with their information! +

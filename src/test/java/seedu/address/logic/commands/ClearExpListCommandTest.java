@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
 import static seedu.address.testutil.TypicalPurchases.getTypicalExpenditureList;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
@@ -30,9 +31,9 @@ public class ClearExpListCommandTest {
     @Test
     public void execute_nonEmptyExpenditureList_success() {
         Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
         Model expectedModel = new ModelManager(getTypicalContactList(), new UserPrefs(),
-                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+                getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
         expectedModel.setExpenditureList(new ExpenditureList());
         expectedModel.commitExpenditureList();
 

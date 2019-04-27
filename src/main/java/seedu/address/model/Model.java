@@ -7,23 +7,19 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.habit.Habit;
 import seedu.address.model.person.Person;
 import seedu.address.model.purchase.Purchase;
 import seedu.address.model.task.Task;
 import seedu.address.model.workout.Workout;
+
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
-
-    /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -78,6 +74,10 @@ public interface Model {
      */
     void deletePerson(Person target);
 
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
     void addTask(Task task);
 
     void addTickedTaskList(Task task);
@@ -113,12 +113,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /**
-     * Updates the filter of the filtered task list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
     void updateFilteredTaskList(Predicate<Task> predicate);
-
     /**
      * Updates the filter of the filtered ticked task list by the given {@code predicate}.
      * @throws NullPointerException IF {@code predicate} is null;
@@ -178,6 +173,11 @@ public interface Model {
     void setTask(Task target, Task editedTask);
 
     Task getSelectedTask();
+
+
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Purchase> PREDICATE_SHOW_ALL_PURCHASES = unused -> true;
 
     /**
      * Replaces expenditure list with the data in {@code expenditureList}.
@@ -246,10 +246,65 @@ public interface Model {
 
     ReadOnlyWorkoutBook getWorkoutList();
 
+
     void updateFilteredWorkoutList(Predicate<Workout> predicate);
 
     void setWorkoutBook(ReadOnlyWorkoutBook workoutBook);
 
     ArrayList<Workout> getRecent();
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Habit> PREDICATE_SHOW_ALL_HABIT = unused -> true;
+
+    /**
+     * Replaces habit tracker list with the data in {@code habitTrackerList}.
+     */
+    void setHabitTrackerList(ReadOnlyHabitTrackerList habitTrackerList);
+
+    /** Returns the HabitTrackerList */
+    ReadOnlyHabitTrackerList getHabitTrackerList();
+
+    /**
+     * Adds the given habit.
+     */
+    void addHabit(Habit habit);
+
+    /** Returns an unmodifiable view of the filtered purchase list */
+    ObservableList<Habit> getFilteredHabitList();
+
+    /**
+     * Updates the filter of the filtered habit list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredHabitList(Predicate<Habit> predicate);
+
+
+    /**
+     * Saves the current habit tracker list state for undo/redo.
+     */
+    void commitHabitTrackerList();
+
+    /**
+     * Selected habit in the filtered habit list.
+     * null if no habit is selected.
+     */
+    ReadOnlyProperty<Habit> selectedHabitProperty();
+
+    /**
+     * Returns the selected habit in the filtered habit list.
+     * null if no purchase is selected.
+     */
+    Habit getSelectedHabit();
+
+    /**
+     * Sets the selected habit in the filtered habit list.
+     */
+    void setSelectedHabit(Habit habit);
+
+    /**
+     * Deletes selected habit from the Habit Tracker List.
+     */
+
+    void deleteHabit(Habit habit);
 
 }

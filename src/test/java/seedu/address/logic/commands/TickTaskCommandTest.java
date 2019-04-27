@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalHabits.getTypicalHabitTrackerList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalPersons.getTypicalContactList;
@@ -27,7 +28,7 @@ import seedu.address.model.task.Task;
 public class TickTaskCommandTest {
 
     private Model model = new ModelManager(getTypicalContactList(), new UserPrefs(),
-            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList());
+            getTypicalTaskList(), getTypicalExpenditureList(), getTypicalWorkoutList(), getTypicalHabitTrackerList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -38,7 +39,7 @@ public class TickTaskCommandTest {
         String expectedMessage = String.format(TickTaskCommand.MESSAGE_TICK_TASK_SUCCESS, taskToTick);
 
         ModelManager expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         expectedModel.addTickedTaskList(taskToTick);
         expectedModel.deleteTask(taskToTick);
         expectedModel.commitTickedTaskList();
@@ -64,7 +65,7 @@ public class TickTaskCommandTest {
         String expectedMessage = String.format(TickTaskCommand.MESSAGE_TICK_TASK_SUCCESS, taskToTick);
 
         Model expectedModel = new ModelManager(model.getContactList(), new UserPrefs(),
-                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList());
+                model.getTaskList(), model.getExpenditureList(), model.getWorkoutList(), model.getHabitTrackerList());
         expectedModel.addTickedTaskList(taskToTick);
         expectedModel.deleteTask(taskToTick);
         expectedModel.commitTickedTaskList();
