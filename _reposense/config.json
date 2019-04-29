@@ -1,0 +1,26 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "weizhonglauw",
+      "displayName": "LAU...ONG",
+      "authorNames": ["weizhonglauw"]
+    },
+    {
+      "githubId": "wongyuqi",
+      "emails": ["e0202399@u.nus.edu", "wongyuqi107@gmail.com"],
+      "displayName": "WON... QI",
+      "authorNames": ["wongyuqi", "yuqi"]
+    },
+    {
+      "githubId": "yongjia96",
+      "displayName": "PAN...JIA",
+      "authorNames": ["yongjia96"]
+    },
+    {
+      "githubId": "jayrometan",
+      "displayName": "TAN...OME",
+      "authorNames": ["jayrometan"]
+    }
+  ]
+}
